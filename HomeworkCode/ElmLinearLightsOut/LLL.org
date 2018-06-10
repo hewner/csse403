@@ -1,0 +1,34 @@
+#+TITLE: Elm Linear Lights Out
+#+AUTHOR: Buffalo
+#+EMAIL: hewner@rose-hulman.edu
+
+* What to do
+
+Implement a linear version of the classic lights out game.  In this
+game, you start with some configuration of Xs and Os:
+
+: O O O O X X
+
+and when you click a particular element, it reverses that element and
+all the elements adjacent to it.  So in the example above, if we
+clicked the 2nd to last element, it would switch to
+
+: O O O X O O
+
+You'll implement this using html buttons, so it will look like this
+(or similar):
+
+[file:lll.png]
+
+I started my version by editing the button example here:
+
+http://elm-lang.org/examples/buttons
+
+* Some minor details
+
+1.  You are not required to implement any win condition detection
+2.  We won't deal with randomness, so you can start your game by
+    pre-initializing it to a particular configuration
+3.  The 2 edge buttons should only update 2 lights
+4.  Your solution should handle an arbitrary number of lights
+    depending on how the model is initially initialized

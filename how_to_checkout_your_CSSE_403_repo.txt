@@ -1,0 +1,38 @@
+HOW TO CHECK OUT YOUR CSSE 403 REPO
+
+So we'll be submitting most of our assignments via SVN, as you used in
+your CSSE120/220/230 classes.  But this time we won't have eclipse to
+manage the process.  You'll want to use svn on the command line this
+time.  If you're using unix, this is usually as simple ass installing
+a package called "subversion" - google it.
+
+Also, you need to figure out your year code.  Your year code is the
+year of the later part of the academic term (so if it is the 2014-2015
+term, the year is 2015) followed by either 10 (fall) 20 (winter) or 30
+(spring).
+
+Once you know that, your repo url should be:
+http://svn.csse.rose-hulman.edu/repos/csse403-YEARCODE-YOURNETID
+
+So for example, if I was taking this course in Winter 2014-2015, my
+url would be:
+
+http://svn.csse.rose-hulman.edu/repos/csse403-201520-hewner
+
+Once I have the URL, I can check out my SVN repo like this:
+
+svn co http://svn.csse.rose-hulman.edu/repos/csse403-201520-hewner
+
+Use svn commit to make changes to your repo.
+Use svn update to get new homework assignments when they're released.
+
+If you're not sure how to use svn, try asking a friend or online
+tutorial.  But I'm always available as a backup if that doesn't work
+:D.
+
+You'll need to use your svn password to check it out.  If you need
+it reset, use this form:
+
+https://svn.csse.rose-hulman.edu/password/
+
+You will login with your usual rose password, and then can set your SVN password to whatever you like.

@@ -1,0 +1,50 @@
+* Prolog 1
+** Facts and implications
+In prolog, you have a knowledge base of things that are facts:
+#+BEGIN_SRC prolog
+food_type(cheddar,cheese). % Cheddar is a type of cheese
+food_type(swiss,cheese). % Swiss is a type of cheese
+food_type(oreo,cookie). % oreo is a type of cookie
+
+flavor(sweet,cookie). % cookies are sweet
+flavor(savory,cheese). % cheese is savory
+#+END_SRC
+
+
+And then you have implications:
+#+BEGIN_SRC prolog
+food_flavor(FoodName,Flavor) :- food_type(FoodName,Type) , flavor(Flavor,Type).
+% if a food is of some type, and that type has a flavor, then the food has the flavor
+#+END_SRC
+
+*** Let's see it in action!
+*** Representation Activity
+*** How does it work?  Unification
+** Let's do some examples with lists
+**** replace_in_list - replaces one value with another
+#+BEGIN_SRC prolog 
+replace_in_list(_,_,[],[]).
+replace_in_list(FromItem,ToItem,[FromItem|Tail],[ToItem|ResultTail]) :- replace_in_list(FromItem,ToItem,Tail,ResultTail).
+replace_in_list(FromItem,ToItem,[Item|Tail],[Item|ResultTail]) :-
+    FromItem \= Item,
+    replace_in_list(FromItem,ToItem,Tail,ResultTail).
+#+END_SRC
+**** is_a_member - is a particular value in a list
+#+BEGIN_SRC prolog
+is_a_member(Item,[Item|_]).
+is_a_member(Item,[_|T]) :- is_a_member(Item,T).
+#+END_SRC
+
+**** duplicate_members - take a list and duplicate all it's elements
+#+BEGIN_SRC prolog
+duplicate_members([],[]).
+duplicate_members([Head|Tail],[Head,Head|OtherTail]) :- duplicate_members(Tail,OtherTail).
+#+END_SRC
+
+**** only_repeats - true if a list just contains the same element over and over
+#+BEGIN_SRC prolog
+all_equal(_,[]).
+all_equal(Item,[Item|T]) :- all_equal(Item,T).
+only_repeats(List) :- all_equal(_,List).
+#+END_SRC
+

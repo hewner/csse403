@@ -1,0 +1,3 @@
+/cygdrive/c/Program\ Files\ \(x86\)/swipl/bin/swipl -g "[mazeProblem], run_tests, halt." 2>&1 | tail -3
+
+"/cygdrive/c/Program Files/erl7.1/bin/erlc" *.erl; "/cygdrive/c/Program Files/erl7.1/bin/erl" -noshell -eval "listtest:test()" -eval "init:stop()"

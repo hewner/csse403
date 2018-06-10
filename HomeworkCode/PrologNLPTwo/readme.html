@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>CSSE 403 Prolog Project</title>
+<!-- 2016-02-04 Thu 10:29 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Buffalo" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">CSSE 403 Prolog Project</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Introduction</a></li>
+<li><a href="#sec-2">2. Parsing [40 points]</a>
+<ul>
+<li><a href="#sec-2-1">2.1. The language</a></li>
+<li><a href="#sec-2-2">2.2. Number Agreement</a></li>
+<li><a href="#sec-2-3">2.3. Some examples</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Translating [40 Points]</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Examples</a></li>
+<li><a href="#sec-3-2">3.2. Thoughts on How to Proceed</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Glue [20 points]</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+These "medium" assignments will always try to focus on something the
+language under consideration does well.  For Prolog, we're going to
+look at natural language processing.
+</p>
+
+<p>
+The assignment has 3 parts:
+</p>
+
+<ol class="org-ol">
+<li>Parsing [40 points], where you take an english sentence and
+attempt to convert it to a structure that identifies nouns verbs
+etc.
+</li>
+<li>Translation [40 points], where you attempt to translate the
+sentence into something the computer can reason about - in this
+case a kind of approximation of first order predicate logic.
+</li>
+<li>Glue [20 points], where you put the two parts together and build
+something that can be interacted with from user prompts.
+</li>
+</ol>
+
+<p>
+Note that although I've listed these parts in sequence, they need not
+be done that way.  For example you may find it instructive to build
+your parser step by step with the translator.  Also, if you're having
+trouble implementing some of the tricker constructs, you may find that
+part 3 is a place to make up some missing points.
+</p>
+
+<p>
+This assignment is heavily indebted to this assignment here:
+</p>
+
+<p>
+<a href="https://www.cs.rochester.edu/~brown/173/exercises/logic/prolog/NLtoFOL/LogicTrans.html">https://www.cs.rochester.edu/~brown/173/exercises/logic/prolog/NLtoFOL/LogicTrans.html</a>
+</p>
+
+<p>
+&#x2026;but I have simplified it a bit, and tried to remove some of the
+ambiguity.  You may find the instructions and explainations there
+useful however.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Parsing [40 points]</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Your goal for this step will be to parse english lists/sentences like:
+</p>
+<pre class="example">
+[all,boys,run]                       
+[all,boys,like,some,apples] 
+[some,boy,likes,all,girls,that,like,some,apples]
+</pre>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
+<p>
+The resultant parse trees for these sentences are:
+</p>
+
+<pre class="example">
+statement(all(noun(boys)), verb(run))
+statement(all(noun(boys)), verb(like, some(noun(apples))))
+statement(some(noun(boy)), verb(likes, all(relcl(noun(girls), verb(like, some(noun(apples)))))))
+</pre>
+
+<p>
+The interface you provide should be a function called "statement".  It should work like this:
+</p>
+
+<pre class="example">
+41 ?- parse([all,boys,like,all,apples],X).
+X = statement(all(noun(boys)), verb(like, all(noun(apples)))) ;
+false.
+</pre>
+
+<p>
+You function should be well behaved in the sense that it should not
+return more than one result (of course, if the parse was ambigious
+that might be possible but what we specify here should be unambigious
+I think).
+</p>
+
+<p>
+My version actually will generate sentences if you provide it an
+unbound input, which is cool but not required.
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> The language</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+You're welcome to include as many words as you like in the grammar, but at minimum you must have:
+</p>
+
+<pre class="example">
+Noun = {apple,boy,girl}
+Qualifiers = {some,all}
+Intransitive Verbs = {run,dance}
+Transitive Verbs = {like, hate, respect}
+Relative Clauses = {that,which}
+</pre>
+
+
+<p>
+The grammar you will be implementing looks like this:
+</p>
+
+<pre class="example">
+S --&gt; NP VP                  a statement consists of a noun phrase and verb phrase  
+NP --&gt; Qual Noun             e.g. "some boy"                                        
+   --&gt; Qual RELCL       noun with a relative clause                            
+VP --&gt; Int-Verb              for intransitive verbs e.g. "ran"
+   --&gt; Trans-Verb NP         for verbs with an object "like some apple"
+RELCL --&gt; Noun Rel VP             e.g. "that dances" or "that likes some girl"
+      --&gt; Noun Rel NP Trans-Verb  e.g. "that some girls like"
+</pre>
+
+<p>
+I strongly suggest you check out this excellent discussion in Clocksin
+and Mellish:
+</p>
+
+<p>
+[<a href="PrologGrammarRules.pdf">PrologGrammarRules.pdf</a>]
+</p>
+
+<p>
+It covers many of the issues of prolog parsing, and even introduces an
+alternative synatax for writing langauges.  I personally think the
+that new syntax is unecessary, however, and adds complication.  It is
+much more efficient, but efficiency won't be a concern for this
+assignment.  You can use it if you wish.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Number Agreement</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+You are required to implement Number Agreement, as described in
+Clocksin and Mellish.
+</p>
+
+<p>
+For example, you parser should reject the following sentences:
+</p>
+
+<ul class="org-ul">
+<li>some boy run
+</li>
+<li>some boys runs
+</li>
+<li>all boy run
+</li>
+<li>some boy that some girls likes run
+</li>
+</ul>
+
+<p>
+This is easy to do in prolog!  Take a look at the book chapter if you
+are confused, though we will discuss it in class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Some examples</h3>
+<div class="outline-text-3" id="text-2-3">
+<pre class="example">
+all girls run
+statement(all(noun(girls)), verb(run))
+</pre>
+
+<pre class="example">
+some girls run
+statement(some(noun(girls)), verb(run))
+</pre>
+
+<pre class="example">
+some girl runs
+X = statement(some(noun(girl)), verb(runs))
+</pre>
+
+<pre class="example">
+some girl likes all apples
+statement(some(noun(girl)), verb(likes, all(noun(apples))))
+</pre>
+
+<pre class="example">
+some boy that likes some apple runs
+statement(some(relcl(noun(boy), verb(likes, some(noun(apple))))), verb(runs))
+</pre>
+
+<pre class="example">
+some boy that hates some girl likes some apple
+statement(some(relcl(noun(boy), verb(hates, some(noun(girl))))), verb(likes, some(noun(apple))))
+</pre>
+
+<pre class="example">
+all boys that some boy likes run
+statement(all(relcl(noun(boys), some(noun(boy)), verb(likes))), verb(run))
+</pre>
+
+<pre class="example">
+all boys like all girls that like all boys
+statement(all(noun(boys)), verb(like, all(relcl(noun(girls), verb(like, all(noun(boys))))))),
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Translating [40 Points]</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Now we will take the parses from the previous step and translate them
+into a first-order predicate logic type syntax.
+</p>
+
+<p>
+For example:
+</p>
+<pre class="example">
+[all,boys,like,some,apple]
+</pre>
+<p>
+becomes
+</p>
+<pre class="example">
+statement(all(noun(boys)), verb(like, some(noun(apple))))
+</pre>
+<p>
+which becomes
+</p>
+<pre class="example">
+all(1, boy(1)=&gt;exists(2, apple(2)+like(1, 2)))
+</pre>
+
+<p>
+Hopefully this makes sense to you.  The numbers can be thought of as
+"unbound variables".  So what this is saying is:
+</p>
+
+<pre class="example">
+For all things 1,
+if #1 is a boy, that imples that a thing #2 exists such that
+  #2 is an apple AND #1 likes #2
+</pre>
+
+<p>
+The interface you provide will be a function called translate.
+</p>
+
+<pre class="example">
+44 ?- translate(statement(some(noun(boy)), verb(runs)),R).
+R = exists(1, boy(1)+run(1)) ;
+false.
+</pre>
+
+<p>
+Although in practice you will probably find it more useful to use it
+and parse chained together for your testing.
+</p>
+
+<pre class="example">
+46 ?- parse([all,boys,like,all,girls,that,like,all,boys],X),translate(X,R).
+X = statement(all(noun(boys)), verb(like, all(relcl(noun(girls), verb(like, all(noun(boys))))))),
+R = all(1, boy(1)=&gt;all(2, (girl(2)+all(3, boy(3)=&gt;like(2, 3)))=&gt;like(1, 2))) ;
+</pre>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Examples</h3>
+<div class="outline-text-3" id="text-3-1">
+<pre class="example">
+all girls run
+all(1, girl(1)=&gt;run(1))
+</pre>
+
+<pre class="example">
+some girls run
+exists(1, girl(1)+run(1))
+</pre>
+
+<p>
+Note that the fact that it's "girls" instead of girl doesn't really
+change the meaning of the statement.
+</p>
+
+<pre class="example">
+some girl runs
+exists(1, girl(1)+run(1)) 
+</pre>
+
+<pre class="example">
+some girl likes all apples
+exists(1, girl(1)+all(2, apples(2)=&gt;like(1, 2))) 
+</pre>
+
+<pre class="example">
+some boy that likes some apple runs
+exists(1, boy(1)+exists(2, apple(2)+like(1, 2))+run(1))
+</pre>
+
+<pre class="example">
+some boy that hates some girl likes some apple
+exists(1, boy(1)+exists(2, girl(2)+hate(1, 2))+exists(2, apple(2)+like(1,2))) 
+</pre>
+
+<p>
+Note that the numbers only exist within the context of exists/all.  So we can reuse #2 to refer to both a girl and an apple.
+</p>
+
+<pre class="example">
+all boys that some boy likes run
+all(1, (boy(1)+exists(2, boy(2)+like(2, 1)))=&gt;run(1))
+</pre>
+
+<p>
+The parenthesis that surround (boy(1)&#x2026; are a result of the fact that + and =&gt; have the same precedence.  They're not really a part of the structure, just a disambiguation.
+</p>
+
+<pre class="example">
+all boys like all girls that like all boys
+all(1, boy(1)=&gt;all(2, (girl(2)+all(3, boy(3)=&gt;like(2, 3)))=&gt;like(1, 2)))
+</pre>
+
+<p>
+Any depth is possible.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Thoughts on How to Proceed</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+This is definitely the most tricky part of the problem.  I recommend:
+</p>
+
+<ol class="org-ol">
+<li>Don't try to get the whole thing working in advance - start with
+simple sentences, then move to more complex ones.  BUT, refactor
+frequently as you find duplication or sketchiness.
+</li>
+<li>Avoid duplication or weird special cases!  My biggest problem for
+finding a workable solution was caused by the crazy way I
+initially implemented the statement handing.  Once I removed
+duplication between that and all/exists, everything fell into
+place.  Might not be the same for you, but ugliness makes adding
+new features hard.
+</li>
+<li>Test frequently and make careful use of the debugger when you
+can't figure out what's wrong.  It's very easy to have a slightly
+wrong predicate somewhere, that would take hours for you track
+down if you can't see it fail in the trace.
+</li>
+<li>Don't overthink it!.  My parser + translator + word data is under
+100 lines of code (and it could be shorter if I tried).  Yours
+could be longer, but if you're working on line 500 something in
+probably wrong.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Glue [20 points]</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We would like to be able to access this function without using
+prolog's strange interface.  Instead, I'd like to be able to run a
+prolog function that puts prolog into an input mode where I can just
+type questions and it will show their translations.
+</p>
+
+<pre class="example">
+do_nlp.
+|    all boys run
+all(1,boy(1)=&gt;run(1))
+|    some girl that likes all boys runs
+exists(1,girl(1)+all(2,boy(2)=&gt;like(1,2))+run(1))
+|    done
+</pre>
+
+<p>
+Questions will always be just a series of words seperated by spaces
+</p>
+<ul class="org-ul">
+<li>no commas capitals or other strangeness.
+</li>
+</ul>
+
+<p>
+Write a function that does this.
+</p>
+
+<p>
+Hint: if you want a prolog function that takes no arguments, do it
+like this:
+</p>
+
+<pre class="example">
+do_nlp :- write('hello world.\n').
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Buffalo</p>
+<p class="date">Created: 2016-02-04 Thu 10:29</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,311 @@
+
+* Let's build a Consensus Algorithm!
+
+Look here for the activity:
+
+[file:raftActivity.org]
+
+Find it online here:
+
+http://files.hewner.com/classes/csse403/raftActivity.html
+
+* Raft
+
+Raft uses an elected leader to handle appends.
+
+** Happy case
+
+1.  All followers forward any append requests to the leader
+2.  Leader sends regular updates to followers, including new appends
+3.  Followers send regular updates to leaders, confirming the latest
+    index they are aware of
+4.  Once the majority of nodes confirm receiving an index, the leader
+    marks that index as committed
+
+*** Appends
+
+This is accomplished with an append message.
+
+So if a follower receive a append:
+1.  That term matches yours (i.e. this is your current leader)
+2.  The previous entry Term & Index matches yours
+
+If so, accept all entries and append them to your log Otherwise,
+reject (the leader will try again to get you in sync)
+
+Also, the append resets the timer that causes the election of a new
+leader
+
+*** Indexes & Leader Term
+
+Each leader has a numbered, monotonically increasing Term.  For
+reasons that will become clear once we do elections, we can 100%
+guarantee that each term has 1 unique leader (e.g. two different
+leaders can't independently think they are the leader of term 2).
+
+Because of this, if two nodes agree about the leader in which a
+particular append happened, they agree on the contents of that append
+AND all previous items:
+
+Node Foo
+
+| Index    | 1 | 2 | 3 | 4 | 5 |
+| Term     | 1 | 1 | 2 | 2 | 3 |
+| Contents | a | b | c | d | e |
+
+Another node might disagree.  Node Bar
+
+| Index    | 1 | 2 | 3 | 4 | 5 |
+| Term     | 1 | 1 | 2 | 4 | 4 |
+| Contents | a | b | c | x | y |
+
+BUT if we notice that Foo and Bar both agree that Index 3 was set in
+Term 2, they must agree on the contents of Index 3 - because that was
+chosen by the leader of Term 2 who could only have been a single node.
+
+The reason they must agree on all previous terms is because they would
+have only accepted the append at Index 3 if they agreed that the
+leader for Index 2 is 2.
+
+** Leader election
+
+Leaders are supposed to send out regular updates, if they do not a
+node will decide to call for a new election.
+
+The rules of an election are: 
+
+the node choose the next available term it knows about, votes for
+itself, and sends a request to all other nodes including:
+
+1.  It's ID
+2.  The term it is asking to be elected for
+3.  The index of its latest log entry
+4.  The term of its latest log entry
+
+A receiver votes for a candidate if:
+a.  The term is the latest term the node has heard about
+b.  The receiver has not yet voted in this term
+c.  The candidate's log is at least as up to date as the receiver
+
+If a prospective leader gets a majority of votes, it declares itself
+the leader and starts sending out append entries.
+
+*** What does it mean to be as up-to-date?
+
+From the paper:
+
+  Raft determines which of two logs is more up-to-date by comparing
+  the index and term of the last entries in the logs. If the logs have
+  last entries with different terms, the n the log with the later term
+  is more up-to-date. If the logs end with the same term, then
+  whichever log is longer is more up-to-date.
+
+The key insight here is that we must ensure any committed log entry
+will be in a leader.
+
+Let's consider a case where this seems like it won't happen:
+
+FOO (not leader)
+| Index    | 1 | 2 | 3 | 4 | 
+| Term     | 1 | 1 | 2 | 2 |
+| Contents | A | B | C | D |
+
+BAR (prospective leader)
+| Index    | 1 | 2 | 3 | 4 |
+| Term     | 1 | 1 | 2 | 3 |
+| Contents | A | B | C | x |
+
+But how did the leader get elected for Term 3?  By the definition of
+commit, a majority of nodes had to know that the leader for index 4
+was 2.  At least one of them would have to voted for the leader in
+Term 3.  But they would not have unless they agreed on what was up to
+date for Term 2.  So this is impossible.
+
+Now it would be possible if D was sent out but not committed.  Then a
+majority could have been created that had not seen D.  But in that
+case, loosing D is fine.
+
+Remember the goal here is to ensure Once Committed, the data is locked
+in.  Data that has not been committed can potentially be discarded by
+the consensus.
+
+*** A minor point
+
+You may note that even though the goal is to never loose data that is
+committed, we don't actually look at the committed state of data to
+determine what should stay and what should go.
+
+This is important because if we rely on committed flags, we become
+dependent on getting confirmation.  This puts us in danger of
+confirmation loops, (e.g. You know the data, but does the leader know
+you know the data).
+
+In this algorithm, certain data is committed (i.e. impossible to
+change) before the system flags it as committed.  The commit flag is
+conservative - but this is fine, because once connectivity is restored
+it quickly gets up to speed.
+
+*** Example
+
+Imagine we have a 5 node raft node, and no connected node thinks it is
+the leader.  All nodes think the current term = 3.
+
+Node FOO.
+Leader election timeout at t=1
+| Index    | 1 | 2 | 3 |
+| Term     | 1 | 1 | 1 |
+| Contents | a | b | c |
+
+Node BAR
+Leader election timeout at t=2
+| Index    | 1 | 2 | 3 |
+| Term     | 1 | 1 | 2 |
+| Contents | a | b | d |
+
+Node BAZ
+Leader election timeout at t=3
+| Index    | 1 | 2 | 3 | 4 |
+| Term     | 1 | 1 | 2 | 2 |
+| Contents | a | b | d | e |
+
+Node XYZ
+Leader election timeout at t=4
+| Index    | 1 | 2 |
+| Term     | 1 | 1 | 
+| Contents | a | b |  
+
+Node QQQ
+-disconnected-
+
+What elections will occur?
+Who will be the final leader be?
+
+
+
+** Log replication
+
+Now, if your contents differs from the leader's stuff, what we need to
+do is bring you into sync with the leader.  We already know (by the
+rules of elections) that the data the leader has is at least as good
+as yours.  That is, you might have some data the leader does not have
+BUT that data was not widely disseminated enough to be committed.  So
+we're going to destroy it & bring you and the leader in sync.
+
+To do this we need to figure out the point of commonality between your
+history and the leader's history.
+
+To do that, we only need to figure out a point in the logs where you
+and the leader agree on the Index & Term.
+
+So when the leader sends a append, you check:
+1.  That term matches yours (i.e. this is your current leader)
+2.  The previous entry Term & Index matches yours
+
+But if you're out of sync with the leader #2 will fail, and you'll
+reject the append.
+
+What the leader will do try again by sending a larger segment of its
+log (that is, it will make the previous entry term & index earlier in
+its history - and send you more data).  Eventually, you'll find find a
+common point and then you'll get updated.
+
+*** Example
+
+The current term is 4.  The leader has just added e, and tries to
+append to BAR.
+
+FOO (leader)
+| Index    | 1 | 2 | 3 | 4 | 5 | 
+| Term     | 1 | 1 | 2 | 2 | 4 |
+| Contents | A | B | C | D | e |
+
+BAR (out of sync follower)
+| Index    | 1 | 2 | 3 | 4 |
+| Term     | 1 | 1 | 3 | 3 |
+| Contents | A | B | x | y |
+
+Leader sends it's new element to bar
+
+Append {LastIndex=4,LastTerm=2,MyTerm=4,Data=[(4,e)]}
+BAR rejects because its index 4 does not match Term 2.
+
+Leader adjusts it's current state to note BAR might be behind by one
+index.  Then tries an append again.
+
+Append {LastIndex=3,LastTerm=2,MyTerm=4,Data=[(2,D),(4,e)]}
+BAR rejects because its index 4 does not match Term 2
+
+Leader adjusts it's current state to note BAR might be behind by one more index.
+
+Append {LastIndex=2,LastTerm=1,MyTerm=4,Data=[(2,C),(2,D),(4,e)]} BAR
+accepts because its index 2 does match term 2.  At this point BAR
+(having come to a place of agreement with the leader) replaces its log
+starting after index 2 with the leaders log:
+
+BAR (now replicated)
+| Index    | 1 | 2 | 3 | 4 | 5 | 
+| Term     | 1 | 1 | 2 | 2 | 4 |
+| Contents | A | B | C | D | e |
+
+Of course, we could be a little more efficient if BAR would let us
+know some data about what its log looks like.  But even if all we get
+is "reject" we can eventually get BAR up to speed.
+
+
+
+
+
+* Paxos
+
+A more famous consensus algorithm that works a little differently.
+
+1.  No leader
+2.  The described algorithm only deals with 1 atomic piece of data
+    (not a log as in Raft).  Can be extended, but everybody extends it
+    a little differently.
+3.  Common description has 3 roles:
+
+Proposer - handles coordinating a vote
+
+Acceptor - stores tentative values
+
+Learner - "commits" the value once it crosses a threshold of acceptors
+
+** The basic idea
+
+1.  A proposer is given a potential value for storage.  It creases a
+    proposal number, similar to the term number of Raft
+2.  It contacts a majority of acceptors, asking them to promise to
+    participate in the proposal.  The acceptors agree to participate
+    if they are already involved in an equal or higher numbered
+    proposal.  If any of the acceptors has already had a value, it
+    returns it & it's proposal number.
+3.  If a majority of acceptors agree to participate, the proposer
+    takes the value of the largest proposal thus far and uses it as
+    its value.  If no value is known yet to the acceptors, the value
+    from #1 can be used.
+4.  The proposer contacts all acceptors and asks them to accept a
+    value.  Assuming that none of them have since been involved in a
+    higher number proposal they do.  When they accept they notify the
+    learner.
+5.  When a learner gets a majority of acceptors with the same value,
+    it permanently stores the value.
+
+** Why this works
+
+This works if: Once a value has been accepted by a majority of
+acceptors, it is guaranteed that the system will settle on this value.
+
+Proof sketch: 
+
+Assume that a value V has just been accepted by a majority of
+acceptors (though the system does not know this yet) for Proposal
+Number P.
+
+If a proposal with P+1 begins, at least one of the acceptors that
+accepted V must reply to begin step 3.  Because P is necessarily the
+highest number < P + 1, the value selected must be V.  This can only
+increase how common the value V is among acceptors, and it associates
+the value V with P+1.
+
+By induction, the final value must be V.

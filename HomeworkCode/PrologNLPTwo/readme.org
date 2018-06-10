@@ -1,0 +1,258 @@
+#+TITLE: CSSE 403 Prolog Project
+#+AUTHOR: Buffalo
+#+EMAIL: hewner@rose-hulman.edu
+
+* Introduction
+
+These "medium" assignments will always try to focus on something the
+language under consideration does well.  For Prolog, we're going to
+look at natural language processing.
+
+The assignment has 3 parts:
+
+1.  Parsing [40 points], where you take an english sentence and
+    attempt to convert it to a structure that identifies nouns verbs
+    etc.
+2.  Translation [40 points], where you attempt to translate the
+    sentence into something the computer can reason about - in this
+    case a kind of approximation of first order predicate logic.
+3.  Glue [20 points], where you put the two parts together and build
+    something that can be interacted with from user prompts.
+
+Note that although I've listed these parts in sequence, they need not
+be done that way.  For example you may find it instructive to build
+your parser step by step with the translator.  Also, if you're having
+trouble implementing some of the tricker constructs, you may find that
+part 3 is a place to make up some missing points.
+
+This assignment is heavily indebted to this assignment here:
+
+https://www.cs.rochester.edu/~brown/173/exercises/logic/prolog/NLtoFOL/LogicTrans.html
+
+...but I have simplified it a bit, and tried to remove some of the
+ambiguity.  You may find the instructions and explainations there
+useful however.
+
+* Parsing [40 points]
+
+Your goal for this step will be to parse english lists/sentences like:
+: [all,boys,run]                       
+: [all,boys,like,some,apples] 
+: [some,boy,likes,all,girls,that,like,some,apples]
+                                                                                                   |
+The resultant parse trees for these sentences are:
+
+: statement(all(noun(boys)), verb(run))
+: statement(all(noun(boys)), verb(like, some(noun(apples))))
+: statement(some(noun(boy)), verb(likes, all(relcl(noun(girls), verb(like, some(noun(apples)))))))
+
+The interface you provide should be a function called "statement".  It should work like this:
+
+#+BEGIN_EXAMPLE
+41 ?- parse([all,boys,like,all,apples],X).
+X = statement(all(noun(boys)), verb(like, all(noun(apples)))) ;
+false.
+#+END_EXAMPLE 
+
+You function should be well behaved in the sense that it should not
+return more than one result (of course, if the parse was ambigious
+that might be possible but what we specify here should be unambigious
+I think).
+
+My version actually will generate sentences if you provide it an
+unbound input, which is cool but not required.
+
+** The language
+
+You're welcome to include as many words as you like in the grammar, but at minimum you must have:
+
+#+BEGIN_EXAMPLE
+Noun = {apple,boy,girl}
+Qualifiers = {some,all}
+Intransitive Verbs = {run,dance}
+Transitive Verbs = {like, hate, respect}
+Relative Clauses = {that,which}
+#+END_EXAMPLE
+
+
+The grammar you will be implementing looks like this:
+
+#+BEGIN_EXAMPLE
+ S --> NP VP                  a statement consists of a noun phrase and verb phrase  
+ NP --> Qual Noun             e.g. "some boy"                                        
+    --> Qual RELCL       noun with a relative clause                            
+ VP --> Int-Verb              for intransitive verbs e.g. "ran"
+    --> Trans-Verb NP         for verbs with an object "like some apple"
+ RELCL --> Noun Rel VP             e.g. "that dances" or "that likes some girl"
+       --> Noun Rel NP Trans-Verb  e.g. "that some girls like"   
+#+END_EXAMPLE
+
+I strongly suggest you check out this excellent discussion in Clocksin
+and Mellish:
+
+[file:PrologGrammarRules.pdf]
+
+It covers many of the issues of prolog parsing, and even introduces an
+alternative synatax for writing langauges.  I personally think the
+that new syntax is unecessary, however, and adds complication.  It is
+much more efficient, but efficiency won't be a concern for this
+assignment.  You can use it if you wish.
+
+** Number Agreement
+
+You are required to implement Number Agreement, as described in
+Clocksin and Mellish.
+
+For example, you parser should reject the following sentences:
+
++ some boy run
++ some boys runs
++ all boy run
++ some boy that some girls likes run
+
+This is easy to do in prolog!  Take a look at the book chapter if you
+are confused, though we will discuss it in class.
+
+** Some examples
+
+: all girls run
+: statement(all(noun(girls)), verb(run))
+
+: some girls run
+: statement(some(noun(girls)), verb(run))
+
+: some girl runs
+: X = statement(some(noun(girl)), verb(runs))
+
+: some girl likes all apples
+: statement(some(noun(girl)), verb(likes, all(noun(apples))))
+
+: some boy that likes some apple runs
+: statement(some(relcl(noun(boy), verb(likes, some(noun(apple))))), verb(runs))
+
+: some boy that hates some girl likes some apple
+: statement(some(relcl(noun(boy), verb(hates, some(noun(girl))))), verb(likes, some(noun(apple))))
+
+: all boys that some boy likes run
+: statement(all(relcl(noun(boys), some(noun(boy)), verb(likes))), verb(run))
+
+: all boys like all girls that like all boys
+: statement(all(noun(boys)), verb(like, all(relcl(noun(girls), verb(like, all(noun(boys))))))),
+
+* Translating [40 Points]
+
+Now we will take the parses from the previous step and translate them
+into a first-order predicate logic type syntax.
+
+For example:
+: [all,boys,like,some,apple]
+becomes
+: statement(all(noun(boys)), verb(like, some(noun(apple))))
+which becomes
+: all(1, boy(1)=>exists(2, apple(2)+like(1, 2)))
+
+Hopefully this makes sense to you.  The numbers can be thought of as
+"unbound variables".  So what this is saying is:
+
+: For all things 1,
+: if #1 is a boy, that imples that a thing #2 exists such that
+:   #2 is an apple AND #1 likes #2
+
+The interface you provide will be a function called translate.
+
+#+BEGIN_EXAMPLE
+44 ?- translate(statement(some(noun(boy)), verb(runs)),R).
+R = exists(1, boy(1)+run(1)) ;
+false.
+#+END_EXAMPLE
+
+Although in practice you will probably find it more useful to use it
+and parse chained together for your testing.
+
+#+BEGIN_EXAMPLE
+46 ?- parse([all,boys,like,all,girls,that,like,all,boys],X),translate(X,R).
+X = statement(all(noun(boys)), verb(like, all(relcl(noun(girls), verb(like, all(noun(boys))))))),
+R = all(1, boy(1)=>all(2, (girl(2)+all(3, boy(3)=>like(2, 3)))=>like(1, 2))) ;
+#+END_EXAMPLE
+
+** Examples
+
+: all girls run
+: all(1, girl(1)=>run(1))
+
+: some girls run
+: exists(1, girl(1)+run(1))
+
+Note that the fact that it's "girls" instead of girl doesn't really
+change the meaning of the statement.
+
+: some girl runs
+: exists(1, girl(1)+run(1)) 
+
+: some girl likes all apples
+: exists(1, girl(1)+all(2, apple(2)=>like(1, 2))) 
+
+: some boy that likes some apple runs
+: exists(1, boy(1)+exists(2, apple(2)+like(1, 2))+run(1))
+
+: some boy that hates some girl likes some apple
+: exists(1, boy(1)+exists(2, girl(2)+hate(1, 2))+exists(2, apple(2)+like(1,2))) 
+
+Note that the numbers only exist within the context of exists/all.  So we can reuse #2 to refer to both a girl and an apple.
+
+: all boys that some boy likes run
+: all(1, (boy(1)+exists(2, boy(2)+like(2, 1)))=>run(1))
+
+The parenthesis that surround (boy(1)... are a result of the fact that + and => have the same precedence.  They're not really a part of the structure, just a disambiguation.
+
+: all boys like all girls that like all boys
+: all(1, boy(1)=>all(2, (girl(2)+all(3, boy(3)=>like(2, 3)))=>like(1, 2)))
+
+Any depth is possible.
+** Thoughts on How to Proceed
+
+This is definitely the most tricky part of the problem.  I recommend:
+
+1.  Don't try to get the whole thing working in advance - start with
+    simple sentences, then move to more complex ones.  BUT, refactor
+    frequently as you find duplication or sketchiness.
+2.  Avoid duplication or weird special cases!  My biggest problem for
+    finding a workable solution was caused by the crazy way I
+    initially implemented the statement handing.  Once I removed
+    duplication between that and all/exists, everything fell into
+    place.  Might not be the same for you, but ugliness makes adding
+    new features hard.
+3.  Test frequently and make careful use of the debugger when you
+    can't figure out what's wrong.  It's very easy to have a slightly
+    wrong predicate somewhere, that would take hours for you track
+    down if you can't see it fail in the trace.
+4.  Don't overthink it!.  My parser + translator + word data is under
+    100 lines of code (and it could be shorter if I tried).  Yours
+    could be longer, but if you're working on line 500 something in
+    probably wrong.
+
+* Glue [20 points]
+
+We would like to be able to access this function without using
+prolog's strange interface.  Instead, I'd like to be able to run a
+prolog function that puts prolog into an input mode where I can just
+type questions and it will show their translations.
+
+#+BEGIN_EXAMPLE
+do_nlp.
+|    all boys run
+all(1,boy(1)=>run(1))
+|    some girl that likes all boys runs
+exists(1,girl(1)+all(2,boy(2)=>like(1,2))+run(1))
+|    done
+#+END_EXAMPLE
+
+Questions will always be just a series of words seperated by spaces
+ - no commas capitals or other strangeness.
+
+Write a function that does this.
+
+Hint: if you want a prolog function that takes no arguments, do it
+like this:
+
+: do_nlp :- write('hello world.\n').

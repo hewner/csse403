@@ -1,0 +1,83 @@
+* Premise
+1.  We've got nodes, they communicate by sending messages over an
+    unreliable network.  For ease of use, assume the list of nodes is
+    constant and every node knows about every other node.
+2.  We want to store a log structure in these nodes in a reliable
+    way.  They only operation we need to support is append (i.e. we
+    only add to the end of the log, we don't modify it).  However,
+    order does matter, so if one node thinks the log is A->B and one
+    thinks it is A->C that can't become A->B->C.
+3.  The network can lose messages or partition, but it never corrupts
+    messages and the nodes always follow our protocol.  Partitioning
+    is the hard part, generally.
+4.  #3 means that data can sometimes be lost (i.e. we'll want to
+    append, but due to network connectivity problems it won't happen)
+5.  #3 also means that a node can be "behind the times" - every node
+    won't always have the most up to date data
+
+* Goal
+
+We want to be able to consider appends "committed" after a certain
+point.  Once a append is committed we can be certain it will remain
+forever.  Not every node will have necessarily heard about it, but
+when these other nodes rejoin the consensus we can be sure they will
+agree and add the committed append to their list.  Put another way, it
+should be impossible for two nodes to believe in two differing sets of
+committed messages.
+
+* Example
+
+If capital letters means committed messages:
+
+| Node 1     | Node 2      | Should be possible?                            |
+| A->B->d    | A->B->c     | yes, because difference is uncommitted         |
+| A->B->C    | A->B        | yes, because every node need not be up to date |
+| A->B->C    | A->B->d     | yes, although d will eventually die            |
+| A->B->c    | A->B->d     | yes, and which one will win is unclear         |
+| A->B->C    | A->B->D     | NO, differing commit histories                 |
+| A->B->C->D | A->C->B->D  | NO, different order is still different         | 
+
+* Why is this goal desirable?
+
+In an unreliable network we can't be sure our data will be stored
+
+BUT we can require that once we're told it is safely stored it really
+is stored
+
+Here we're taking consistency at the cost of availability.  The
+content & order of the list is what we guarantee...at the cost that
+the list might be unmodifiable due to network problems.
+
+* The activity
+
+Get in groups of 3-4 and attempt to design a protocol that meets these
+guarantees.
+
+*** Hint One
+
+So here's a way: Designate one node the eternal leader.  All requests
+go to the leader, then the leader stores them and marks them as
+committed.  Then it replicates them to all the other nodes.
+
+Problem: the leader is a single point of failure.  If the leader is
+uncontactable, no appends can be made.
+
+*** Hint Two
+
+There's an interesting property of a majority of nodes: any subsequent
+majority of nodes must contain at least one member of the old majority
+of nodes.
+
+**** Example
+
+Imagine every node in the system thinks the state is A->B
+
+Then an network partition occurs
+
+if 5/11 nodes get a message that says APPEND C, at some point another
+partition of nodes is possible such that 5/11 have never heard of C.
+
+BUT, if 6/11 nodes get the message (majority), every other partition
+of size 6 we select must contain at least one node that has got the C
+message.  of course, somehow all the other nodes must be persuaded to
+listen to that individual node.
