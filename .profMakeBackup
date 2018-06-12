@@ -43,6 +43,7 @@ all: private.zip.gpg .git/info/exclude output_mds .profMakeBackup
 decryptprivate :
 	gpg -o private.zip --batch --passphrase-file ~/Private/dotfiles/passphrase --decrypt private.zip.gpg
 	unzip private.zip
+	rm .git/info/exclude #force a simlink rebuild
 
 hideprivate : private.zip.gpg
 	rm -r Private/* private.zip

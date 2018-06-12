@@ -1,15 +1,8 @@
 
 
 
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/core/5.0.0/changelog](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/core/5.0.0/changelog)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/core/5.0.0/README](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/core/5.0.0/README)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/dom/1.1.1/README](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/dom/1.1.1/README)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/html/2.0.0/properties-vs-attributes](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/html/2.0.0/properties-vs-attributes)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/html/2.0.0/README](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/html/2.0.0/README)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/keyboard/1.0.1/README](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/keyboard/1.0.1/README)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/svg/2.0.0/README](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/svg/2.0.0/README)
-* [HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/virtual-dom/2.0.3/README](HomeworkCode/ElmBreakout/elm-stuff/packages/elm-lang/virtual-dom/2.0.3/README)
+* [ClassOutline](ClassOutline)
+* [ClassOutlineByHand](ClassOutlineByHand)
 * [HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/changelog](HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/changelog)
 * [HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING](HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING)
 * [HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/README](HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/README)
@@ -19,10 +12,6 @@
 * [HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/keyboard/1.0.1/README](HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/keyboard/1.0.1/README)
 * [HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/svg/2.0.0/README](HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/svg/2.0.0/README)
 * [HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/virtual-dom/2.0.3/README](HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/virtual-dom/2.0.3/README)
-* [HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/core/5.0.0/changelog](HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/core/5.0.0/changelog)
-* [HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING](HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING)
-* [HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/core/5.0.0/README](HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/core/5.0.0/README)
-* [HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/virtual-dom/2.0.3/README](HomeworkCode/ElmModuleExample/elm-stuff/packages/elm-lang/virtual-dom/2.0.3/README)
 * [Private/HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/changelog](Private/HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/changelog)
 * [Private/HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING](Private/HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/CONTRIBUTING)
 * [Private/HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/README](Private/HomeworkCode/ElmBreakoutSolution/elm-stuff/packages/elm-lang/core/5.0.0/README)
