@@ -1,438 +1,8 @@
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#sec-1">1. Introduction</a>
-<ul>
-<li><a href="#sec-1-1">1.1. Introduction</a>
-<ul>
-<li><a href="#sec-1-1-1">1.1.1. What's the deal with programming languages?</a></li>
-<li><a href="#sec-1-1-2">1.1.2. What's the deal with programming languages? (my answer)</a></li>
-<li><a href="#sec-1-1-3">1.1.3. Activity (you'll need a piece of paper)</a></li>
-<li><a href="#sec-1-1-4">1.1.4. Your answers</a></li>
-<li><a href="#sec-1-1-5">1.1.5. We'll do some weird languages in this class</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-2">1.2. Some important details</a>
-<ul>
-<li><a href="#sec-1-2-1">1.2.1. Call me Buffalo</a></li>
-<li><a href="#sec-1-2-2">1.2.2. Design of this class</a></li>
-<li><a href="#sec-1-2-3">1.2.3. Course Policies</a></li>
-<li><a href="#sec-1-2-4">1.2.4. Two stages in our learning</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-3">1.3. What you need to do today</a></li>
-</ul>
-</li>
-<li><a href="#sec-2">2. Prolog 1</a>
-<ul>
-<li><a href="#sec-2-1">2.1. Facts and implications</a>
-<ul>
-<li><a href="#sec-2-1-1">2.1.1. Let's see it in action!</a></li>
-<li><a href="#sec-2-1-2">2.1.2. How does it work?  Unification</a></li>
-<li><a href="#sec-2-1-3">2.1.3. Representation Activity</a></li>
-</ul>
-</li>
-<li><a href="#sec-2-2">2.2. Let's do some examples with lists</a></li>
-</ul>
-</li>
-<li><a href="#sec-3">3. Prolog 2</a>
-<ul>
-<li><a href="#sec-3-1">3.1. Never Not an Unbound Variable</a></li>
-<li><a href="#sec-3-2">3.2. Use is for calculations</a></li>
-<li><a href="#sec-3-3">3.3. Strings</a>
-<ul>
-<li><a href="#sec-3-3-1">3.3.1. Not necessarily consistent!  Last year's way</a></li>
-<li><a href="#sec-3-3-2">3.3.2. I reccommend: always single quotes and atom_chars</a></li>
-</ul>
-</li>
-<li><a href="#sec-3-4">3.4. Cuts</a>
-<ul>
-<li><a href="#sec-3-4-1">3.4.1. Challenge:</a></li>
-<li><a href="#sec-3-4-2">3.4.2. Now lets read about cuts</a></li>
-<li><a href="#sec-3-4-3">3.4.3. Cuts in your homework</a></li>
-</ul>
-</li>
-<li><a href="#sec-3-5">3.5. Append</a></li>
-<li><a href="#sec-3-6">3.6. Work on Word Find HW</a></li>
-</ul>
-</li>
-<li><a href="#sec-4">4. Prolog 3 - a bit on user input</a>
-<ul>
-<li><a href="#sec-4-1">4.1. Prolog input challenge</a>
-<ul>
-<li><a href="#sec-4-1-1">4.1.1. Write a function that takes in a prolog string (terminated with '\n')</a></li>
-<li><a href="#sec-4-1-2">4.1.2. Write a function that takes in a string, and returns a list of strings separated by spaces</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-5">5. Prolog 4 - Parsing</a>
-<ul>
-<li><a href="#sec-5-1">5.1. Your Prolog Project</a></li>
-<li><a href="#sec-5-2">5.2. Issue: Parses with variable length</a>
-<ul>
-<li><a href="#sec-5-2-1">5.2.1. Solution with some problems</a></li>
-<li><a href="#sec-5-2-2">5.2.2. A more efficient but stranger solution</a></li>
-<li><a href="#sec-5-2-3">5.2.3. A specialized syntax for the stranger solution</a></li>
-<li><a href="#sec-5-2-4">5.2.4. I recommend you use the basic syntax, but it's up to you</a></li>
-</ul>
-</li>
-<li><a href="#sec-5-3">5.3. Issue: Number Agreement</a>
-<ul>
-<li><a href="#sec-5-3-1">5.3.1. Solution</a></li>
-</ul>
-</li>
-<li><a href="#sec-5-4">5.4. Issue: We want to output something</a>
-<ul>
-<li><a href="#sec-5-4-1">5.4.1. Think about it before you peek!</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-6">6. Debugging prolog</a>
-<ul>
-<li><a href="#sec-6-1">6.1. A Few other details</a></li>
-</ul>
-</li>
-<li><a href="#sec-7">7. Erlang 1 - Very basics</a>
-<ul>
-<li><a href="#sec-7-1">7.1. Erlang variables &amp; matching</a>
-<ul>
-<li><a href="#sec-7-1-1">7.1.1. You can't redefine variables</a></li>
-<li><a href="#sec-7-1-2">7.1.2. You can do prolog-like matching</a></li>
-<li><a href="#sec-7-1-3">7.1.3. Atoms, lists, tuples</a></li>
-</ul>
-</li>
-<li><a href="#sec-7-2">7.2. List functions</a>
-<ul>
-<li><a href="#sec-7-2-1">7.2.1. In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions</a></li>
-</ul>
-</li>
-<li><a href="#sec-7-3">7.3. Erlang versions</a>
-<ul>
-<li><a href="#sec-7-3-1">7.3.1. Write a call using filter removes all empty strings from a list</a></li>
-<li><a href="#sec-7-3-2">7.3.2. Solution</a></li>
-</ul>
-</li>
-<li><a href="#sec-7-4">7.4. Most complicated foldl (and foldr)</a>
-<ul>
-<li><a href="#sec-7-4-1">7.4.1. Write a function that returns the length of the largest string in a list of strings</a></li>
-<li><a href="#sec-7-4-2">7.4.2. Solution</a></li>
-</ul>
-</li>
-<li><a href="#sec-7-5">7.5. List Comprehensions</a>
-<ul>
-<li><a href="#sec-7-5-1">7.5.1. List all values of A B C that make (A or B) and C true</a></li>
-<li><a href="#sec-7-5-2">7.5.2. Solution</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-8">8. Erlang 2 - Basic Process</a></li>
-<li><a href="#sec-9">9. Erlang 3 - Connecting to a remote erlang server</a></li>
-<li><a href="#sec-10">10. Erlang 4 - Let it crash</a></li>
-<li><a href="#sec-11">11. Erlang 5 - Final Assignment, Raft Algorithm</a>
-<ul>
-<li><a href="#sec-11-1">11.1. What is an consensus algorithm?</a></li>
-<li><a href="#sec-11-2">11.2. The Raft algorithm</a></li>
-<li><a href="#sec-11-3">11.3. Your assignment</a></li>
-</ul>
-</li>
-<li><a href="#sec-12">12. Erlang 6 - Debugging sends and receives</a>
-<ul>
-<li><a href="#sec-12-1">12.1. The basics</a></li>
-<li><a href="#sec-12-2">12.2. Debugging a raft unit test</a>
-<ul>
-<li><a href="#sec-12-2-1">12.2.1. Install the trace in the test setup function</a></li>
-<li><a href="#sec-12-2-2">12.2.2. Enable the trace</a></li>
-<li><a href="#sec-12-2-3">12.2.3. Run the test case</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-13">13. Elm 1</a>
-<ul>
-<li><a href="#sec-13-1">13.1. Elm is a functional web programming language</a></li>
-<li><a href="#sec-13-2">13.2. Pure Functional</a></li>
-<li><a href="#sec-13-3">13.3. Has Strong Typing</a>
-<ul>
-<li><a href="#sec-13-3-1">13.3.1. But also has type inference</a></li>
-<li><a href="#sec-13-3-2">13.3.2. An aside: Functions are designed for partial evaluation</a></li>
-<li><a href="#sec-13-3-3">13.3.3. Activity</a></li>
-<li><a href="#sec-13-3-4">13.3.4. Solution</a></li>
-</ul>
-</li>
-<li><a href="#sec-13-4">13.4. Elm's MVC</a>
-<ul>
-<li><a href="#sec-13-4-1">13.4.1. But more importantly, how do you handle INPUT and State in a pure functional language?</a></li>
-<li><a href="#sec-13-4-2">13.4.2. Basic MVC</a></li>
-<li><a href="#sec-13-4-3">13.4.3. Things to note</a></li>
-</ul>
-</li>
-<li><a href="#sec-13-5">13.5. Homework: Linear Lights Out</a></li>
-</ul>
-</li>
-<li><a href="#sec-14">14. Elm 2 - Subscriptions &amp; Other complexity</a>
-<ul>
-<li><a href="#sec-14-1">14.1. Subscriptions</a>
-<ul>
-<li><a href="#sec-14-1-1">14.1.1. What are subscriptions?</a></li>
-<li><a href="#sec-14-1-2">14.1.2. How do you subscribe?</a></li>
-<li><a href="#sec-14-1-3">14.1.3. You must also register your subscription function</a></li>
-<li><a href="#sec-14-1-4">14.1.4. What happens then?</a></li>
-<li><a href="#sec-14-1-5">14.1.5. An Example</a></li>
-<li><a href="#sec-14-1-6">14.1.6. An Activity</a></li>
-<li><a href="#sec-14-1-7">14.1.7. My Solution</a></li>
-</ul>
-</li>
-<li><a href="#sec-14-2">14.2. Commands</a>
-<ul>
-<li><a href="#sec-14-2-1">14.2.1. How you set it up</a></li>
-<li><a href="#sec-14-2-2">14.2.2. A complete example</a></li>
-<li><a href="#sec-14-2-3">14.2.3. Activity</a></li>
-<li><a href="#sec-14-2-4">14.2.4. My Solution</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-15">15. Elm 3 - Datatypes, Graphics, Composing</a>
-<ul>
-<li><a href="#sec-15-1">15.1. Datatypes</a>
-<ul>
-<li><a href="#sec-15-1-1">15.1.1. Elm has a record type!</a></li>
-<li><a href="#sec-15-1-2">15.1.2. Elm also has "Union Types"</a></li>
-<li><a href="#sec-15-1-3">15.1.3. Maybe - cool or just a way to have null?</a></li>
-<li><a href="#sec-15-1-4">15.1.4. Maybe makes pure functional programmers really happy!</a></li>
-<li><a href="#sec-15-1-5">15.1.5. Union Types Can Be Recursive</a></li>
-</ul>
-</li>
-<li><a href="#sec-15-2">15.2. Drawing</a></li>
-<li><a href="#sec-15-3">15.3. Elm &amp; Composing Widgets</a></li>
-</ul>
-</li>
-<li><a href="#sec-16">16. Elm 4 - Functional Design</a>
-<ul>
-<li><a href="#sec-16-1">16.1. What is the point of design?</a>
-<ul>
-<li><a href="#sec-16-1-1">16.1.1. The programs we want to write are complex, how can this be accomplished?</a></li>
-</ul>
-</li>
-<li><a href="#sec-16-2">16.2. An Initial Example</a>
-<ul>
-<li><a href="#sec-16-2-1">16.2.1. Some variations</a></li>
-</ul>
-</li>
-<li><a href="#sec-16-3">16.3. Functional folks love this!</a>
-<ul>
-<li><a href="#sec-16-3-1">16.3.1. What is good about it?</a></li>
-<li><a href="#sec-16-3-2">16.3.2. What is bad about it?</a></li>
-</ul>
-</li>
-<li><a href="#sec-16-4">16.4. Let's talk about (idealized) OO paradigm</a>
-<ul>
-<li><a href="#sec-16-4-1">16.4.1. What is good about it?</a></li>
-<li><a href="#sec-16-4-2">16.4.2. What is bad about it</a></li>
-</ul>
-</li>
-<li><a href="#sec-16-5">16.5. My advice:</a></li>
-<li><a href="#sec-16-6">16.6. Polymorphism</a></li>
-</ul>
-</li>
-<li><a href="#sec-17">17. Elm 5 - Being Tricky With Functions</a>
-<ul>
-<li><a href="#sec-17-1">17.1. Course Logistics: Midterm grades</a></li>
-<li><a href="#sec-17-2">17.2. Course Logistics: ElmVideoGame Posted</a></li>
-<li><a href="#sec-17-3">17.3. BulletExample</a></li>
-<li><a href="#sec-17-4">17.4. Using Functions to Store State</a></li>
-<li><a href="#sec-17-5">17.5. Using functions to be a state machine</a></li>
-</ul>
-</li>
-<li><a href="#sec-18">18. The final project</a></li>
-<li><a href="#sec-19">19. Instructor's Choice 1: Haskell and Monads</a>
-<ul>
-<li><a href="#sec-19-1">19.1. The idea</a>
-<ul>
-<li><a href="#sec-19-1-1">19.1.1. Oftentimes we have "almost" pure functions</a></li>
-<li><a href="#sec-19-1-2">19.1.2. Of course, we can always add return values!</a></li>
-<li><a href="#sec-19-1-3">19.1.3. But the problem is nobody has time for that!</a></li>
-<li><a href="#sec-19-1-4">19.1.4. Why does this seem annoying?</a></li>
-<li><a href="#sec-19-1-5">19.1.5. But the context is screwing us up!</a></li>
-<li><a href="#sec-19-1-6">19.1.6. Here's what (we think) we want!</a></li>
-</ul>
-</li>
-<li><a href="#sec-19-2">19.2. Monads</a>
-<ul>
-<li><a href="#sec-19-2-1">19.2.1. Monadic type = value with some context</a></li>
-<li><a href="#sec-19-2-2">19.2.2. Let's combine the functions with some crazy operator!</a></li>
-<li><a href="#sec-19-2-3">19.2.3. Except what if we needed to use the value in a subsequent step?</a></li>
-<li><a href="#sec-19-2-4">19.2.4. In Haskell, this can be improved with some syntactic sugar</a></li>
-</ul>
-</li>
-<li><a href="#sec-19-3">19.3. The elm maybe monad</a></li>
-<li><a href="#sec-19-4">19.4. Write your own monads!</a></li>
-</ul>
-</li>
-<li><a href="#sec-20">20. Instructor's Choice 2: More on Monads</a>
-<ul>
-<li><a href="#sec-20-1">20.1. Extended example</a>
-<ul>
-<li><a href="#sec-20-1-1">20.1.1. Step 1</a></li>
-<li><a href="#sec-20-1-2">20.1.2. Step 2: add Monadic Type</a></li>
-<li><a href="#sec-20-1-3">20.1.3. Step 3: functions should return monadic type</a></li>
-<li><a href="#sec-20-1-4">20.1.4. Step 4: let's make our combination operator</a></li>
-<li><a href="#sec-20-1-5">20.1.5. Step 5: Use it!</a></li>
-<li><a href="#sec-20-1-6">20.1.6. Step 6: But divs</a></li>
-<li><a href="#sec-20-1-7">20.1.7. Step 7: Update our monadic type</a></li>
-<li><a href="#sec-20-1-8">20.1.8. Step 8: Solving the problem of adding</a></li>
-<li><a href="#sec-20-1-9">20.1.9. Step 9: Conversion function is easy</a></li>
-<li><a href="#sec-20-1-10">20.1.10. Step 10: Sugar &amp; we try it out</a></li>
-<li><a href="#sec-20-1-11">20.1.11. Final version</a></li>
-</ul>
-</li>
-<li><a href="#sec-20-2">20.2. More examples</a>
-<ul>
-<li><a href="#sec-20-2-1">20.2.1. An Example: The Maybe Monad</a></li>
-<li><a href="#sec-20-2-2">20.2.2. Doing IO with Monads</a></li>
-<li><a href="#sec-20-2-3">20.2.3. Many other Monads</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-21">21. Work day</a>
-<ul>
-<li><a href="#sec-21-1">21.1. A bit on randomness in elm</a></li>
-<li><a href="#sec-21-2">21.2. Make sure you get your project completely signed off on</a></li>
-<li><a href="#sec-21-3">21.3. Elm Monads assignment</a></li>
-</ul>
-</li>
-<li><a href="#sec-22">22. Instructor's Choice 3: Smalltalk 1</a></li>
-<li><a href="#sec-23">23. Instructor's Choice 4: Smalltalk, The Image</a>
-<ul>
-<li><a href="#sec-23-1">23.1. How can we be more object-oriented?</a></li>
-<li><a href="#sec-23-2">23.2. What's going on with Smalltak</a></li>
-<li><a href="#sec-23-3">23.3. What is the image?</a>
-<ul>
-<li><a href="#sec-23-3-1">23.3.1. Sounds neat, but not really that important</a></li>
-<li><a href="#sec-23-3-2">23.3.2. This seems crazy</a></li>
-<li><a href="#sec-23-3-3">23.3.3. How do you create an image?</a></li>
-<li><a href="#sec-23-3-4">23.3.4. How do you share code if it's trapped in an image?</a></li>
-</ul>
-</li>
-<li><a href="#sec-23-4">23.4. Why is an image good?</a>
-<ul>
-<li><a href="#sec-23-4-1">23.4.1. I like files!  You wouldn't believe how good I am at vi.  Plus all my tools like git operate on files.</a></li>
-<li><a href="#sec-23-4-2">23.4.2. An example</a></li>
-<li><a href="#sec-23-4-3">23.4.3. A programmatic programming environment gives you greater power</a></li>
-</ul>
-</li>
-<li><a href="#sec-23-5">23.5. Some examples</a>
-<ul>
-<li><a href="#sec-23-5-1">23.5.1. A demo</a></li>
-<li><a href="#sec-23-5-2">23.5.2. The refactoring browser</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-24">24. Instructor's Choice 5: Lua and C Integration</a>
-<ul>
-<li><a href="#sec-24-1">24.1. But probably its neatest feature is that is designed to be embedded</a>
-<ul>
-<li><a href="#sec-24-1-1">24.1.1. An Example</a></li>
-<li><a href="#sec-24-1-2">24.1.2. Communication between lua and C is stack based</a></li>
-</ul>
-</li>
-<li><a href="#sec-24-2">24.2. Why do we want an embedded programming language?</a></li>
-<li><a href="#sec-24-3">24.3. Now you try</a>
-<ul>
-<li><a href="#sec-24-3-1">24.3.1. Installing Lua + C integration</a></li>
-<li><a href="#sec-24-3-2">24.3.2. Making sure it works</a></li>
-<li><a href="#sec-24-3-3">24.3.3. The Paper Scissors Rock Competition Activity</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-25">25. Instructor's Choice 6: Lua and Prototype Based OO</a>
-<ul>
-<li><a href="#sec-25-1">25.1. What is Object Oriented Programming?</a>
-<ul>
-<li><a href="#sec-25-1-1">25.1.1. Encapsulation</a></li>
-<li><a href="#sec-25-1-2">25.1.2. Polymorphism</a></li>
-<li><a href="#sec-25-1-3">25.1.3. Inheritance</a></li>
-</ul>
-</li>
-<li><a href="#sec-25-2">25.2. Is there any way to make OO stuff simple for dynamic languages?</a>
-<ul>
-<li><a href="#sec-25-2-1">25.2.1. Very crude solution</a></li>
-</ul>
-</li>
-<li><a href="#sec-25-3">25.3. Solving Duplication/Superclass modification</a>
-<ul>
-<li><a href="#sec-25-3-1">25.3.1. How does this work</a></li>
-</ul>
-</li>
-<li><a href="#sec-25-4">25.4. Solving shallow copy</a></li>
-</ul>
-</li>
-<li><a href="#sec-26">26. Instructor's Choice 6: More Prototype Based OO</a>
-<ul>
-<li><a href="#sec-26-1">26.1. Prototypes in Self</a></li>
-<li><a href="#sec-26-2">26.2. How to implement the basics</a>
-<ul>
-<li><a href="#sec-26-2-1">26.2.1. Key insight: it needs to be possible the modify the class later</a></li>
-<li><a href="#sec-26-2-2">26.2.2. "Class" vs "Instance"</a></li>
-<li><a href="#sec-26-2-3">26.2.3. Inheritance is trait object parents</a></li>
-<li><a href="#sec-26-2-4">26.2.4. What if you want multiple representations?</a></li>
-</ul>
-</li>
-<li><a href="#sec-26-3">26.3. Dynamic Inheritance</a>
-<ul>
-<li><a href="#sec-26-3-1">26.3.1. Prototype Solution</a></li>
-<li><a href="#sec-26-3-2">26.3.2. What do you think?</a></li>
-</ul>
-</li>
-<li><a href="#sec-26-4">26.4. Are prototypes a better abstraction than classes?</a></li>
-<li><a href="#sec-26-5">26.5. Using Objects to Store and Categorize</a></li>
-</ul>
-</li>
-<li><a href="#sec-27">27. Final Reflections</a>
-<ul>
-<li><a href="#sec-27-1">27.1. Course Evaluations</a></li>
-<li><a href="#sec-27-2">27.2. The Languages</a>
-<ul>
-<li><a href="#sec-27-2-1">27.2.1. Prolog</a></li>
-<li><a href="#sec-27-2-2">27.2.2. Erlang</a></li>
-<li><a href="#sec-27-2-3">27.2.3. Elm</a></li>
-<li><a href="#sec-27-2-4">27.2.4. Smalltalk</a></li>
-<li><a href="#sec-27-2-5">27.2.5. Lua</a></li>
-<li><a href="#sec-27-2-6">27.2.6. Your Project Language</a></li>
-</ul>
-</li>
-<li><a href="#sec-27-3">27.3. A Reminder of some of the goals in this class</a>
-<ul>
-<li><a href="#sec-27-3-1">27.3.1. The Paradigm</a></li>
-<li><a href="#sec-27-3-2">27.3.2. Skills in acquiring new programming languages</a></li>
-</ul>
-</li>
-<li><a href="#sec-27-4">27.4. Remember: paradigm rather than language</a>
-<ul>
-<li><a href="#sec-27-4-1">27.4.1. 'Exciting' is a great adjective for a programming language sometimes</a></li>
-<li><a href="#sec-27-4-2">27.4.2. Love the boring languages too!</a></li>
-</ul>
-</li>
-<li><a href="#sec-27-5">27.5. Don't let your exploration end here!</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+# Introduction
 
+## Introduction
 
-# Introduction<a id="sec-1" name="sec-1"></a>
-
-## Introduction<a id="sec-1-1" name="sec-1-1"></a>
-
-### What's the deal with programming languages?<a id="sec-1-1-1" name="sec-1-1-1"></a>
+### What's the deal with programming languages?
 
 Students who are evaluating Rose often ask me what programming languages I know
 -   This is not a very good question
@@ -441,7 +11,7 @@ Students who are evaluating Rose often ask me what programming languages I know
 If every language is Turing complete, are they really different?
 -   Are they important to learn (in class at Rose)?
 
-### What's the deal with programming languages? (my answer)<a id="sec-1-1-2" name="sec-1-1-2"></a>
+### What's the deal with programming languages? (my answer)
 
 Each language represents a paradigm - a unique approach to problem solving.
 
@@ -450,7 +20,7 @@ Using the language gets you into the "head" of the creator
 
 Even when you're not using the language, the ideas remain
 
-### Activity (you'll need a piece of paper)<a id="sec-1-1-3" name="sec-1-1-3"></a>
+### Activity (you'll need a piece of paper)
 
 You know Java, C, and Python.
 They're pretty different languages.
@@ -460,7 +30,7 @@ Working in groups of 3-5, try to list the main strengths and weaknesses of these
 
 Put your names on the paper - you'll turn it in.
 
-### Your answers<a id="sec-1-1-4" name="sec-1-1-4"></a>
+### Your answers
 
 1.  Java
 
@@ -479,22 +49,22 @@ Put your names on the paper - you'll turn it in.
     -   direct access to raw memory
     -   similar to "the hardware"
 
-### We'll do some weird languages in this class<a id="sec-1-1-5" name="sec-1-1-5"></a>
+### We'll do some weird languages in this class
 
 -   Prolog
 -   Erlang
 -   Elm
 
-## Some important details<a id="sec-1-2" name="sec-1-2"></a>
+## Some important details
 
-### Call me Buffalo<a id="sec-1-2-1" name="sec-1-2-1"></a>
+### Call me Buffalo
 
 Or Dr. Buffalo in a pinch
 Or whatever you want
 
 Check out my personal website <http://hewner.com> for every imaginable kind of contact info (yes we can be facebook friends if you want but I don't post about classes).  You can call my cell phone if you're having a problem.
 
-### Design of this class<a id="sec-1-2-2" name="sec-1-2-2"></a>
+### Design of this class
 
 Always a dream of mine to teach a class like this
 
@@ -505,7 +75,7 @@ Always a dream of mine to teach a class like this
 5.  It won't (for the most part) involve a lot of lecturing
 6.  I am not an "expert" in the languages we will learn
 
-### Course Policies<a id="sec-1-2-3" name="sec-1-2-3"></a>
+### Course Policies
 
 You are obligated to read and understand the complete Course Policies document.
 
@@ -513,12 +83,12 @@ It is on Moodle.
 
 I will touch on the highlights only.
 
-### Two stages in our learning<a id="sec-1-2-4" name="sec-1-2-4"></a>
+### Two stages in our learning
 
 1.  One week of (reasonably intense) practice with a new language
 2.  One week of work on a larger project
 
-## What you need to do today<a id="sec-1-3" name="sec-1-3"></a>
+## What you need to do today
 
 1.  Maybe install a unix environment on your laptop (recommended &#x2014; you're responsible for your own environment)
 2.  Install swi-prolog (link in the online quiz)
@@ -526,9 +96,9 @@ I will touch on the highlights only.
 4.  Fill out the online quiz
 5.  If you have time, feel free to look at the coding project due Wednesday night (or some other prolog projects of interest)
 
-# Prolog 1<a id="sec-2" name="sec-2"></a>
+# Prolog 1
 
-## Facts and implications<a id="sec-2-1" name="sec-2-1"></a>
+## Facts and implications
 
 In prolog, you have a knowledge base of things that are facts:
 
@@ -544,7 +114,7 @@ And then you have implications:
     food_flavor(FoodName,Flavor) :- food_type(FoodName,Type) , flavor(Flavor,Type).
     % if a food is of some type, and that type has a flavor, then the food has the flavor
 
-### Let's see it in action!<a id="sec-2-1-1" name="sec-2-1-1"></a>
+### Let's see it in action!
 
 1.  Buffalo's in class example notes
 
@@ -566,9 +136,9 @@ And then you have implications:
         example(zombie,dino,alien).
         example(X,Y,Z) :- example(Y,X,Z). % note that this causes an infinite loop
 
-### How does it work?  Unification<a id="sec-2-1-2" name="sec-2-1-2"></a>
+### How does it work?  Unification
 
-### Representation Activity<a id="sec-2-1-3" name="sec-2-1-3"></a>
+### Representation Activity
 
 Adapted from Programming in Prolog, Clocksin & Mellish 5th ed.
 
@@ -587,7 +157,7 @@ Adapted from Programming in Prolog, Clocksin & Mellish 5th ed.
     
     % Try it out in your prolog intepreter and make sure it works!
 
-## Let's do some examples with lists<a id="sec-2-2" name="sec-2-2"></a>
+## Let's do some examples with lists
 
 1.  replace\_in\_list - replaces one value with another
 
@@ -613,11 +183,11 @@ Adapted from Programming in Prolog, Clocksin & Mellish 5th ed.
         all_equal(Item,[Item|T]) :- all_equal(Item,T).
         only_repeats(List) :- all_equal(_,List).
 
-# Prolog 2<a id="sec-3" name="sec-3"></a>
+# Prolog 2
 
 A few details:
 
-## Never Not an Unbound Variable<a id="sec-3-1" name="sec-3-1"></a>
+## Never Not an Unbound Variable
 
 Be really careful with negations in prolog.
 They don't always do what you expect.
@@ -628,7 +198,7 @@ And never do a not when one of the variables might not be bound.
         \+(X = Y),
         Y = 7.
 
-## Use is for calculations<a id="sec-3-2" name="sec-3-2"></a>
+## Use is for calculations
 
     plus2(X,Y) :-
         Y is X + 2.
@@ -643,9 +213,9 @@ If you use equals with operators you will create compound objects.
 
 They can be unified, but only if the operators match perfectly.
 
-## Strings<a id="sec-3-3" name="sec-3-3"></a>
+## Strings
 
-### Not necessarily consistent!  Last year's way<a id="sec-3-3-1" name="sec-3-3-1"></a>
+### Not necessarily consistent!  Last year's way
 
     ?- X="test",Y='test'.
     X = [116, 101, 115, 116],
@@ -655,7 +225,7 @@ They can be unified, but only if the operators match perfectly.
     ?- string_codes(X,[116, 101, 115, 116]).
     X = "test".
 
-### I reccommend: always single quotes and atom\_chars<a id="sec-3-3-2" name="sec-3-3-2"></a>
+### I reccommend: always single quotes and atom\_chars
 
     ?- atom_chars('hello', [H|T]).
     H = h,
@@ -670,15 +240,15 @@ really, what do you expect?
     ?- atom_chars(Y,[h,_]).
     ERROR: atom_chars/2: Arguments are not sufficiently instantiated
 
-## Cuts<a id="sec-3-4" name="sec-3-4"></a>
+## Cuts
 
-### Challenge:<a id="sec-3-4-1" name="sec-3-4-1"></a>
+### Challenge:
 
 Define a predicate
 
 max(A,B,C) where C is the max of A and B.
 
-### Now lets read about cuts<a id="sec-3-4-2" name="sec-3-4-2"></a>
+### Now lets read about cuts
 
 I think a really good explaination of cuts can be found here:
 
@@ -686,13 +256,13 @@ I think a really good explaination of cuts can be found here:
 
 I especially like the details of the 2nd example with max.
 
-### Cuts in your homework<a id="sec-3-4-3" name="sec-3-4-3"></a>
+### Cuts in your homework
 
     listBind(['?'|T]) :- listBind(T), !.
     listBind([_|T]) :- listBind(T).
     listBind([]).
 
-## Append<a id="sec-3-5" name="sec-3-5"></a>
+## Append
 
 A useful function.  Don't forget you can also use it like this:
 
@@ -700,9 +270,9 @@ A useful function.  Don't forget you can also use it like this:
 
 To try various combinations of a & b.  Can be useful for your homework.
 
-## Work on Word Find HW<a id="sec-3-6" name="sec-3-6"></a>
+## Work on Word Find HW
 
-# Prolog 3 - a bit on user input<a id="sec-4" name="sec-4"></a>
+# Prolog 3 - a bit on user input
 
 Languages of an AI bent tend to skimp a bit when it comes to input and output.
 Prolog is no exception.  Your basic input function is called get\_char(X).
@@ -718,9 +288,9 @@ Note that this returns in essence a one character atom not a char code
 There is also get\_code(X) which will give you the character code if
 you wanted that.
 
-## Prolog input challenge<a id="sec-4-1" name="sec-4-1"></a>
+## Prolog input challenge
 
-### Write a function that takes in a prolog string (terminated with '\n')<a id="sec-4-1-1" name="sec-4-1-1"></a>
+### Write a function that takes in a prolog string (terminated with '\n')
 
     ?- get_string(X).
     |: hello world.
@@ -764,7 +334,7 @@ you wanted that.
             get_string(Char,List),
             atom_chars(Result,List).
 
-### Write a function that takes in a string, and returns a list of strings separated by spaces<a id="sec-4-1-2" name="sec-4-1-2"></a>
+### Write a function that takes in a string, and returns a list of strings separated by spaces
 
     ?- split('hello prolog world',' ', X)
     X = [hello,prolog,world].
@@ -792,9 +362,9 @@ atomic\_list\_concat.  But I would be curious to see your solutions.
                 split(X,[C|Cons],Working,R,On)
                 ,!).
 
-# Prolog 4 - Parsing<a id="sec-5" name="sec-5"></a>
+# Prolog 4 - Parsing
 
-## Your Prolog Project<a id="sec-5-1" name="sec-5-1"></a>
+## Your Prolog Project
 
 [<HomeworkCode/PrologNLPTwo/readme.md>]
 
@@ -802,7 +372,7 @@ The issues presented today in class are covered in detail here:
 
 [<HomeworkCode/PrologNLPTwo/PrologGrammarRules.pdf>]
 
-## Issue: Parses with variable length<a id="sec-5-2" name="sec-5-2"></a>
+## Issue: Parses with variable length
 
     noun_phrase([the,Noun]) :- is_noun(Noun).
     noun_phrase([Noun]) :- is_noun(Noun).
@@ -815,14 +385,14 @@ The issues presented today in class are covered in detail here:
 
 A bit of a problem.
 
-### Solution with some problems<a id="sec-5-2-1" name="sec-5-2-1"></a>
+### Solution with some problems
 
     sentence(X) :-
             append(N,V,X),
             noun_phrase(N),
             verb_phrase(V).
 
-### A more efficient but stranger solution<a id="sec-5-2-2" name="sec-5-2-2"></a>
+### A more efficient but stranger solution
 
     sentence(X) :-
             noun_phrase(X,NounRemainder),
@@ -833,7 +403,7 @@ A bit of a problem.
     verb_phrase([attack|Rest],[Rest]).
     verb_phrase([attacks|Rest],[Rest]).
 
-### A specialized syntax for the stranger solution<a id="sec-5-2-3" name="sec-5-2-3"></a>
+### A specialized syntax for the stranger solution
 
     sentence --> noun_phrase, verb.
     noun_phrase --> determiner, noun.
@@ -847,9 +417,9 @@ A bit of a problem.
     verb --> [attack].
     verb --> [attacks].
 
-### I recommend you use the basic syntax, but it's up to you<a id="sec-5-2-4" name="sec-5-2-4"></a>
+### I recommend you use the basic syntax, but it's up to you
 
-## Issue: Number Agreement<a id="sec-5-3" name="sec-5-3"></a>
+## Issue: Number Agreement
 
     sentence(X) :-
             append(N,V,X),
@@ -867,7 +437,7 @@ A bit of a problem.
 
 The problem is that "the student attack" is a valid sentence.
 
-### Solution<a id="sec-5-3-1" name="sec-5-3-1"></a>
+### Solution
 
 A variable passed between the parsed steps
 
@@ -887,11 +457,11 @@ A variable passed between the parsed steps
     is_verb(singular,attacks).
     is_verb(plural,attack).
 
-## Issue: We want to output something<a id="sec-5-4" name="sec-5-4"></a>
+## Issue: We want to output something
 
 We don't want to know if something parses, we want to output a parse tree.
 
-### Think about it before you peek!<a id="sec-5-4-1" name="sec-5-4-1"></a>
+### Think about it before you peek!
 
 We can use the same trick, we used with signular/plural only with the
 parse output.
@@ -914,7 +484,7 @@ is\_verb(singular,attacks).
 is\_verb(plural,attack).
 \\#+END\_SRC prolog
 
-# Debugging prolog<a id="sec-6" name="sec-6"></a>
+# Debugging prolog
 
 <http://www.swi-prolog.org/pldoc/man?section=debugoverview>
 
@@ -989,24 +559,24 @@ turn trace on to watch how prolog solves it
     
     6 ?-
 
-## A Few other details<a id="sec-6-1" name="sec-6-1"></a>
+## A Few other details
 
 1.  trace(predicate) will print each time a predicate is evaled
 2.  spy(predicate) will break into debug mode when a particular predicate is called
 3.  leap (from debug menu) is "continue as normal"
 
-# Erlang 1 - Very basics<a id="sec-7" name="sec-7"></a>
+# Erlang 1 - Very basics
 
-## Erlang variables & matching<a id="sec-7-1" name="sec-7-1"></a>
+## Erlang variables & matching
 
-### You can't redefine variables<a id="sec-7-1-1" name="sec-7-1-1"></a>
+### You can't redefine variables
 
     28>X = hello.
     hello
     29> X = goodbye.
     exception error: no match of right hand side value goodbye
 
-### You can do prolog-like matching<a id="sec-7-1-2" name="sec-7-1-2"></a>
+### You can do prolog-like matching
 
     39> {Abc,2} = {1,2}.
     {1,2}
@@ -1025,7 +595,7 @@ turn trace on to watch how prolog solves it
         42> PartlyBound.
         2: variable 'PartlyBound' is unbound
 
-### Atoms, lists, tuples<a id="sec-7-1-3" name="sec-7-1-3"></a>
+### Atoms, lists, tuples
 
     atom % these built in "symbols" are very handy for parsing
     {tuple,is,a,specific,length,grouping}
@@ -1034,7 +604,7 @@ turn trace on to watch how prolog solves it
 Also some pretty neat primitives for mapping bit level stuff
 Useful when you want to conserve bandwidth, yet keep stuff expressive
 
-## List functions<a id="sec-7-2" name="sec-7-2"></a>
+## List functions
 
 List Comprehensions
 Many languages have some syntactical sugar for iterating over a list
@@ -1055,7 +625,7 @@ But in languages with more functional feel, you obviously can be a lot cleaner (
 
     (mapc (lambda (x) (print x)) '(1 2 3))
 
-### In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions<a id="sec-7-2-1" name="sec-7-2-1"></a>
+### In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions
 
 RUBY VERSIONS (DO NOT attempt to use on your homework):
 
@@ -1077,7 +647,7 @@ RUBY VERSIONS (DO NOT attempt to use on your homework):
 In these languages, using these special iterator functions are generally much preferred
 to standard loops
 
-## Erlang versions<a id="sec-7-3" name="sec-7-3"></a>
+## Erlang versions
 
     % Make anonymous functions like this:
     PlusThree = fun(X) -> X + 3 end.
@@ -1095,16 +665,16 @@ filter - keeps only those that return true
 any - returns true if one element returns true
 &#x2026;and more (see your textbook & language docs)
 
-### Write a call using filter removes all empty strings from a list<a id="sec-7-3-1" name="sec-7-3-1"></a>
+### Write a call using filter removes all empty strings from a list
 
 length("foo") gets the length
 
-### Solution<a id="sec-7-3-2" name="sec-7-3-2"></a>
+### Solution
 
     lists:filter(fun(X)->length(X) > 0 end,["","","a","","b"]).
     ["a","b"]
 
-## Most complicated foldl (and foldr)<a id="sec-7-4" name="sec-7-4"></a>
+## Most complicated foldl (and foldr)
 
 Iterate through the list, keeping a running value
 Eg, run through the list and compute the sum
@@ -1120,16 +690,16 @@ Only other trick is you must pass in an initial value.
     SumList(List) ->
         lists:foldl(AddToSum,0,List).
 
-### Write a function that returns the length of the largest string in a list of strings<a id="sec-7-4-1" name="sec-7-4-1"></a>
+### Write a function that returns the length of the largest string in a list of strings
 
 0 for an empty list
 hint: max(1,2) returns the max of 2 ints
 
-### Solution<a id="sec-7-4-2" name="sec-7-4-2"></a>
+### Solution
 
     lists:foldl(fun(Item,Max)->max(Max,length(Item)) end,0,["a","bc",""]).
 
-## List Comprehensions<a id="sec-7-5" name="sec-7-5"></a>
+## List Comprehensions
 
 A interesting mix of map,filter,and just a bit of prolog
 
@@ -1150,17 +720,17 @@ A interesting mix of map,filter,and just a bit of prolog
     
     [ X ++ Y || X <- ["super ","tiny "], Y <- ["ninja","pirate"] ].
 
-### List all values of A B C that make (A or B) and C true<a id="sec-7-5-1" name="sec-7-5-1"></a>
+### List all values of A B C that make (A or B) and C true
 
 hint: and or and not are boolean operators in erlang
 hint: output should be [{true,true,true},{true,false,true},{false,true,true}]
 
-### Solution<a id="sec-7-5-2" name="sec-7-5-2"></a>
+### Solution
 
     Vals = [true,false].
     [{A,B,C}|| A <- Vals, B <- Vals, C <- Vals, (A or B) and C].
 
-# Erlang 2 - Basic Process<a id="sec-8" name="sec-8"></a>
+# Erlang 2 - Basic Process
 
 Spawning processes and communicating in erlang is easy!
 
@@ -1170,7 +740,7 @@ Then try to solve the problem is solveme.erl
 
 My solution is in solvemeSolution.erl but don't peek!
 
-# Erlang 3 - Connecting to a remote erlang server<a id="sec-9" name="sec-9"></a>
+# Erlang 3 - Connecting to a remote erlang server
 
 1.  ssh to remote server
     
@@ -1269,11 +839,11 @@ My solution is in solvemeSolution.erl but don't peek!
 
 3.  If you have time, try to write a new function in the SimpleCommunication project that starts up both the spawned part1 processes and the part 2 loop on two different servers.
 
-# Erlang 4 - Let it crash<a id="sec-10" name="sec-10"></a>
+# Erlang 4 - Let it crash
 
-# Erlang 5 - Final Assignment, Raft Algorithm<a id="sec-11" name="sec-11"></a>
+# Erlang 5 - Final Assignment, Raft Algorithm
 
-## What is an consensus algorithm?<a id="sec-11-1" name="sec-11-1"></a>
+## What is an consensus algorithm?
 
 1.  Algorithm where state is distributed across multiple members.
 2.  The problem is consistency - you want to be able to store data when
@@ -1288,7 +858,7 @@ My solution is in solvemeSolution.erl but don't peek!
 4.  That said, the protocol tends to be complex, because no message can
     be trusted to arrive.
 
-## The Raft algorithm<a id="sec-11-2" name="sec-11-2"></a>
+## The Raft algorithm
 
 <http://thesecretlivesofdata.com/raft/>
 
@@ -1306,16 +876,16 @@ My solution is in solvemeSolution.erl but don't peek!
     commonality is found, the follower replaces any data they have not
     in common with the leader's version.
 
-## Your assignment<a id="sec-11-3" name="sec-11-3"></a>
+## Your assignment
 
 Only the data transmission part of the Raft algorithm.  We won't do
 elections.
 
 [<HomeworkCode/ErlangRaft/raft.erl>]
 
-# Erlang 6 - Debugging sends and receives<a id="sec-12" name="sec-12"></a>
+# Erlang 6 - Debugging sends and receives
 
-## The basics<a id="sec-12-1" name="sec-12-1"></a>
+## The basics
 
 This command can let you debug a process you are starting&#x2026;
 
@@ -1333,9 +903,9 @@ This command can let you debug a process you are starting&#x2026;
 BUT it's not really what you want if your goal is to debug a Raft unit
 test.  
 
-## Debugging a raft unit test<a id="sec-12-2" name="sec-12-2"></a>
+## Debugging a raft unit test
 
-### Install the trace in the test setup function<a id="sec-12-2-1" name="sec-12-2-1"></a>
+### Install the trace in the test setup function
 
 Since the raft processes are short lived in the unit tests, we need to
 add the instrumentation in the test setup.
@@ -1345,12 +915,12 @@ add the instrumentation in the test setup.
         start_raft_members([m1,m2,m3]),
         dbg:p(raft1,[s,r]).
 
-### Enable the trace<a id="sec-12-2-2" name="sec-12-2-2"></a>
+### Enable the trace
 
     6> dbg:tracer().                     
     {ok,<0.57.0>}
 
-### Run the test case<a id="sec-12-2-3" name="sec-12-2-3"></a>
+### Run the test case
 
     7> eunit:test(raft:ae_hist4_test_()).
     (<0.97.0>) << {<0.102.0>,{append_entries,1,0,0,[{1,newdata}],0}}
@@ -1377,16 +947,16 @@ add the instrumentation in the test setup.
       Test passed.
     ok
 
-# Elm 1<a id="sec-13" name="sec-13"></a>
+# Elm 1
 
-## Elm is a functional web programming language<a id="sec-13-1" name="sec-13-1"></a>
+## Elm is a functional web programming language
 
     import Html exposing (text)
     
     main =
       text "Hello, World!"
 
-## Pure Functional<a id="sec-13-2" name="sec-13-2"></a>
+## Pure Functional
 
     addTwo : Int -> Int
     addTwo num = num + 2
@@ -1396,7 +966,7 @@ functional.  That is, we want our code to be functions (in the
 mathematical sense).  We don't want any "side effects".  Erlang was
 functional but it often had side effects - message sends and receives.
 
-## Has Strong Typing<a id="sec-13-3" name="sec-13-3"></a>
+## Has Strong Typing
 
     import Html exposing (text)
     
@@ -1406,7 +976,7 @@ functional but it often had side effects - message sends and receives.
     main =
       text (toString (addTwo 3.0))
 
-### But also has type inference<a id="sec-13-3-1" name="sec-13-3-1"></a>
+### But also has type inference
 
     import Html exposing (text)
     
@@ -1421,7 +991,7 @@ functional but it often had side effects - message sends and receives.
     
     -- BUT YOU CAN'T DO THIS: asText [addTwoImplicit 3.1, addTwo 3]
 
-### An aside: Functions are designed for partial evaluation<a id="sec-13-3-2" name="sec-13-3-2"></a>
+### An aside: Functions are designed for partial evaluation
 
     import Html exposing (text)
     
@@ -1444,7 +1014,7 @@ functional but it often had side effects - message sends and receives.
       |> toString
       |> text
 
-### Activity<a id="sec-13-3-3" name="sec-13-3-3"></a>
+### Activity
 
 Take the code below and change it so it adds the phrase "Buffalo says" before each bit of wisdom:
 
@@ -1467,7 +1037,7 @@ Take the code below and change it so it adds the phrase "Buffalo says" before ea
       |> toString
       |> text
 
-### Solution<a id="sec-13-3-4" name="sec-13-3-4"></a>
+### Solution
 
     import Html exposing (text)
     import String exposing (append)
@@ -1485,9 +1055,9 @@ Take the code below and change it so it adds the phrase "Buffalo says" before ea
       |> toString
       |> text
 
-## Elm's MVC<a id="sec-13-4" name="sec-13-4"></a>
+## Elm's MVC
 
-### But more importantly, how do you handle INPUT and State in a pure functional language?<a id="sec-13-4-1" name="sec-13-4-1"></a>
+### But more importantly, how do you handle INPUT and State in a pure functional language?
 
 -   Usually the nonfunctional part is provided by a MAGIC FRAMEWORK so
     you only write functional code
@@ -1496,7 +1066,7 @@ Take the code below and change it so it adds the phrase "Buffalo says" before ea
     because you want to avoid tutorials that still use signals)
 -   The new way is a very structured Model View Controller paradigm
 
-### Basic MVC<a id="sec-13-4-2" name="sec-13-4-2"></a>
+### Basic MVC
 
 Model = some sort of compound type representing all your state
 
@@ -1535,7 +1105,7 @@ Controller = a function that transforms model + message into new model
     main =
       beginnerProgram { model = 0, view = view, update = update }
 
-### Things to note<a id="sec-13-4-3" name="sec-13-4-3"></a>
+### Things to note
 
 1.  Model - trickier than you think
 
@@ -1625,26 +1195,26 @@ Controller = a function that transforms model + message into new model
     
     same as addQQQ.
 
-## Homework: Linear Lights Out<a id="sec-13-5" name="sec-13-5"></a>
+## Homework: Linear Lights Out
 
 [<HomeworkCode/ElmLinearLightsOut/LLL.md>]
 
-# Elm 2 - Subscriptions & Other complexity<a id="sec-14" name="sec-14"></a>
+# Elm 2 - Subscriptions & Other complexity
 
-## Subscriptions<a id="sec-14-1" name="sec-14-1"></a>
+## Subscriptions
 
 This is a reference from the general elm tutorial:
 
 <https://www.elm-tutorial.org/en/03-subs-cmds/01-subs.html>
 
-### What are subscriptions?<a id="sec-14-1-1" name="sec-14-1-1"></a>
+### What are subscriptions?
 
 Subscriptions are Elm's way of handling events not generated from view
 objects (things like buttons or HTML text boxes don't need
 subscriptions).  But things like timers, mouse movement, etc. are
 handled using the subscription system.
 
-### How do you subscribe?<a id="sec-14-1-2" name="sec-14-1-2"></a>
+### How do you subscribe?
 
 There is a subscription function that takes the Model and returns Sub
 Msg (i.e. a subscription that returns the universal message type).
@@ -1671,7 +1241,7 @@ You can also subscribe to more than one thing:
 
 &#x2026;though as always ALL events must return a universal message type.
 
-### You must also register your subscription function<a id="sec-14-1-3" name="sec-14-1-3"></a>
+### You must also register your subscription function
 
 &#x2026;in a slightly more advanced version of main.
 
@@ -1686,12 +1256,12 @@ You can also subscribe to more than one thing:
 init = blahblah is just setting the starting state of the model.
 Ignore the Cmd for now - we'll talk about that later.
 
-### What happens then?<a id="sec-14-1-4" name="sec-14-1-4"></a>
+### What happens then?
 
 Your update function will start getting events for your subscriptions,
 as well as the previous stuff from the view.
 
-### An Example<a id="sec-14-1-5" name="sec-14-1-5"></a>
+### An Example
 
     import Html exposing (Html, text, div)
     import Mouse exposing (..)
@@ -1735,7 +1305,7 @@ as well as the previous stuff from the view.
     view model =
       text (toString model)
 
-### An Activity<a id="sec-14-1-6" name="sec-14-1-6"></a>
+### An Activity
 
 Starting from an example code above, modify this function so as well
 as counting the mouse's position it tracks the number of clicks.
@@ -1746,7 +1316,7 @@ To help, look here for documentation
 plus the example code above where I talk about how to subscribe to
 more than one thing
 
-### My Solution<a id="sec-14-1-7" name="sec-14-1-7"></a>
+### My Solution
 
     import Html exposing (Html, text, div)
     import Mouse exposing (..)
@@ -1794,7 +1364,7 @@ more than one thing
     view model =
       text (toString model)
 
-## Commands<a id="sec-14-2" name="sec-14-2"></a>
+## Commands
 
 See 
 
@@ -1804,7 +1374,7 @@ Commands allow you to issue commands to the runtime to do non-pure
 things on your behalf.  This is how randomness can be implemented, for
 example.
 
-### How you set it up<a id="sec-14-2-1" name="sec-14-2-1"></a>
+### How you set it up
 
     update : Msg -> Model -> ( Model, Cmd Msg )
     update msg model =
@@ -1826,7 +1396,7 @@ Instead the function Random.generate takes a function of type Int ->
 Msg that it will apply to the random number once it's generated by the
 runtime.
 
-### A complete example<a id="sec-14-2-2" name="sec-14-2-2"></a>
+### A complete example
 
     module Main exposing (..)
     
@@ -1895,7 +1465,7 @@ runtime.
             , subscriptions = (always Sub.none)
             }
 
-### Activity<a id="sec-14-2-3" name="sec-14-2-3"></a>
+### Activity
 
 The above code simulated a six sided dice.  Imagine we want to play a
 game that uses a six sided dice and a 100 sided dice.  Add a second
@@ -1905,7 +1475,7 @@ The system should display both results on a single page and rolling
 the 100 sided dice should not affect the six sided dice and vice
 versa.
 
-### My Solution<a id="sec-14-2-4" name="sec-14-2-4"></a>
+### My Solution
 
     import Html exposing (Html, div, button, text, program)
     import Html.Events exposing (onClick)
@@ -1980,11 +1550,11 @@ versa.
             , subscriptions = (always Sub.none)
             }
 
-# Elm 3 - Datatypes, Graphics, Composing<a id="sec-15" name="sec-15"></a>
+# Elm 3 - Datatypes, Graphics, Composing
 
-## Datatypes<a id="sec-15-1" name="sec-15-1"></a>
+## Datatypes
 
-### Elm has a record type!<a id="sec-15-1-1" name="sec-15-1-1"></a>
+### Elm has a record type!
 
 1.  Creating
 
@@ -2029,7 +1599,7 @@ versa.
     Storing functions can definitely be useful.  I'm a lot less sure about
     the polymorphic objects.
 
-### Elm also has "Union Types"<a id="sec-15-1-2" name="sec-15-1-2"></a>
+### Elm also has "Union Types"
 
     type Visibility = All  | Active | Completed
 
@@ -2056,7 +1626,7 @@ Basically a 'global' enum, but unlike Erlang you do get strong typing.
     
     Note the use of tuples.  That's not strictly necessary, but it is a good idea because it allows an approximate "encapsulation" of the data.
 
-### Maybe - cool or just a way to have null?<a id="sec-15-1-3" name="sec-15-1-3"></a>
+### Maybe - cool or just a way to have null?
 
     type Maybe a = Just a | Nothing
 
@@ -2066,7 +1636,7 @@ It can be used like this
 
     if n > 0 && n <= 12 then Just n else Nothing
 
-### Maybe makes pure functional programmers really happy!<a id="sec-15-1-4" name="sec-15-1-4"></a>
+### Maybe makes pure functional programmers really happy!
 
 "This may seem like a subtle improvement, but imagine all the code you
 have where you defensively added a null check just in case someone
@@ -2076,11 +1646,11 @@ have to spend 4 hours debugging a null pointer exception!"
 
 Maybe like the difference between checked an unchecked exceptions?
 
-### Union Types Can Be Recursive<a id="sec-15-1-5" name="sec-15-1-5"></a>
+### Union Types Can Be Recursive
 
     type Tree a = Empty | Node a (Tree a) (Tree a)
 
-## Drawing<a id="sec-15-2" name="sec-15-2"></a>
+## Drawing
 
 The new version of elm does drawing using SVG.
 
@@ -2096,18 +1666,18 @@ The parameters are the parameters of the raw SVG tags in the spec, so you'll wan
 
 <https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes>
 
-## Elm & Composing Widgets<a id="sec-15-3" name="sec-15-3"></a>
+## Elm & Composing Widgets
 
 <https://www.elm-tutorial.org/en/02-elm-arch/06-composing.html>
 
-# Elm 4 - Functional Design<a id="sec-16" name="sec-16"></a>
+# Elm 4 - Functional Design
 
-## What is the point of design?<a id="sec-16-1" name="sec-16-1"></a>
+## What is the point of design?
 
 -   Make things easier to understand
 -   Make things easier to change
 
-### The programs we want to write are complex, how can this be accomplished?<a id="sec-16-1-1" name="sec-16-1-1"></a>
+### The programs we want to write are complex, how can this be accomplished?
 
 1.  Easy solution
 
@@ -2156,7 +1726,7 @@ The parameters are the parameters of the raw SVG tags in the spec, so you'll wan
     This is all good stuff.  But remember that much of it is actually in
     your mind, not in the language!
 
-## An Initial Example<a id="sec-16-2" name="sec-16-2"></a>
+## An Initial Example
 
 An excerpt from the elm mario example&#x2026;this is outdated now but the
 principle holds:
@@ -2171,7 +1741,7 @@ principle holds:
     step (dt, keys) mario =
       physics dt (walk keys (gravity dt (jump keys mario)))
 
-### Some variations<a id="sec-16-2-1" name="sec-16-2-1"></a>
+### Some variations
 
     --could also be written as
     stepV2 (dt, keys) mario =
@@ -2186,13 +1756,13 @@ principle holds:
     step (dt, keys) =
       jump keys >> gravity dt >> walk keys >> physics dt
 
-## Functional folks love this!<a id="sec-16-3" name="sec-16-3"></a>
+## Functional folks love this!
 
 They're not alone either.  This is the same pattern as unix pipes.
 
     tail -f logFile.txt  | grep ERROR | sed s/ERROR//
 
-### What is good about it?<a id="sec-16-3-1" name="sec-16-3-1"></a>
+### What is good about it?
 
 -   Lots of things can be abstracted this way
 -   Can add new steps very incrementally - difficult change existing steps
@@ -2203,7 +1773,7 @@ They're not alone either.  This is the same pattern as unix pipes.
 -   Natural modeling of processes that consist of discrete steps
 -   Each part can be separately unit tested
 
-### What is bad about it?<a id="sec-16-3-2" name="sec-16-3-2"></a>
+### What is bad about it?
 
 -   Sometimes things are interdependent and cannot be "layered" correctly
 -   Best when data for communicating between steps is simple, worst when
@@ -2211,12 +1781,12 @@ They're not alone either.  This is the same pattern as unix pipes.
 -   Critical dependence on intermediate data format
 -   User input, output, network communication don't fit this model directly
 
-## Let's talk about (idealized) OO paradigm<a id="sec-16-4" name="sec-16-4"></a>
+## Let's talk about (idealized) OO paradigm
 
 Objects that each have ownership over some data.  They communicate to
 get the job done.
 
-### What is good about it?<a id="sec-16-4-1" name="sec-16-4-1"></a>
+### What is good about it?
 
 -   Lots of things can be abstracted this way
 -   Can add new in-object state/features very incrementally - difficult
@@ -2228,7 +1798,7 @@ get the job done.
     -   Oftentimes you have to guess where to look for stuff
     -   But maybe you don't always care
 
-### What is bad about it<a id="sec-16-4-2" name="sec-16-4-2"></a>
+### What is bad about it
 
 -   State becomes very complex quickly - can be very hard to test
 -   Best when majority of stuff is happening within objects, worst when
@@ -2237,13 +1807,13 @@ get the job done.
     usually setup at runtime
 -   Object relationships often hidden throughout the code
 
-## My advice:<a id="sec-16-5" name="sec-16-5"></a>
+## My advice:
 
 Think about how you can think about your processes as transformation
 chains.  It's a good model, when it works.  Sometimes it needs some
 care to make the chain emerge.
 
-## Polymorphism<a id="sec-16-6" name="sec-16-6"></a>
+## Polymorphism
 
 Elm is interesting insofar as it does not support any meaningful
 polymorphism.  E.g. every function call can be explicitly traced -
@@ -2277,17 +1847,17 @@ use functions to do polymorphism-type things and simplify this.
 Also, note that lack of polymorphism is not a universal feature of
 pure-functional languages.  
 
-# Elm 5 - Being Tricky With Functions<a id="sec-17" name="sec-17"></a>
+# Elm 5 - Being Tricky With Functions
 
-## Course Logistics: Midterm grades<a id="sec-17-1" name="sec-17-1"></a>
+## Course Logistics: Midterm grades
 
 -   Grades are submitted
 -   If you did not get at least 50% on the Erlang project please talk to
     me
 
-## Course Logistics: ElmVideoGame Posted<a id="sec-17-2" name="sec-17-2"></a>
+## Course Logistics: ElmVideoGame Posted
 
-## BulletExample<a id="sec-17-3" name="sec-17-3"></a>
+## BulletExample
 
 Take a look at the BulletExample.  
 
@@ -2296,7 +1866,7 @@ Take a look at the BulletExample.
 See if you can understand how the
 code works.  How is the bullet state being stored?
 
-## Using Functions to Store State<a id="sec-17-4" name="sec-17-4"></a>
+## Using Functions to Store State
 
 In nonfunctional languages there's a tendency to want to store stuff
 like enums or type data that must then be reused.
@@ -2335,7 +1905,7 @@ We can even use the function to encode arbitrary mutable state:
             newY = initialY + 50*sin (deltaX/15)
         in BUpdater (newX, newY) (sineBulletUpdate newX newY initialX initialY)
 
-## Using functions to be a state machine<a id="sec-17-5" name="sec-17-5"></a>
+## Using functions to be a state machine
 
 Oftentimes we want to model state machines with different states (and
 frequently a big complex case statement).  But if our states are
@@ -2355,29 +1925,29 @@ partially evaluating.
 
 You'll have to change the step function to see this code in action.
 
-# The final project<a id="sec-18" name="sec-18"></a>
+# The final project
 
 Details are on Moodle.  Proposals are due Wednesday!
 
-# Instructor's Choice 1: Haskell and Monads<a id="sec-19" name="sec-19"></a>
+# Instructor's Choice 1: Haskell and Monads
 
 From the very good and detailed chapters on Monads here:
 <http://learnyouahaskell.com/chapters>
 
-## The idea<a id="sec-19-1" name="sec-19-1"></a>
+## The idea
 
-### Oftentimes we have "almost" pure functions<a id="sec-19-1-1" name="sec-19-1-1"></a>
+### Oftentimes we have "almost" pure functions
 
     coolAdd : Int -> Int -> Int                           
     coolAdd a b = a + b                                   
     {- I sure wish I could log that this was happening! -}
 
-### Of course, we can always add return values!<a id="sec-19-1-2" name="sec-19-1-2"></a>
+### Of course, we can always add return values!
 
     coolAddLog : Int -> Int -> (Int,String)                           
     coolAddLog a b = (a + b,"added 2 numbers")
 
-### But the problem is nobody has time for that!<a id="sec-19-1-3" name="sec-19-1-3"></a>
+### But the problem is nobody has time for that!
 
     add3: Int -> Int -> Int -> Int
     add3 a b c = coolAdd c (coolAdd a b)
@@ -2388,20 +1958,20 @@ From the very good and detailed chapters on Monads here:
           (sum2, log2) = coolAddLog sum1 c
       in (sum2, [log1,log2])
 
-### Why does this seem annoying?<a id="sec-19-1-4" name="sec-19-1-4"></a>
+### Why does this seem annoying?
 
 The issue is that coolAddLog actually conceptually does 2 things:
 
 1.  Return a value like a function
 2.  Edit a "context" - in this case the log
 
-### But the context is screwing us up!<a id="sec-19-1-5" name="sec-19-1-5"></a>
+### But the context is screwing us up!
 
 1.  Dealing with a context shouldn't greatly uglify our code
 2.  It should also be handled in a consistent way that callers can't
     screw up!
 
-### Here's what (we think) we want!<a id="sec-19-1-6" name="sec-19-1-6"></a>
+### Here's what (we think) we want!
 
     coolAddLog : Int -> Int -> (Int,String)
     coolAddLog a b = 
@@ -2410,13 +1980,13 @@ The issue is that coolAddLog actually conceptually does 2 things:
 
 Goodbye sweet pure functional correctness! :(
 
-## Monads<a id="sec-19-2" name="sec-19-2"></a>
+## Monads
 
 Note that I play somewhat fast and loose with the syntax here.  The
 LoggedValue class I use is purely hypothetical and I switch to Haskell
 about 50% of the way down.
 
-### Monadic type = value with some context<a id="sec-19-2-1" name="sec-19-2-1"></a>
+### Monadic type = value with some context
 
     coolAddLog : Int -> Int -> LoggedValue Int
     coolSubtractLog : Int -> Int -> LoggedValue Int
@@ -2425,14 +1995,14 @@ about 50% of the way down.
 They'll all **take** ordinary parameters but they'll return functions
 with some interesting context.
 
-### Let's combine the functions with some crazy operator!<a id="sec-19-2-2" name="sec-19-2-2"></a>
+### Let's combine the functions with some crazy operator!
 
     coolAddLog 3 4 >>= coolSubtractLog 7 5 >>= coolNegate 8
 
 The >>= could handle evaluating both sides and concating the results
 of the logs right?
 
-### Except what if we needed to use the value in a subsequent step?<a id="sec-19-2-3" name="sec-19-2-3"></a>
+### Except what if we needed to use the value in a subsequent step?
 
 So the second value actually needs to be a function taking a parameter
 of the regular result of the first function.
@@ -2442,7 +2012,7 @@ of the regular result of the first function.
 BTW, pause for a minute and reflect on those parenthesized functions.
 There's nothing strange going on here.
 
-### In Haskell, this can be improved with some syntactic sugar<a id="sec-19-2-4" name="sec-19-2-4"></a>
+### In Haskell, this can be improved with some syntactic sugar
 
     foo :: LoggedValue Int
     foo = do
@@ -2465,7 +2035,7 @@ etc&#x2026;
     result of #1
 3.  That's what the function as a whole returns
 
-## The elm maybe monad<a id="sec-19-3" name="sec-19-3"></a>
+## The elm maybe monad
 
     import Graphics.Element exposing (..)
     import List exposing (tail, head)
@@ -2486,13 +2056,13 @@ etc&#x2026;
     
     main = show (thirdElement mylist1)
 
-## Write your own monads!<a id="sec-19-4" name="sec-19-4"></a>
+## Write your own monads!
 
 [<HomeworkCode/ElmMonads>]
 
-# Instructor's Choice 2: More on Monads<a id="sec-20" name="sec-20"></a>
+# Instructor's Choice 2: More on Monads
 
-## Extended example<a id="sec-20-1" name="sec-20-1"></a>
+## Extended example
 
 Where we're going
 
@@ -2510,7 +2080,7 @@ Where we're going
         divEnd
       )
 
-### Step 1<a id="sec-20-1-1" name="sec-20-1-1"></a>
+### Step 1
 
     import Html exposing (Html, beginnerProgram, div, button, text)
     import Html.Events exposing (onClick)
@@ -2549,11 +2119,11 @@ Where we're going
         Decrement ->
           model - 1
 
-### Step 2: add Monadic Type<a id="sec-20-1-2" name="sec-20-1-2"></a>
+### Step 2: add Monadic Type
 
     type alias WebpageMonadicType = List (Html Msg)
 
-### Step 3: functions should return monadic type<a id="sec-20-1-3" name="sec-20-1-3"></a>
+### Step 3: functions should return monadic type
 
 Let's write a helper to make that easy
 
@@ -2570,14 +2140,14 @@ addLabel labelText =
   return (text labelText)
 \\#+END\_SRC elm
 
-### Step 4: let's make our combination operator<a id="sec-20-1-4" name="sec-20-1-4"></a>
+### Step 4: let's make our combination operator
 
     (>>=): WebpageMonadicType -> (Int -> WebpageMonadicType) -> WebpageMonadicType
     (>>=) monadicValue function =
       let otherMonadicValue = function 77 in
         List.concat [monadicValue, otherMonadicValue]
 
-### Step 5: Use it!<a id="sec-20-1-5" name="sec-20-1-5"></a>
+### Step 5: Use it!
 
     view : Model -> Html Msg
     view model =
@@ -2586,7 +2156,7 @@ addLabel labelText =
         addLabel (toString model) >>= (\ignore ->
         addButton "+" Increment)))
 
-### Step 6: But divs<a id="sec-20-1-6" name="sec-20-1-6"></a>
+### Step 6: But divs
 
 Lets say we want to have a startdiv and a stopdiv commands.  This
 makes things complicated because:
@@ -2598,7 +2168,7 @@ B.  add fuctions are still not going to care about the monadic type
 
 C.  startdiv and stopdiv are going to need to modify the monadic type
 
-### Step 7: Update our monadic type<a id="sec-20-1-7" name="sec-20-1-7"></a>
+### Step 7: Update our monadic type
 
 There are a couple ways you could think about doing this, but the one
 I went with is this:
@@ -2616,7 +2186,7 @@ It's a stack of things that will someday become divs.
         h1::h2::tail -> append h2 [div [] h1] :: tail
         _ -> monadVal
 
-### Step 8: Solving the problem of adding<a id="sec-20-1-8" name="sec-20-1-8"></a>
+### Step 8: Solving the problem of adding
 
 A.  We don't want our HTML producing functions taking a monadic type
 (they don't care) 
@@ -2635,13 +2205,13 @@ values into a monadic function.
         h::tail -> (append h [html]) :: tail
         _ -> monadVal
 
-### Step 9: Conversion function is easy<a id="sec-20-1-9" name="sec-20-1-9"></a>
+### Step 9: Conversion function is easy
 
     (>>=): WebpageMonadicType -> (WebpageMonadicType -> WebpageMonadicType) -> WebpageMonadicType
     (>>=) monadicValue function =
       function monadicValue
 
-### Step 10: Sugar & we try it out<a id="sec-20-1-10" name="sec-20-1-10"></a>
+### Step 10: Sugar & we try it out
 
     emptyPage = [[]]
     
@@ -2665,13 +2235,13 @@ values into a monadic function.
         divEnd
       )
 
-### Final version<a id="sec-20-1-11" name="sec-20-1-11"></a>
+### Final version
 
 [<HomeworkProblems/ElmMonads/monadWebpage.elm>]
 
-## More examples<a id="sec-20-2" name="sec-20-2"></a>
+## More examples
 
-### An Example: The Maybe Monad<a id="sec-20-2-1" name="sec-20-2-1"></a>
+### An Example: The Maybe Monad
 
 1.  What is Maybe?
 
@@ -2734,7 +2304,7 @@ values into a monadic function.
           y <- my
           return (x + y)
 
-### Doing IO with Monads<a id="sec-20-2-2" name="sec-20-2-2"></a>
+### Doing IO with Monads
 
 There is something called the IO Monad.
 
@@ -2794,7 +2364,7 @@ There is something called the IO Monad.
     
     Now what's going on in >>=&#x2026;that's a dark mystery.
 
-### Many other Monads<a id="sec-20-2-3" name="sec-20-2-3"></a>
+### Many other Monads
 
 The cool thing about Monads is not that Haskell found a weird way to
 sneak IO into a pure functional language.  It's that you can use this
@@ -2849,9 +2419,9 @@ idea of (pure function + context) to do a lot of interesting stuff.
             a <- pop  
             pop
 
-# Work day<a id="sec-21" name="sec-21"></a>
+# Work day
 
-## A bit on randomness in elm<a id="sec-21-1" name="sec-21-1"></a>
+## A bit on randomness in elm
 
     import Html exposing (text)
     import Random exposing (..)
@@ -2868,11 +2438,11 @@ idea of (pure function + context) to do a lot of interesting stuff.
 The annoyance of having to pass the seed around is what we're
 trying to avoid here.
 
-## Make sure you get your project completely signed off on<a id="sec-21-2" name="sec-21-2"></a>
+## Make sure you get your project completely signed off on
 
-## Elm Monads assignment<a id="sec-21-3" name="sec-21-3"></a>
+## Elm Monads assignment
 
-# Instructor's Choice 3: Smalltalk 1<a id="sec-22" name="sec-22"></a>
+# Instructor's Choice 3: Smalltalk 1
 
 What to do:
 1.  Download Pharo 5 from <http://pharo.org>
@@ -2889,9 +2459,9 @@ What to do:
     -   Alt shift click appears to meta click, which is how you bring up
         the Morphic "halo"
 
-# Instructor's Choice 4: Smalltalk, The Image<a id="sec-23" name="sec-23"></a>
+# Instructor's Choice 4: Smalltalk, The Image
 
-## How can we be more object-oriented?<a id="sec-23-1" name="sec-23-1"></a>
+## How can we be more object-oriented?
 
 -   Make things that aren't objects objects (e.g. ints)
 -   Make making big changes easier - editing Object for example
@@ -2899,40 +2469,40 @@ What to do:
     non-object oriented systems objects instead
 -   Make our editing environment use objects
 
-## What's going on with Smalltak<a id="sec-23-2" name="sec-23-2"></a>
+## What's going on with Smalltak
 
 -   When you create a class?
 -   When you save?
 
-## What is the image?<a id="sec-23-3" name="sec-23-3"></a>
+## What is the image?
 
 It's a binary file representing a system "memory state".
 
 So in a language with an interactive interpreter (e.g. python, prolog, erlang) - imagine you could call a command that would output the state of the system.  Then on a later run you could input that in and all your objects would be recreated, all your variables would be set to their old values, etc.
 
-### Sounds neat, but not really that important<a id="sec-23-3-1" name="sec-23-3-1"></a>
+### Sounds neat, but not really that important
 
 In Smalltalk, 99% of the language is implemented in the image.  Objects only has the methods they have because of the of the state of the Object Class object that lives in the image.  There's no secret separate file that says what Object can do - literally the binary version in the image is the only version of Object there is.
 
 Even the compiler for Smalltalk is implemented as classes in the image.  So you can actually change the way all code compiles by editing objects in the image.
 
-### This seems crazy<a id="sec-23-3-2" name="sec-23-3-2"></a>
+### This seems crazy
 
 This allows Smalltalk to be very "purely" object oriented.  All operations are implemented in terms of objects.  Creating an instance is just telling a Class object to make a new object and give it to you.  Creating a new class is just telling some object to do the right thing.  And you can inspect and modify the way any of this works.
 
-### How do you create an image?<a id="sec-23-3-3" name="sec-23-3-3"></a>
+### How do you create an image?
 
 You don't - unless you really want to get involved in heavy sorcery.  Mostly you take an existing image and modify it with very fancy scripts to be what you want.
 
-### How do you share code if it's trapped in an image?<a id="sec-23-3-4" name="sec-23-3-4"></a>
+### How do you share code if it's trapped in an image?
 
 Smalltalk has a method of "fileing out" a particular class or set of classes - basically building a script that will add a class to an existing system or change things from one version to another.  Sometimes you need to augment your fileout with some added code that will add globals you care about or whatever.
 
-## Why is an image good?<a id="sec-23-4" name="sec-23-4"></a>
+## Why is an image good?
 
 Basically it gives you an enhanced programming environment with richer things than files.
 
-### I like files!  You wouldn't believe how good I am at vi.  Plus all my tools like git operate on files.<a id="sec-23-4-1" name="sec-23-4-1"></a>
+### I like files!  You wouldn't believe how good I am at vi.  Plus all my tools like git operate on files.
 
 I am giving this presentation from emacs so you know I sympathize.   But text has some disadvantages:
 -   It is not the "true" form of our code, and reconstructing that true
@@ -2942,11 +2512,11 @@ I am giving this presentation from emacs so you know I sympathize.   But text ha
 -   A single file is part of larger code universe, but that universe is
     invisible except during the build process
 
-### An example<a id="sec-23-4-2" name="sec-23-4-2"></a>
+### An example
 
 Say you wanted to - say - get an email everytime a particular method in a particular class is updated.  How would you do that?
 
-### A programmatic programming environment gives you greater power<a id="sec-23-4-3" name="sec-23-4-3"></a>
+### A programmatic programming environment gives you greater power
 
 1.  You can utilize the same structures the compiler uses
 
@@ -2966,13 +2536,13 @@ Say you wanted to - say - get an email everytime a particular method in a partic
 
     Or at least this entire particular product or project.  This makes large scale changes a lot more possible.
 
-## Some examples<a id="sec-23-5" name="sec-23-5"></a>
+## Some examples
 
-### A demo<a id="sec-23-5-1" name="sec-23-5-1"></a>
+### A demo
 
 <http://vimeo.com/97315968> start at 37:33
 
-### The refactoring browser<a id="sec-23-5-2" name="sec-23-5-2"></a>
+### The refactoring browser
 
 "We originally thought that the lack of static type-checking would make it hard to build a refactoring browser for Smalltalk. Lack of type information is a disadvantage, but the advantages of Smalltalk made it a lot easier to make a refactoring browser for Smalltalk than it would have have been for C++ or Java."
 -   Ralph Johnson
@@ -2983,7 +2553,7 @@ A very approximate chronology:
 2001 - First refactoring IDE for Java I can find IntelliJ IDEA
 2002? - Eclipse (IBM spent about $40 million on this)
 
-# Instructor's Choice 5: Lua and C Integration<a id="sec-24" name="sec-24"></a>
+# Instructor's Choice 5: Lua and C Integration
 
 Lua is a language that has a lot going for it.
 
@@ -2993,11 +2563,11 @@ Lua is a language that has a lot going for it.
 -   Can use prototype based inheritance - we'll talk about that in
     future classes
 
-## But probably its neatest feature is that is designed to be embedded<a id="sec-24-1" name="sec-24-1"></a>
+## But probably its neatest feature is that is designed to be embedded
 
 &#x2026;in other languages (specifically C).
 
-### An Example<a id="sec-24-1-1" name="sec-24-1-1"></a>
+### An Example
 
 From the nice tutorial here:
 <http://www.troubleshooters.com/codecorn/lua/lua_c_calls_lua.htm>
@@ -3020,7 +2590,7 @@ From the nice tutorial here:
     
     lua_close(L);                               /* Clean up, free the Lua state var */
 
-### Communication between lua and C is stack based<a id="sec-24-1-2" name="sec-24-1-2"></a>
+### Communication between lua and C is stack based
 
     lua_getglobal(L, "square");                 /* Tell it to run callfuncscript.lua->square() */
     lua_pushnumber(L, 6);                       /* Submit 6 as the argument to square() */
@@ -3031,15 +2601,15 @@ From the nice tutorial here:
     int mynumber = lua_tonumber(L, -1);
     printf("Returned number=%d\n", mynumber);
 
-## Why do we want an embedded programming language?<a id="sec-24-2" name="sec-24-2"></a>
+## Why do we want an embedded programming language?
 
 -   To always code extensions in a "safe" environment where we strictly control interaction with our systems
 -   To write configuration files that might get really fancy
 -   Works great!  Just don't write the language yourself!
 
-## Now you try<a id="sec-24-3" name="sec-24-3"></a>
+## Now you try
 
-### Installing Lua + C integration<a id="sec-24-3-1" name="sec-24-3-1"></a>
+### Installing Lua + C integration
 
 For me, on ubuntu16 this worked:
 
@@ -3049,7 +2619,7 @@ Or, if you like you can just ssh into erlang.rose-hulman.edu and use lua there. 
 
     svn co http://svn.csse.rose-hulman.edu/repos/csse403-201720-YOURNETID
 
-### Making sure it works<a id="sec-24-3-2" name="sec-24-3-2"></a>
+### Making sure it works
 
 1.  If you've got lua and C installed on your local system, you can try to just use
     it directly.
@@ -3067,7 +2637,7 @@ Or, if you like you can just ssh into erlang.rose-hulman.edu and use lua there. 
 
 3.  Move on to the pcr\_competition activity
 
-### The Paper Scissors Rock Competition Activity<a id="sec-24-3-3" name="sec-24-3-3"></a>
+### The Paper Scissors Rock Competition Activity
 
 Imagine we want to have a AI programming competition.  Everybody's
 going to write an AI that players paper scissors rock, and then they
@@ -3087,9 +2657,9 @@ they will only have the lua functions we specifically enable.
 Code is already written for actually running the competition in
 pcr\_runner - you just have to add the integration with lua.
 
-# Instructor's Choice 6: Lua and Prototype Based OO<a id="sec-25" name="sec-25"></a>
+# Instructor's Choice 6: Lua and Prototype Based OO
 
-## What is Object Oriented Programming?<a id="sec-25-1" name="sec-25-1"></a>
+## What is Object Oriented Programming?
 
 My definition (based on Ralph Johnson):
 1.  Encapsulation
@@ -3101,7 +2671,7 @@ that if your language doesn't have these 3 features the designs you're
 going to generate are probably not what I would describe as
 object&#x2013;oriented designs.  They might still be **good** designs though.
 
-### Encapsulation<a id="sec-25-1-1" name="sec-25-1-1"></a>
+### Encapsulation
 
 Object = Data + Methods and this is the preferred organization system.
 
@@ -3117,7 +2687,7 @@ the philosophy is not there I would still not call it OO.  Elm for
 example does support data hiding, but its preferred mechanisms
 generally suggest manipulating inactive structs.  
 
-### Polymorphism<a id="sec-25-1-2" name="sec-25-1-2"></a>
+### Polymorphism
 
 This tends to be no problem in dynamically typed languages, but is a
 significant thing in statically typed languages.  Method call targets
@@ -3127,7 +2697,7 @@ heterogeneous collections need to be possible.
 Some languages allow polymorphism through something akin to
 interfaces, rather than using inheritance.
 
-### Inheritance<a id="sec-25-1-3" name="sec-25-1-3"></a>
+### Inheritance
 
 Objects can derive from other objects, and derived objects have
 can be used like their parents BUT they have more stuff.
@@ -3139,12 +2709,12 @@ extend them.
 In dynamically typed languages though, implementing inheritance tends
 to add a lot of rules to languages that are otherwise very simple.
 
-## Is there any way to make OO stuff simple for dynamic languages?<a id="sec-25-2" name="sec-25-2"></a>
+## Is there any way to make OO stuff simple for dynamic languages?
 
 Objects in dynamic languages are almost like key-value stores.  But
 not quite.
 
-### Very crude solution<a id="sec-25-2-1" name="sec-25-2-1"></a>
+### Very crude solution
 
 Copying objects.
 
@@ -3169,7 +2739,7 @@ How "subclasses" would work
     2.  Duplication
     3.  Modifications to superclasses do not affect subclasses (at runtime)
 
-## Solving Duplication/Superclass modification<a id="sec-25-3" name="sec-25-3"></a>
+## Solving Duplication/Superclass modification
 
 Allow some sort of key value pair forwarding.  Either:
 
@@ -3178,7 +2748,7 @@ Allow some sort of key value pair forwarding.  Either:
 2.  A overridable "key not found" method on your maps.  You can then
     use this to make behavior pretty similar to #1.  Lua uses this.
 
-### How does this work<a id="sec-25-3-1" name="sec-25-3-1"></a>
+### How does this work
 
 1.  When you copy an object, don't copy everything (in particular,
     don't copy methods)
@@ -3190,7 +2760,7 @@ parent, unless you've overridden them
 
 Modifications to parent are propagated to the children
 
-## Solving shallow copy<a id="sec-25-4" name="sec-25-4"></a>
+## Solving shallow copy
 
 Oftentimes certain values must be initialized for each copy&#x2026;either
 to prevent unwanted field sharing or because these parameters are
@@ -3203,7 +2773,7 @@ Main realization here: you need to be careful about calling your
 superclass's clone/initialization behavior either explicitly or
 implicitly.
 
-# Instructor's Choice 6: More Prototype Based OO<a id="sec-26" name="sec-26"></a>
+# Instructor's Choice 6: More Prototype Based OO
 
 The topics discussed here are based on the design of Self, 
 
@@ -3214,7 +2784,7 @@ This is based on this paper:
 
 <http://bibliography.selflanguage.org/_static/organizing-programs.pdf>
 
-## Prototypes in Self<a id="sec-26-1" name="sec-26-1"></a>
+## Prototypes in Self
 
 1.  No type checking
 2.  No classes
@@ -3227,14 +2797,14 @@ This is based on this paper:
     unimplemented messages "forward" to that slot.  This is called
     "object inheritance"
 
-## How to implement the basics<a id="sec-26-2" name="sec-26-2"></a>
+## How to implement the basics
 
-### Key insight: it needs to be possible the modify the class later<a id="sec-26-2-1" name="sec-26-2-1"></a>
+### Key insight: it needs to be possible the modify the class later
 
 Can't just use copying straightforwardly because then modifications to
 the class after objects are created won't affect existing instances.
 
-### "Class" vs "Instance"<a id="sec-26-2-2" name="sec-26-2-2"></a>
+### "Class" vs "Instance"
 
 Two parts of a class - the traits and the prototype (you could get by
 with just one, but you probably want two)
@@ -3254,7 +2824,7 @@ Sometimes you can get by with only 1 of these:
 2.  Singleton objects (nil, true, etc.)
 3.  Basically function repos (java.Math)
 
-### Inheritance is trait object parents<a id="sec-26-2-3" name="sec-26-2-3"></a>
+### Inheritance is trait object parents
 
 If you give a trait object a parent, that object becomes your
 "superclass".  You don't inherit any instance variables though &#x2013; but
@@ -3263,13 +2833,13 @@ parent as well. (BTW, you can have more than one parent slot)
 
 See 2b and 3
 
-### What if you want multiple representations?<a id="sec-26-2-4" name="sec-26-2-4"></a>
+### What if you want multiple representations?
 
 Abstract superclass in class orientations
 
 In prototypes you can just not inherit the representation itself
 
-## Dynamic Inheritance<a id="sec-26-3" name="sec-26-3"></a>
+## Dynamic Inheritance
 
 Let's think about this:
 
@@ -3278,21 +2848,21 @@ We've got a object/class with some data.  The object can be in one of
 ought to change behavior.  In a classic OO language how do you handle
 this?
 
-### Prototype Solution<a id="sec-26-3-1" name="sec-26-3-1"></a>
+### Prototype Solution
 
 Change your class dynamically - it's a simple as modifying your parent.
 
 Figure 5
 
-### What do you think?<a id="sec-26-3-2" name="sec-26-3-2"></a>
+### What do you think?
 
 Prototypes: are prototypes a better abstraction that classes?  Discuss.
 
-## Are prototypes a better abstraction than classes?<a id="sec-26-4" name="sec-26-4"></a>
+## Are prototypes a better abstraction than classes?
 
 Your thoughts.
 
-## Using Objects to Store and Categorize<a id="sec-26-5" name="sec-26-5"></a>
+## Using Objects to Store and Categorize
 
 Oftentimes you want to categorize things - like functions.  Consider
 java Math for example.  Wouldn't it be nice to maybe group things -
@@ -3306,31 +2876,31 @@ segregated) as we wish.
 
 Figures 6 and 7
 
-# Final Reflections<a id="sec-27" name="sec-27"></a>
+# Final Reflections
 
-## Course Evaluations<a id="sec-27-1" name="sec-27-1"></a>
+## Course Evaluations
 
 -   This is a course I can freely make changes to
 -   I am very interested in your feedback
 -   Be as honest and detailed as you can
 
-## The Languages<a id="sec-27-2" name="sec-27-2"></a>
+## The Languages
 
-### Prolog<a id="sec-27-2-1" name="sec-27-2-1"></a>
+### Prolog
 
-### Erlang<a id="sec-27-2-2" name="sec-27-2-2"></a>
+### Erlang
 
-### Elm<a id="sec-27-2-3" name="sec-27-2-3"></a>
+### Elm
 
-### Smalltalk<a id="sec-27-2-4" name="sec-27-2-4"></a>
+### Smalltalk
 
-### Lua<a id="sec-27-2-5" name="sec-27-2-5"></a>
+### Lua
 
-### Your Project Language<a id="sec-27-2-6" name="sec-27-2-6"></a>
+### Your Project Language
 
-## A Reminder of some of the goals in this class<a id="sec-27-3" name="sec-27-3"></a>
+## A Reminder of some of the goals in this class
 
-### The Paradigm<a id="sec-27-3-1" name="sec-27-3-1"></a>
+### The Paradigm
 
 Each language represents a paradigm - a unique approach to problem solving.
 
@@ -3372,7 +2942,7 @@ Even when you're not using the language, the ideas remain
         I also hope you got to play around with designs based on a functional
         rather than object based paradigm
 
-### Skills in acquiring new programming languages<a id="sec-27-3-2" name="sec-27-3-2"></a>
+### Skills in acquiring new programming languages
 
 1.  In this class you should have learned at least 4 languages well
     enough to accomplish a major project&#x2026;and these languages were
@@ -3383,7 +2953,7 @@ I hope at the end of all of this, you won't be particularly concerned
 if you start work at job this summer and they ask you to update a
 script that's written in Ruby.
 
-## Remember: paradigm rather than language<a id="sec-27-4" name="sec-27-4"></a>
+## Remember: paradigm rather than language
 
 There are many alternatives to your basic Java/Python/C# approach to
 structuring programs.  Don't allow your vision to be prematurely
@@ -3412,7 +2982,7 @@ E.g.
 If you truly understand the paradigm, you don't need the language.
 This was what I eventually learned about smalltalk.
 
-### 'Exciting' is a great adjective for a programming language sometimes<a id="sec-27-4-1" name="sec-27-4-1"></a>
+### 'Exciting' is a great adjective for a programming language sometimes
 
 A wise software engineer once told me "using new technologies is the
 price you pay for getting smart programmers".
@@ -3423,14 +2993,14 @@ you badly.
 Existing systems are not usually as bad as they might originally
 seem - and the REAL problem is not usually lack of strong typing.
 
-### Love the boring languages too!<a id="sec-27-4-2" name="sec-27-4-2"></a>
+### Love the boring languages too!
 
 In this class, I've intentionally shied away from common languages
 like C#, Python, etc.  But these languages often contain truly cool
 features in their depths, and reward those who study their
 intricacies.
 
-## Don't let your exploration end here!<a id="sec-27-5" name="sec-27-5"></a>
+## Don't let your exploration end here!
 
 Right now it seems that your are constantly learning tons of new
 things.
