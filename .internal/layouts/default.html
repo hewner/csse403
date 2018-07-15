@@ -7,28 +7,36 @@
 
 {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="{{ "/.internal/assets/css/toc.css" | relative_url }}">
+    <script src="{{ "/.internal/assets/js/jquery-3.3.1.slim.min.js" | relative_url }}"></script>
+    <script src="{{ "/.internal/assets/js/jquery.toc.js" | relative_url }}"></script>
+    <script>
+      $(function(){
+          $('#main_content').toc();
+      });
+    </script>
   </head>
   <body>
     <div class="container-lg px-3 my-5 markdown-body">
 
 <!-- Breakcrumbs based on https://github.com/comsysto/jekyll-breadcrumb-for-github-pages -->
 
+{% assign splitted_url_parts = page.path | split: '/' %}
 <h1>
-
 <a href="{{ site.github.repository_url }}">{{site.github.repository_name}}</a>
 
-{% assign splitted_url_parts = page.url | split: '/' %}
-{% capture forLoopMaxInt %}{{ splitted_url_parts.size | minus:2 }}{% endcapture %}
-{% for i in (1..forLoopMaxInt) %}
+
+{% capture forLoopMaxInt %}{{ splitted_url_parts.size | minus:1 }}{% endcapture %}
+{% for i in (0..forLoopMaxInt) %}
   {% capture next_prepender %}{{next_prepender}}/{{ splitted_url_parts[i] }}{% endcapture %}
     / <a href="{{ site.github.repository_url }}/tree/master{{next_prepender}}"> {{splitted_url_parts[i]}} </a>
 {% endfor %}
-/ {{ page.title }}
+
 </h1>
       
-
+<div id="main_content">
       {{ content }}
-
+</div>
       {% if site.github.private != true and site.github.license %}
       <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
         This site is open source. {% github_edit_link "Improve this page" %}.
