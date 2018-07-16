@@ -6,15 +6,20 @@ APPROVED:
 
 ## INSTRUCTOR
 
-Michael Hewner (2 sections)
-Joe Hollingsworth (2 sections)
-...and more
+Not listed as the final schedules have not been decided for Winter and
+Spring terms
 
 # RECOMMENDATIONS FROM PREVIOUS OFFERING AND CORRESPONDING CHANGES
 
 * Continue revisions to the OO-curriculum, try to reduce student
   frustration with UML
 * Implement the threading piloting officially
+* Consider piloting some ideas to make project easier:
+  - Reducing the scope slightly and dropping group size to pairs
+  - Getting team assignment and initial design happening before Exam 2
+  - Further refining the project related classes to give more timely
+    help on issues students struggle with
+
 
 # LEARNING OUTCOMES
 
@@ -28,7 +33,7 @@ Students who successfully complete this course should be able to:
    - Exceptions
    - Collections
    - Event-driven graphical user interfaces
-   - Exploring and using large-scale API packages such as Java's Swing
+   - Exploring and using large-scale API packages (e.g. GUI libraries)
    - Recursion
 2. Perform the following steps of the software development cycle effectively:
    - Design expressed as UML class diagrams
@@ -39,8 +44,8 @@ Students who successfully complete this course should be able to:
 5. Predict the performance of simple algorithms, including search and
    sort, given their asymptotic worst, best, and average case run
    times.  
-6. Select basic data structures (i.e., arrays, linked lists, and hash
-   maps) based on asymptotic time complexity of typical operations.
+6. Select basic data structures (i.e., arrays, linked lists) based on
+   asymptotic time complexity of typical operations.
 7. Work in a team of 3-4 students on a small-to-medium-size software
    development project including at least three iterative development
    cycles, demonstrating effective:
@@ -88,8 +93,8 @@ students
 |--------------------------------------|----|----|----|----|----|----|----|----|
 | Written exercises and small problems |    | x  | x  | x  | x  |    | x  | x  |
 | Programming assignments              | x  |    |    |    |    | x  |    |    |
-| Exams                                |    |    | x  | x  | x  | x  |    |    |
-| Project                              | x  | x  |    |    |    |    | x  | x  |
+| Exams                                | x  |    | x  | x  | x  | x  |    |    |
+| Project                              | x  | x  |    |    |    |    | x  |    |
  
 # SUCCESS CRITERIA
 
