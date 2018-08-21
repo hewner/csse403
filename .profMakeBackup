@@ -11,7 +11,7 @@ Private
 endef
 
 all: private.zip.gpg .git/info/exclude .profMakeBackup
-.PHONY : all hideprivate decryptprivate
+.PHONY : all hideprivate decryptprivate demo
 
 # rules for decrypting/encrypting the Private Directory
 
@@ -45,3 +45,6 @@ private.zip : $(PRIVATE_FILES)
 # into the repo
 .profMakeBackup: Makefile
 	cp Makefile .profMakeBackup
+
+demo:
+	bundle exec jekyll serve --watch                                
