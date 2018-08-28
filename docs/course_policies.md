@@ -30,14 +30,16 @@ versions are quite affordable – please don’t pirate this textbook.
 
 # Learning Outcomes
 
-See the CSSE403CAP.md
+See the [CSSE403CAP.md](CSSE403CAP.md)
 
 # Grading
 
-| Small Assignments      | 38% |
-| Medium Assignments     | 38% |
-| Final Language Project | 19% |
-| Class Participation    | 5%  |
+| Category               | Weight |
+|------------------------|--------|
+| Small Assignments      | 38%    |
+| Medium Assignments     | 38%    |
+| Final Language Project | 19%    |
+| Class Participation    | 5%     |
 
 ## Small Assignments
 
@@ -51,8 +53,8 @@ There will also be 3 larger projects – one for each of the 3 main
 programming languages we will be discussing in class.  These projects
 can be done individually or in pairs.
 
-You are additionally required to have a score of at least 50% on all
-of the Medium assignments, or you will receive an F in the course.  If
+*You are additionally required to have a score of at least 50% on all
+of the Medium assignments*, or you will receive an F in the course.  If
 you miss a deadline, talk to me and I’ll probably think of a way you
 can make it up at least to the 50% level.  The reason for this policy
 is that you are required to really become proficient in each of the
