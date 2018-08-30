@@ -1,53 +1,69 @@
 # Introduction
 
+> A language that doesn't affect the way you think about programming is not worth knowing.”
+>      ― Alan J. Perlis (Turing Award Winner, developer of ALGOL)
+
 ## Introduction
 
-### What's the deal with programming languages?
+### Let's name some programming languages
 
-Students who are evaluating Rose often ask me what programming languages I know
--   This is not a very good question
--   only partly because I "know" a lot of languages
+(On board)
 
-If every language is Turing complete, are they really different?
--   Are they important to learn (in class at Rose)?
+### Let's name some adjectives for programming languages
 
-### What's the deal with programming languages? (my answer)
+#### My Adjective List
 
-Each language represents a paradigm - a unique approach to problem solving.
+1. Object--Oriented/Functional/Procedural/Imperative
+2. High Level/Low Level
+3. Compiled, virtual machined, interpreted
+4. Strongly typed/weakly typed
+5. C--like (scheme--like, Smalltalk--like, etc.)
+6. Scripting
+7. Turing complete
 
-Using the language gets you into the "head" of the creator
--   as long as you try to do it the "right way"
 
-Even when you're not using the language, the ideas remain
 
-### Activity (you'll need a piece of paper)
 
-You know Java, C, and Python.
-They're pretty different languages.
-They all have libraries that can do almost anything you can imagine.
 
-Working in groups of 3-5, try to list the main strengths and weaknesses of these languages (i.e. when should you use them, when should you not?).  BUT as you come up with these, try to think of what characteristic of the language MAKE these strengths and weaknesses and write those too.
 
-Put your names on the paper - you'll turn it in.
+### Why so many?
 
-### Your answers
+![Big Graph of Programming Languages](languages.png)
 
-1.  Java
+#### My answer
 
-    -   super object oriented & strict
-    -   garbage collected
+* Often languages are specialized to particular purposes (e.g. Php & web stuff)
+* Or have technical differences that make them function in
+  fundamentally different ways (e.g. compilation, garbage collection)
 
-2.  Python
+But there's not really enough differences of this sort to account for
+the vast variation we see out there
 
-    -   simplified syntax
-    -   can be fast in some applications
-    -   weakly typed - aids development speed in the short term
-    -   scripting
+I often feel that programming languages are artwork that programmers
+make for other programmers, about what programming ought to be like.
 
-3.  C
+* What is important
+* What is irrelevant
+* What problems are central, and what solutions do we agree work well
+* What is fun
+* What is not fun but you're a bad person if you don't pay attention
+  to it
 
-    -   direct access to raw memory
-    -   similar to "the hardware"
+### How is this class useful
+
+1. We're going to train you to be good at learning programming
+   languages, which is a useful thing
+2. The ideas of a programming language can be used in other languages
+   (e.g. immutability of state)
+3. I want you to have fun and enjoy programming in different ways, and
+   spark your interest in continuing to learn to program in different
+   ways
+   
+What you won't learn in this class
+
+1. A lot of languages you'll directly use on projects in industry
+2. A lot of strong opinions about what features languages ought to
+   have or what programmers ought to do or like
 
 ### We'll do some weird languages in this class
 
@@ -62,7 +78,7 @@ Put your names on the paper - you'll turn it in.
 Or Dr. Buffalo in a pinch
 Or whatever you want
 
-Check out my personal website <http://hewner.com> for every imaginable kind of contact info (yes we can be facebook friends if you want but I don't post about classes).  You can call my cell phone if you're having a problem.
+Check out Moodle for every imaginable kind of contact info (yes we can be facebook friends if you want but I don't post about classes).  You can call my cell phone if you're having a problem.
 
 ### Design of this class
 
