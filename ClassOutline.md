@@ -106,11 +106,11 @@ I will touch on the highlights only.
 
 ## What you need to do today
 
-1.  Maybe install a unix environment on your laptop (recommended &#x2014; you're responsible for your own environment)
+1.  Maybe install a unix environment on your laptop (recommended - you're responsible for your own environment)
 2.  Install swi-prolog (link in the online quiz)
 3.  Read chapter 4.1 and try out some of the examples
 4.  Fill out the online quiz
-5.  If you have time, feel free to look at the coding project due Wednesday night (or some other prolog projects of interest)
+5.  If you have time, feel free to look at the coding project due soon
 
 # Prolog 1
 
