@@ -154,6 +154,41 @@ And then you have implications:
 
 ### How does it work?  Unification
 
+consider likes(alice, A).
+to answer this we try and unify each likes predicate in order
+likes(buffalo, ninjas) NOPE A can unify with ninjas but alice cant unify with buffalo
+likes(buffalo, ninjas) NOPE same as above
+likes(steveo, running) NOPE same as above
+likes(alice, videogames) YES A can unify with videogames, alice unifies with alice.  So we return that.
+
+If a continue happens we continue from where we left off
+likes(buffalo, X) A can unify with X but buffalo can't unify with alice
+likes(alice,X) this can unify so X and A unify and we look at the subpredicate
+likes(A/X, videogames).  
+
+We're going to try to unify this with all likes predicates starting
+back at the beginning.  It will unify with likes(buffalo, videogames).
+That unification will set A/X to buffalo
+
+Continuing on with the likes(alice,X) predicate we will try and unify
+likes(buffalo, videogames).  At this point all values have been set
+but we still have to look it up.  It will unify with likes(buffalo,
+videogames).  Nothing else needs to be satisfied so we return this
+result.
+
+If a continue happens we continue on as if likes(alice,buffalo) had
+not unified.  So we're still in the likes(alice, X) predicate.  We'll
+try likes(alice, steveo) but that won't work.
+
+We'll try likes(alice, alice).  The alice videogames predicate will
+work similarly to before.  But interestingly trying to see if alice
+likes ninjas will call the likes(alice,X) predicate again.  So we'll
+check if ninjas like videogames.  Because ninjas don't like videogames
+alice doesn't like ninjas and so alice doesn't like herself.
+
+
+
+
 ### Representation Activity
 
 Adapted from Programming in Prolog, Clocksin & Mellish 5th ed.
@@ -173,9 +208,27 @@ Adapted from Programming in Prolog, Clocksin & Mellish 5th ed.
     
     % Try it out in your prolog intepreter and make sure it works!
 
+### Note that a single prolog function can be evaluated multiple ways
+
+    append([a],[b],X). % like a normal function
+    
+    ?- append(A,B,[a,b]). % in reverse
+    A = [],
+    B = [a, b] ;
+    A = [a],
+    B = [b] ;
+    A = [a, b],
+    B = [] ;
+    false.
+
+    append(A,B,C). % if A B and C all have values, this is an assertion that A B combine to form C
+
+
 ## Let's do some examples with lists
 
-1.  replace\_in\_list - replaces one value with another
+### replace in list - replaces one value with another
+
+### Solution
 
         replace_in_list(_,_,[],[]).
         replace_in_list(FromItem,ToItem,[FromItem|Tail],[ToItem|ResultTail]) :- replace_in_list(FromItem,ToItem,Tail,ResultTail).
@@ -183,17 +236,23 @@ Adapted from Programming in Prolog, Clocksin & Mellish 5th ed.
             FromItem \= Item,
             replace_in_list(FromItem,ToItem,Tail,ResultTail).
 
-2.  is\_a\_member - is a particular value in a list
+### is a member - is a particular value in a list
+
+### Solution
 
         is_a_member(Item,[Item|_]).
         is_a_member(Item,[_|T]) :- is_a_member(Item,T).
 
-3.  duplicate\_members - take a list and duplicate all its elements
+### duplicate members - take a list and duplicate all its elements
+
+### Solution
 
         duplicate_members([],[]).
         duplicate_members([Head|Tail],[Head,Head|OtherTail]) :- duplicate_members(Tail,OtherTail).
 
-4.  only\_repeats - true if a list just contains the same element over and over
+### only repeats - true if a list just contains the same element over and over
+
+### Solution
 
         all_equal(_,[]).
         all_equal(Item,[Item|T]) :- all_equal(Item,T).
