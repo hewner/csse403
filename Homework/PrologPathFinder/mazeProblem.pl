@@ -32,7 +32,15 @@ c(1,6).
 % Note that I have included some unit tests for you (they are at the
 % bottom of the file).  But these tests are not exhaustive, so be sure
 % to test by hand too!
-
+% 
+% to run all the tests:
+%
+% run_tests.
+%
+% to run just one test:
+%
+% run_tests(findpath:findpath1).
+%
 % Part A. 15 points. You can assume no cycles, and edges are directed
 %
 % To help me write this solution, I wrote a helper function
