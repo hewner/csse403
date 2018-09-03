@@ -44,13 +44,14 @@ c(1,6).
 % Part A. 15 points. You can assume no cycles, and edges are directed
 %
 % To help me write this solution, I wrote a helper function
-% findPathHelper that took 3 parameters: the endnode, a reverse
-% ordered list of all the nodes in my current path, and the
-% final result.  If you use my approach, you'll want to know
+% findPathHelper that took 2 parameters: the endnode and a reverse
+% ordered list of all the nodes in my current path.  
+% 
+% If you use my approach, you'll want to know
 % prolog has a built in reverse function for reversing a list.
 %
 % bonus hint: here's my base case for that solution:
-% findPathHelper(Last,[Last|Rest], [Last|Rest]).
+% findPathHelper(Last,[Last|Rest]).
 %
 % You do not need to use my approach though. :D
 
