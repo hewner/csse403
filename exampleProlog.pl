@@ -22,10 +22,12 @@ isNotSeven(X) :-
     \+(X = Y),
     Y = 7.
 
-max(A,B,B) :- B > A.
-max(A,B,A).
+isNotSeven2(X) :-
+    X \= 7.
 
-    max(7,200,7).
+    
+max(A,B,B) :- B > A, !.
+max(A,B,A).
 
 get_string('\n',[]) :- !.
 get_string(Head,[Head|Result]) :- get_char(Char), get_string(Char,Result).
@@ -47,3 +49,10 @@ is_ancestor(Ancestor,Decendent) :-
 	parent(Somebody,Decendent),
 	is_ancestor(Ancestor,Somebody).
 
+replace_in_list(_,_,[],[]).
+replace_in_list(FromItem,ToItem,[FromItem|Tail],[ToItem|ResultTail]) :- replace_in_list(FromItem,ToItem,Tail,ResultTail).
+replace_in_list(FromItem,ToItem,[Item|Tail],[Item|ResultTail]) :-
+    FromItem \= Item,
+    replace_in_list(FromItem,ToItem,Tail,ResultTail).
+
+foo(3,Y,[Y,Z]). 

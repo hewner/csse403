@@ -290,7 +290,7 @@ They can be unified, but only if the operators match perfectly.
 
 ## Strings
 
-### Not necessarily consistent!  Last year's way
+### Not necessarily consistent!  Last year's way (not true anymore)
 
     ?- X="test",Y='test'.
     X = [116, 101, 115, 116],
@@ -349,8 +349,36 @@ To try various combinations of a & b.  Can be useful for your homework.
 
 # Prolog 3 - a bit on user input
 
-Languages of an AI bent tend to skimp a bit when it comes to input and output.
-Prolog is no exception.  Your basic input function is called get\_char(X).
+## What Makes Prolog Good?
+
+We've been talking about some of the warts of Prolog and we'll talk
+about them some more today.  But I want to talk a bit about why I like
+prolog to kick it off.
+
+1. A natural syntax for making programs that approximate human
+   reasoning. I think of it as sort of an "SQL for logic".
+2. A trade-off between the "pure logic" of theorem provers and a
+   straightforward procedural language like vanilla scheme.  One that
+   mostly lets you think logically, but also lets you reason about
+   performance cost directly.
+   
+   Note that if tuned, Prolog can actually execute quite quickly
+   because it constrains its structure to ones that are efficient to
+   check.
+3. Unification is just such a elegant way to at the same time
+   constrain input and extract the data you need - and indeed will be
+   used in some of the other languages we look at in this course.
+4. Even on today's computers with lots of resources most of our
+   programming is declarative (i.e. it describes a process to get a
+   result) not imperative (describes the result we want and lets the
+   computer figure out how to give it to us).  But that is not the
+   only way to be, language wise.
+
+## Prolog Input Basics
+
+Languages of an AI bent tend to skimp a bit when it comes to input and
+output.  Prolog is no exception.  Your basic input function is called
+get\_char(X).
 
     ?- get_char(X), get_char(Y).
     |: hello
