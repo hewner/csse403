@@ -256,3 +256,18 @@ Hint: if you want a prolog function that takes no arguments, do it
 like this:
 
 : do_nlp :- write('hello world.\n').
+* Part 1 and Part 2
+
+I break the assignment into 2 parts to ensure that folks get started
+in a reasonable timeframe.
+
+For the Part 1 deadline, you must demo in class:
+1. A fully working version of Parsing
+2. Some individual working sentences from Translating (it's OK if
+   most don't work though)
+
+If you do this on the deadline, you'll get 10 points.  This will count
+as a separate assignment in the medium assignments category (so in
+total, the Prolog project will be worth 110 points).  However, whether
+you complete Part 1 on time won't factor into whether you got 50% of
+the assignment done to avoid failing the class.

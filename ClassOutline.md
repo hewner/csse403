@@ -369,8 +369,8 @@ prolog to kick it off.
    constrain input and extract the data you need - and indeed will be
    used in some of the other languages we look at in this course.
 4. Even on today's computers with lots of resources most of our
-   programming is declarative (i.e. it describes a process to get a
-   result) not imperative (describes the result we want and lets the
+   programming is imperative (i.e. it describes a process to get a
+   result) not declarative (describes the result we want and lets the
    computer figure out how to give it to us).  But that is not the
    only way to be, language wise.
 
@@ -464,6 +464,15 @@ atomic\_list\_concat.  But I would be curious to see your solutions.
                  !;
                 split(X,[C|Cons],Working,R,On)
                 ,!).
+2. Solution from brubakbd@
+
+        split(Str, Delim, Ar) :- getString(Word, NewAr, Delim, Str), append([Word], NewAr, Ar).
+        getString(Word, Ar, Delim, Str) :- get_first(Char, Str, Rem), helper(Char, Word, Ar, Delim, Rem).
+        helper(Char, Word, Ar, Delim, Rem):- 
+        Char='\n', Word='', Ar=[], !; 
+        Char=Delim, Word='', getString(Y, NewAr, Delim, Rem), append([Y], NewAr, Ar), !;
+        getString(Y, Ar, Delim, Rem), string_concat(Char,Y,Word), !.
+        get_first(Char, Str, Rem) :- Str='',Char='\n',!; atom_chars(Str, [Char|Temp]), atom_chars(Rem, Temp).
 
 # Prolog 4 - Parsing
 
