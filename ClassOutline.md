@@ -676,6 +676,79 @@ turn trace on to watch how prolog solves it
 1.  trace(predicate) will print each time a predicate is evaled
 2.  spy(predicate) will break into debug mode when a particular predicate is called
 3.  leap (from debug menu) is "continue as normal"
+4.  nodebug. turn off everything I think.
+
+# Prolog Metafunctions
+
+The prolog language can be extended in prolog (this is fairly common
+among non-compiled languages).  Here's a few things you can do.
+
+## Assert and retract
+
+Assert lets you add stuff to the database.  You can do it from a
+query, as here, but more useful is making prolog add stuff to its
+database based on user input.
+
+	?- assertz(parent('Bob', 'Jane')).
+	?- assertz(female('Jane')).
+    % note the double parens on this one
+	?- assertz((mother(Child, Mother) :-
+	                parent(Child, Mother),
+	                female(Mother))).
+	
+
+BTW those inputs are just compound atoms of course.
+
+There is also a retract that works the other way.
+
+## Clause and call
+
+    ?- clause(likes(buffalo,X), Z).
+    X = ninjas,
+    Z = true ;
+    X = videogames,
+    Z = true ;
+    Z = likes(X, videogames).
+
+Evals compound atom like a prolog query - but only 1 clause worth
+(e.g. if there's a :- it leaves it to you to continue evaluation if
+you want)
+
+	?- call(likes(buffalo,X)).
+	X = ninjas ;
+	X = videogames ;
+	X = buffalo ;
+	X = alice ;
+	false.
+
+Call evals all the way to completion.  If we were going to do the
+final state of the project, I suspect what we would do is make
+predicates corresponding to things returned from translation and then
+eval them.
+
+## Operators
+
+Operators in prolog are always just sugar for functors (e.g. our usual
+predicate things).
+
+    ?- display(1 + 2 + 3).
+    +(+(1,2),3)
+
+But if you like you can define your own operators and give them your
+own meanings.
+
+    :- op(500, xf, is_cool).
+    is_cool(X) :- likes(buffalo, X).
+
+And then you can do stuff like this:
+
+    ?- X is_cool.
+    X = ninjas ;
+    X = videogames ;
+    X = buffalo ;
+    X = alice ;
+    false.
+
 
 # Erlang 1 - Very basics
 

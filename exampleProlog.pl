@@ -55,4 +55,7 @@ replace_in_list(FromItem,ToItem,[Item|Tail],[Item|ResultTail]) :-
     FromItem \= Item,
     replace_in_list(FromItem,ToItem,Tail,ResultTail).
 
-foo(3,Y,[Y,Z]). 
+
+:- op(500, xf, is_cool).
+ 
+is_cool(X) :- likes(buffalo, X).
