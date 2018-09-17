@@ -810,6 +810,9 @@ But in languages with more functional feel, you obviously can be a lot cleaner (
 
     (mapc (lambda (x) (print x)) '(1 2 3))
 
+In more recent versions of Java and C#, they've gotten on the cool
+iteration bandwagon.
+
 ### In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions
 
 RUBY VERSIONS (DO NOT attempt to use on your homework):
@@ -848,7 +851,7 @@ foreach - just runs the function and returns the result
 map - runs the function and collects the results into a new list
 filter - keeps only those that return true
 any - returns true if one element returns true
-&#x2026;and more (see your textbook & language docs)
+...and more (see your textbook & language docs)
 
 ### Write a call using filter removes all empty strings from a list
 
@@ -931,11 +934,11 @@ My solution is in solvemeSolution.erl but don't peek!
     
         ssh erlang.rose-hulman.edu
     
-    Use your EIT password.  Don't add 'csse' - it may interfere with your connection.
+    Use your EIT password.
 
 2.  start erlang with a long name
     
-        erl -name buffalo
+        erl -name buffalo@csse.rose-hulman.edu
     
     Note: your name should be UNIQUE - maybe your netid?
 
