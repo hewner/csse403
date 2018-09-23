@@ -102,6 +102,12 @@ test(translate9) :-
 test(translate10) :-
 	pandt([some,boy,likes,all,apples,that,some,boy,likes], exists(1, boy(1)+all(2, (apple(2)+exists(3, boy(3)+like(3, 2)))=>like(1, 2)))).
 
+% thanks to Yuqi Zhou for this test case
+       
+test(translate11) :-
+	pandt([some,boy,that,runs,likes,some,girl], exists(1,boy(1)+run(1)+exists(2,girl(2)+like(1,2)))).
+
+       
 
 :- end_tests(parse).
 
