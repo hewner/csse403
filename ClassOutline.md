@@ -474,6 +474,19 @@ atomic\_list\_concat.  But I would be curious to see your solutions.
         getString(Y, Ar, Delim, Rem), string_concat(Char,Y,Word), !.
         get_first(Char, Str, Rem) :- Str='',Char='\n',!; atom_chars(Str, [Char|Temp]), atom_chars(Rem, Temp).
 
+3. Solution from panfilwk@
+
+		atom_split(Atom, Sep, SplitAtoms) :-
+		  atom_chars(Atom, List),
+		  split(List, Sep, SplitLists),
+		  maplist(atom_chars, SplitAtoms, SplitLists).
+		 
+		split(List, Sep, [SplitHead|SplitRest]) :-
+		  append(SplitHead, [Sep|Rest], List) ->
+		  split(Rest, Sep, SplitRest);
+		  SplitHead = List,
+		  SplitRest = []. 
+
 # Prolog 4 - Parsing
 
 ## Your Prolog Project
@@ -938,7 +951,7 @@ My solution is in solvemeSolution.erl but don't peek!
 
 2.  start erlang with a long name
     
-        erl -name buffalo@csse.rose-hulman.edu
+        erl -name buffalo@erlang.rose-hulman.edu
     
     Note: your name should be UNIQUE - maybe your netid?
 
