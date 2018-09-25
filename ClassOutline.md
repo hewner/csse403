@@ -1042,6 +1042,33 @@ My solution is in solvemeSolution.erl but don't peek!
 
 # Erlang 4 - Let it crash
 
+See the [example code](Homework/ErlangLetItCrashExample).
+
+# The philosophy
+
+What is the correct ratio of try to catches?
+
+# linked in death
+
+So in erlang, it can be pretty common to spawn a subprocess that is
+integral to your own process. This should make you concerned, insofar
+as it means part of your system can fail and another part lives on,
+oblivious to the fact that it's waiting for a message that can never
+arrive.
+
+Solution?  A death pact:
+
+    link(Pid)
+
+This causes your process to die if Pid dies.
+
+# More advanced features
+
+    process_flag(trap_exit, true)
+
+This lets you catch the secret message EXIT, which is the thing that
+would normally kill your process if you are linked.
+
 # Erlang 5 - Final Assignment, Raft Algorithm
 
 ## What is an consensus algorithm?
@@ -1088,7 +1115,7 @@ elections.
 
 ## The basics
 
-This command can let you debug a process you are starting&#x2026;
+This command can let you debug a process you are starting:
 
     7> dbg:c(mergesort,basic1_test,[],[s,r]).
     (<0.193.0>) <0.194.0> ! {sort,[2,5,7],<0.193.0>}
@@ -1102,7 +1129,7 @@ This command can let you debug a process you are starting&#x2026;
     (<0.193.0>) <0.195.0> ! {merge,[1,2,2,5,7,34],[2,11,99],<0.193.0>}
 
 BUT it's not really what you want if your goal is to debug a Raft unit
-test.  
+test.
 
 ## Debugging a raft unit test
 
@@ -1114,7 +1141,9 @@ add the instrumentation in the test setup.
     setup() ->
         start_raft_member(raft1),
         start_raft_members([m1,m2,m3]),
-        dbg:p(raft1,[s,r]).
+        Result = dbg:p(whereis(raft1),[s,r]),
+        io:format("Debugging ~p", [Result]).
+
 
 ### Enable the trace
 
