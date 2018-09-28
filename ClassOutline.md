@@ -1177,14 +1177,12 @@ add the instrumentation in the test setup.
       Test passed.
     ok
 
-# Elm 1
+# Haskell 1
 
-## Elm is a functional web programming language
-
-    import Html exposing (text)
+    module Main
+      where
     
-    main =
-      text "Hello, World!"
+    main=putStrLn "Hello, World!"
 
 ## Pure Functional
 
@@ -1198,236 +1196,133 @@ functional but it often had side effects - message sends and receives.
 
 ## Has Strong Typing
 
-    import Html exposing (text)
-    
-    addTwo : Int -> Int
+    module Main
+        where
+
+    addTwo :: Int -> Int
     addTwo num = num + 2
-    
-    main =
-      text (toString (addTwo 3.0))
+
+    main=putStrLn ("Hello, World!" ++ (show (addTwo 3.0))) --breaks
+
 
 ### But also has type inference
 
-    import Html exposing (text)
-    
-    addTwo : Int -> Int
-    addTwo a = a + 2
-    
+    module Main
+        where
+
+    addTwo :: Int -> Int
+    addTwo num = num + 2
+
     addTwoImplicit num = num + 2
-    
-    -- This figures out the right thing
-    main =
-      text (toString [addTwoImplicit 3.0, addTwoImplicit 4])
-    
-    -- BUT YOU CAN'T DO THIS: asText [addTwoImplicit 3.1, addTwo 3]
+
+    main=putStrLn ("Hello, World!" ++ (show (addTwoImplicit 3.0))) --works
+
+    --BREAKS main=putStrLn ("Hello, World!" ++ (show [addTwoImplicit 3.0, addTwo 2]))
+
 
 ### An aside: Functions are designed for partial evaluation
 
-    import Html exposing (text)
-    
-    -- read this as "an int produces a function that takes one int and produces an int"
-    add : Int -> Int -> Int
+    module Main
+        where
+
+    add :: Int -> Int -> Int
     add a b = a + b
     
     -- read this carefully
-    addTwo : Int -> Int
+    addTwo :: Int -> Int
     addTwo = add 2
-    
-    main =
-      text (toString (addTwo 5))
-    
-    -- also, note that in elm you often want to cause a series of transforms
-    -- not a bad thing BUT note that as in lisp things will look backwards
-    -- if you use parens.  But there is an alternative
-    
-    otherMain =  addTwo 5
-      |> toString
-      |> text
+
+    --alternative form, showing how to turn a binary operator into a partial eval
+    anotherAddTwo :: Int -> Int
+    anotherAddTwo = (2+)
+
+    main=putStrLn ("Hello, World!" ++ (show (addTwo 3)))
 
 ### Activity
 
 Take the code below and change it so it adds the phrase "Buffalo says" before each bit of wisdom:
 
-    import Html exposing (text)
-    import String exposing (append)
-    import List exposing (map)
-    
-    
-    wisdom:List String
+    module Main
+        where
+
+    wisdom :: [String]
     wisdom = ["Ninjas are cool","Do the riskest part first"]
-    
-    --use append (takes two strings and appends them)
+
+    --use ++ (takes two strings or lists and appends them)
     --use map (list version, applys a 1 param function to a list of strings)
     --use partial function evaluation
-    
+
     main =
-      text (toString wisdom)
-    
-    mainAlternate = wisdom
-      |> toString
-      |> text
+        putStrLn $ show wisdom
+
 
 ### Solution
 
-    import Html exposing (text)
-    import String exposing (append)
-    import List exposing (map)
-    
-    
-    wisdom:List String
-    wisdom = ["Ninjas are cool","Do the riskest part first"]
-    
-    main =
-      text (toString (map (append "Buffalo says ") wisdom ))
-    
-    mainAlternate = wisdom
-      |> map (append "Buffalo says ")
-      |> toString
-      |> text
+    module Main
+        where
 
-## Elm's MVC
+    wisdom :: [String]
+    wisdom = ["Ninjas are cool","Do the riskest part first"]
+
+    --use ++ (takes two strings or lists and appends them)
+    --use map (list version, applys a 1 param function to a list of strings)
+    --use partial function evaluation
+
+    main =
+        putStrLn $ show $ map ("Buffalo says " ++) wisdom
+    
+## Hakell's IO
 
 ### But more importantly, how do you handle INPUT and State in a pure functional language?
 
 -   Usually the nonfunctional part is provided by a MAGIC FRAMEWORK so
     you only write functional code
 -   All the answers tend to revolve around separating pure functional/non-functional
--   Elm's answer used to be something called SIGNALS (I mention this
-    because you want to avoid tutorials that still use signals)
--   The new way is a very structured Model View Controller paradigm
+-   Helm uses the IO Monad (we'll talk about what a Monad is later)
 
-### Basic MVC
+### Very basics
 
-Model = some sort of compound type representing all your state
+    main :: IO ()
+    main = do
+        putStrLn "What is your name?"
+        name <- getLine
+        putStrLn $ "Hey " ++ name ++ " you are cool!"
 
-View = a function that transforms the model into a display + adds some
-places where Messages can be sent
+Seems almost like normal imperative code yes?
 
-Controller = a function that transforms model + message into new model 
+But there is some weirdness.  Main is not really a function, at least
+by the usual standrd of Haskell (functions have a ->).
 
-    import Html exposing (beginnerProgram, div, button, text)
-    import Html.Events exposing (onClick)
-    
-    
-    type alias Model = Int
-    
-    type Msg = Increment | Decrement
-    
-    update : Msg -> Model -> Model
-    update msg model =
-      case msg of
-        Increment ->
-          model + 1
-    
-        Decrement ->
-          model - 1
-    
-    
-    view : Model -> Html.Html Msg
-    view model =
-      div []
-        [ button [ onClick Decrement ] [ text "-" ]
-        , div [] [ text (toString model) ]
-        , button [ onClick Increment ] [ text "+" ]
-        ]
-    
-    
-    main =
-      beginnerProgram { model = 0, view = view, update = update }
+Also, what is this *do*
 
-### Things to note
+Not obvious, but I hope it's clear that the return type of the do is IO ().
 
-1.  Model - trickier than you think
+### A function that does IO
 
-        type alias Model = Int
+    doQuery :: String -> IO String
+    doQuery prompt = do
+      putStrLn prompt
+      result <- getLine
+      return $ "response: " ++ result
     
-    This will become more clear later, but realize that this must
-    represent the entire memory state of your entire program.
-    
-    As programs get more complex, some of our significant work is going to
-    involve designing this model in a way that we can transform it in a
-    way that doesn't get too complicated.
+    main :: IO ()
+    main = do
+      name <- doQuery "What is your name?"
+      quest <- doQuery "What is your quest?"
+      putStrLn name
+      putStrLn quest
 
-2.  Controller
+The rules of Haskell are that every function when passed the same
+parameters return the same result.  Is it true in this case?
 
-        type Msg = Increment | Decrement
-        
-        update : Msg -> Model -> Model
-        update msg model =
-          case msg of
-            Increment ->
-              model + 1
-        
-            Decrement ->
-              model - 1
-    
-    Note that we also need to have a single type that represents all
-    possible updates.  To do this we'll frequently use Elm's union type.
-    It can be more than just an enum - it can also store various kinds of
-    "differently shaped" data.
-    
-    For example:
-    
-        type Msg = Increment | Decrement | MultiplyBy Int
-        
-        update : Msg -> Model -> Model
-        update msg model =
-          case msg of
-            Increment ->
-              model + 1
-        
-            Decrement ->
-              model - 1
-        
-            MultiplyBy num ->
-              model * num
+Maybe.  It is very hard to tell, because the function doesn't return a
+string.  If it did return a string, it would violate the rules of
+haskell.  But instead it returns an IO object.  
 
-3.  View
+How do we get into the contents of an IO object?  Using a <- within a
+do.  But that makes our own code within an IO object.
 
-        view : Model -> Html.Html Msg
-        view model =
-          div []
-            [ button [ onClick Decrement ] [ text "-" ]
-            , div [] [ text (toString model) ]
-            , button [ onClick Increment ] [ text "+" ]
-            , button [ onClick (MultiplyBy 2) ] [ text "double" ]
-            ]
-    
-    Note how declarative this looks.  Functional programming tends to like
-    taking things we would normally think of as constantly running and
-    making them appear declarative.
-    
-    Note that although code like this seems like it might take a value:
-    
-        onClick Decrement
-    
-    For more complicated input it takes a function that converts the
-    result.
-    
-        type Msg
-            = Name String
-            | Password String
-            | PasswordAgain String
-        
-        addQQQ string = Name (append string "QQQ")
-        
-        view : Model -> Html Msg
-        view model =
-          div []
-            [ input [ placeholder "Name", onInput addQQQ ] []
-            , input [ placeholder "Password", onInput Password ] []
-            ]
-    
-    Don't be fooled by that second one!  It might look like Password is
-    just a name.  But the type of Password by itself like that is:
-    
-        String -> Msg
-    
-    same as addQQQ.
 
-## Homework: Linear Lights Out
-
-[<HomeworkCode/ElmLinearLightsOut/LLL.md>]
 
 # Elm 2 - Subscriptions & Other complexity
 
