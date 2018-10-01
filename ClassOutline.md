@@ -1220,7 +1220,7 @@ functional but it often had side effects - message sends and receives.
     --BREAKS main=putStrLn ("Hello, World!" ++ (show [addTwoImplicit 3.0, addTwo 2]))
 
 
-### An aside: Functions are designed for partial evaluation
+### Functions are designed for partial evaluation
 
     module Main
         where
@@ -1238,6 +1238,30 @@ functional but it often had side effects - message sends and receives.
 
     main=putStrLn ("Hello, World!" ++ (show (addTwo 3)))
 
+In haskell, functions that take multiple values are actually "curried
+functions".  This simply means that they are actually single parameter
+functions that return other functions.
+
+A "curried function" expressed in javascript:
+
+    function add (a) {
+        return function (b) {
+            return a + b;
+        }
+    }
+
+    add(3)(4);
+
+    var add3 = add(3);
+
+    add3(4);
+
+(Thanks to https://stackoverflow.com/questions/36314/what-is-currying for this example)
+
+In javascript you can make a curried function but usually functions
+have multiple parameters.  In Haskell, one parameter functions are all
+you really have when you get down to it.
+
 ### Activity
 
 Take the code below and change it so it adds the phrase "Buffalo says" before each bit of wisdom:
@@ -1249,8 +1273,8 @@ Take the code below and change it so it adds the phrase "Buffalo says" before ea
     wisdom = ["Ninjas are cool","Do the riskest part first"]
 
     --use ++ (takes two strings or lists and appends them)
+    -- you can partially apply it like this ("foobar" ++)
     --use map (list version, applys a 1 param function to a list of strings)
-    --use partial function evaluation
 
     main =
         putStrLn $ show wisdom
@@ -1270,7 +1294,63 @@ Take the code below and change it so it adds the phrase "Buffalo says" before ea
 
     main =
         putStrLn $ show $ map ("Buffalo says " ++) wisdom
+
+## Pointfree style
+
+It is common to use haskell's features to express functions as
+aggregations/partial evaluations of other functions rather than
+explicitly stating their parameters.
+
+Some common tricks:
+
+
+### $
+
+'$' is like a normal function invocation but it has a really low
+priority and is right associative.
+
+    putStrLn $ show wisdom
     
+evals show wisdom THEN putStrLn result.  Same as putStrLn (show wisdom)
+
+    putStrLn show wisdom
+    
+evals "putStrLn show" first which generates a type error
+
+
+### .
+
+"." in prolog is function composition
+
+    f . g = \x -> f (g x)
+    
+Note that in this system g is executed first, then the result is passed to f
+
+So if I want a function that acts like the negative version of
+absolute value (always makes numbers negative), I can say:
+
+    darkAbs = negate . abs
+
+Note that this can get kinda weird if you functions expect more than
+one parameters (because all functions in haskell actually take one
+parameter, so they types probably are not gonna work out the way you
+expect).
+
+### Omitting parameters
+
+So a parameter applied to the end of a function is just the same as if
+the parameter isn't there.
+
+For example this
+
+    sum' xs = foldr (+) 0 xs
+
+and this are the same
+
+    sum = foldr (+) 0
+
+
+
 ## Hakell's IO
 
 ### But more importantly, how do you handle INPUT and State in a pure functional language?
@@ -1278,7 +1358,7 @@ Take the code below and change it so it adds the phrase "Buffalo says" before ea
 -   Usually the nonfunctional part is provided by a MAGIC FRAMEWORK so
     you only write functional code
 -   All the answers tend to revolve around separating pure functional/non-functional
--   Helm uses the IO Monad (we'll talk about what a Monad is later)
+-   Haskell uses the IO Monad (we'll talk about what a Monad is later)
 
 ### Very basics
 
@@ -1322,358 +1402,183 @@ haskell.  But instead it returns an IO object.
 How do we get into the contents of an IO object?  Using a <- within a
 do.  But that makes our own code within an IO object.
 
+# Haskell 2
+
+## Algebraic Data Types
+
+Algebraic I think insofar as you can express them with ors.
+
+These can be used as typechecked enums:
+
+    data QuestionResponse = Yes | No | Maybe | Other String
+
+Or to model data structures (note type parameter):
+
+    data TreeNode a = Leaf a | InnerNode a (TreeNode a) (TreeNode a)
+
+Or even to generate mini class systems:
+
+    data Shape = Rectange Int Int Int Int | Circle Int Int
+    
+In any case, those capitalized names on the right become constructor
+functions that actually return an object of the given type
+
+    someLeaf :: TreeNode String
+    someLeaf = Leaf "Hello"
+
+## Record Types
+
+For things with lots of fields, you probably want to use records instead:
+
+    data Person = { firstName :: String, age :: Int, phoneNumer :: String }
+
+Record also have a syntax for returning a copy without enumerating all
+the unchanged fields which is nice.
+
+    updateName :: Person -> Person
+    updateName p newName = p { firstName = newName }
 
 
-# Elm 2 - Subscriptions & Other complexity
+## Typeclasses
 
-## Subscriptions
+Typeclasses sound a little bit like "classes" but they are a lot
+closer to interfaces in Java.
 
-This is a reference from the general elm tutorial:
+    class Eq a where -- not exactly the real definition
+        (==) :: a -> a -> Bool
+        (/=) :: a -> a -> Bool
 
-<https://www.elm-tutorial.org/en/03-subs-cmds/01-subs.html>
+...basically says that a type must implement == and /= to be part of
+the Eq typeclass.  You do it like this:
 
-### What are subscriptions?
+    instance Eq TrafficLight where  
+        Red == Red = True  
+        Green == Green = True  
+        Yellow == Yellow = True  
+        _ == _ = False
+        x /= y = not (x == y)
 
-Subscriptions are Elm's way of handling events not generated from view
-objects (things like buttons or HTML text boxes don't need
-subscriptions).  But things like timers, mouse movement, etc. are
-handled using the subscription system.
 
-### How do you subscribe?
+### Type classes can have default implementations
 
-There is a subscription function that takes the Model and returns Sub
-Msg (i.e. a subscription that returns the universal message type).
+Here's the real Eq definition
 
-    subscriptions: Model -> Sub Msg
-    subscriptions model =
-      Mouse.moves (\{x, y} -> Position x y)
+    class Eq a where  
+        (==) :: a -> a -> Bool
+        (/=) :: a -> a -> Bool
+        x == y = not (x /= y)
+        x /= y = not (x == y)
 
-This means you can subscribe to different stuff over the course of a
-programs lifetime.
+The two additional lines are default implementations, which are
+provided in terms of the other methods of the typeclass.
 
-You can also subscribe to more than one thing:
+These particular defaults make it so you only need to build either ==
+or /= and then the other one is implemented for you.  But you can also
+set both if you want.
 
-    type Msg
-        = MouseMsg Mouse.Position
-        | KeyMsg Keyboard.KeyCode
-    
-    subscriptions : Model -> Sub Msg
-    subscriptions model =
-        Sub.batch
-            [ Mouse.clicks MouseMsg
-            , Keyboard.downs KeyMsg
-            ]
+### Type classes can have subclasses
 
-&#x2026;though as always ALL events must return a universal message type.
+    class (Eq a) => Num a where
+        ...
 
-### You must also register your subscription function
+This is just restricting your typeclass to things that already
+implement some other typeclass.
 
-&#x2026;in a slightly more advanced version of main.
+### Polymorphism but not inheritance
 
-    main =
-      Html.program
-        { init = ({x = 0,y = 0}, Cmd.none)
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
+This provides a great illustration of two terms we teach in 220 but
+are often fuzzy for folks.
 
-init = blahblah is just setting the starting state of the model.
-Ignore the Cmd for now - we'll talk about that later.
+    printIfEqual :: Eq a => a -> a -> IO ()
+    printIfEqual x y = if x == y then putStrLn "equal" else putStrLn "not equal"
 
-### What happens then?
+The x == y in this case is polymorphic (i.e. it is not calling the
+same function if you pass in strings verses if you pass in ints).
 
-Your update function will start getting events for your subscriptions,
-as well as the previous stuff from the view.
+In this case, we have code reuse in the sense that *users* of various
+classes that are instances of Eq can reuse the same printIfEqual
+function for all of them.
 
-### An Example
+BUT, we do not have code reuse in the sense that implementers of a
+typeclass reuse how they implement their functions.  
 
-    import Html exposing (Html, text, div)
-    import Mouse exposing (..)
-    
-    main =
-      Html.program
-        { init = ({x = 0,y = 0}, Cmd.none)
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
-    
-    -- MODEL
-    
-    type alias Model = {
-      x: Int
-      , y : Int
-    }
-    
-    
-    -- UPDATE
-    
-    type Msg
-      = Position Int Int
-    
-    update: Msg -> Model -> (Model, Cmd a)
-    update msg model =
-      case msg of
-        Position x y ->
-          ({model | x = x, y = y} , Cmd.none)
-    
-    -- SUBSCRIPTIONS
-    
-    subscriptions: Model -> Sub Msg
-    subscriptions model =
-      Mouse.moves (\{x, y} -> Position x y)
-    
-    -- VIEW
-    
-    view: Model -> Html a
-    view model =
-      text (toString model)
+If you want to make a manager which is sort of like a person but also
+adds on XYZ, in Haskell you are generally forced to use composition --
+inheritance does not exist.
 
-### An Activity
+## Typeclasses can get very meta
 
-Starting from an example code above, modify this function so as well
-as counting the mouse's position it tracks the number of clicks.
+Sometimes Haskell folks will rag on OO patterns by saying that
+patterns in OO languages are just typeclasses in Haskell.  I disagree
+with this, for complicated reasons, but I do think it is fair to say
+that Haskell folks tend to want to express their patterns as
+typeclasses.
 
-To help, look here for documentation
-<http://package.elm-lang.org/packages/elm-lang/mouse/1.0.1/Mouse>
+## Functors
 
-plus the example code above where I talk about how to subscribe to
-more than one thing
+http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass
 
-### My Solution
+Let's do an example and talk about Functors.  So a Functor as a
+general category of things is a type that contains a value, but
+*usually* acts like the value it contains.
 
-    import Html exposing (Html, text, div)
-    import Mouse exposing (..)
-    
-    main =
-      Html.program
-        { init = ({x = 0,y = 0, clicks = 0}, Cmd.none)
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
-    
-    -- MODEL
-    
-    type alias Model = {
-        x : Int
-      , y : Int
-      , clicks : Int
-    }
-    
-    
-    -- UPDATE
-    
-    type Msg
-      = Move Int Int | Click
-    
-    update: Msg -> Model -> (Model, Cmd a)
-    update msg model =
-      case msg of
-        Move x y ->
-          ({model | x = x, y = y} , Cmd.none)
-        Click -> ( {model | clicks = model.clicks + 1}, Cmd.none)
-    
-    -- SUBSCRIPTIONS
-    
-    subscriptions: Model -> Sub Msg
-    subscriptions model =
-      Sub.batch
-       [ Mouse.moves (\{x, y} -> Move x y),
-         Mouse.clicks (\{x, y} -> Click)]
-    
-    -- VIEW
-    
-    view: Model -> Html a
-    view model =
-      text (toString model)
+So for example the Maybe Int type usually acts like a regular Int, but
+sometimes not.
 
-## Commands
+As is natural in this case, we might want to apply regular functions
+to these values (e.g. apply regular Int functions to Maybe Int
+objects).  So to be a functor we need a way to take a function that
+applies to the regular object and apply it to the Functor object.
 
-See 
+Here's maybe:
 
-<https://www.elm-tutorial.org/en/03-subs-cmds/02-commands.html>
+    instance Functor Maybe where
+        -- fmap :: (a -> b) -> Maybe a -> Maybe b (type dec not allowed here)
+        fmap f (Just x) = Just (f x)
+        fmap f Nothing = Nothing
 
-Commands allow you to issue commands to the runtime to do non-pure
-things on your behalf.  This is how randomness can be implemented, for
-example.
 
-### How you set it up
+*Work on running example*
 
-    update : Msg -> Model -> ( Model, Cmd Msg )
-    update msg model =
-        case msg of
-            Roll ->
-                ( model, Random.generate OnResult (Random.int 1 6) )
-    
-            OnResult res ->
-                ( res, Cmd.none )
+## Applicative Functors
 
-In this case, on the roll update message, issue a command that
-generates a random int.
+So that is good, but it isn't quite enough because it only works on
+single parameter functions.  What if we want to be able to have
+multiple parameter functions?
 
-**NOTE** that the function Random.int does not generate a random int.  If it did, We could say this:
+Then we need the applicative functor.  That adds on some qualifications:
 
-    (OnResult (Random.int 1 6)) -- NOT LEGAL
+    class (Functor f) => Applicative f where
+        pure :: a -> f a
+        (<*>) :: f (a -> b) -> f a -> f b
 
-Instead the function Random.generate takes a function of type Int ->
-Msg that it will apply to the random number once it's generated by the
-runtime.
+Which in Maybe's instance looks like this:
 
-### A complete example
+    instance Applicative Maybe where  
+        pure = Just  
+        Nothing <*> _ = Nothing  
+        (Just f) <*> something = fmap f something  
 
-    module Main exposing (..)
-    
-    import Html exposing (Html, div, button, text, program)
-    import Html.Events exposing (onClick)
-    import Random
-    
-    
-    -- MODEL
-    
-    
-    type alias Model =
-        Int
-    
-    
-    init : ( Model, Cmd Msg )
-    init =
-        ( 1, Cmd.none )
-    
-    
-    
-    -- MESSAGES
-    
-    
-    type Msg
-        = Roll
-        | OnResult Int
-    
-    
-    
-    -- VIEW
-    
-    
-    view : Model -> Html Msg
-    view model =
-        div []
-            [ button [ onClick Roll ] [ text "Roll" ]
-            , text (toString model)
-            ]
-    
-    
-    
-    -- UPDATE
-    
-    
-    update : Msg -> Model -> ( Model, Cmd Msg )
-    update msg model =
-        case msg of
-            Roll ->
-                ( model, Random.generate OnResult (Random.int 1 6) )
-    
-            OnResult res ->
-                ( res, Cmd.none )
-    
-    
-    
-    -- MAIN
-    
-    
-    main : Program Never Model Msg
-    main =
-        program
-            { init = init
-            , view = view
-            , update = update
-            , subscriptions = (always Sub.none)
-            }
+### My final running example
 
-### Activity
+    import Control.Applicative
+    
+    data Composite a = Single a | BunchOf [a] deriving (Show)
+    
+    instance Functor Composite where
+    --  fmap :: (a -> b) -> Composite a -> Composite b
+      fmap f (Single val) = Single (f val)
+      fmap f (BunchOf vals) = BunchOf (map f vals)
+    
+    instance Applicative Composite where
+      pure = Single
+      Single f <*> Single val = Single (f val)
+      Single f <*> BunchOf vals = BunchOf $ map f vals
+      BunchOf fs <*> Single val = BunchOf $ map ($ val) fs
+      BunchOf fs <*> BunchOf vals = BunchOf $ foldr (++) [] $ map (\f-> map f vals) fs
+    
+    main = putStrLn "Hello"
 
-The above code simulated a six sided dice.  Imagine we want to play a
-game that uses a six sided dice and a 100 sided dice.  Add a second
-button that rolls the 100 sided dice.  
-
-The system should display both results on a single page and rolling
-the 100 sided dice should not affect the six sided dice and vice
-versa.
-
-### My Solution
-
-    import Html exposing (Html, div, button, text, program)
-    import Html.Events exposing (onClick)
-    import Random
-    
-    
-    -- MODEL
-    
-    
-    type alias Model =
-        {d6 : Int, d100 : Int}
-    
-    
-    init : ( Model, Cmd Msg )
-    init =
-        ( {d6 = 0, d100 = 0}, Cmd.none )
-    
-    
-    
-    -- MESSAGES
-    
-    
-    type Msg
-        = Roll
-        | Roll100
-        | OnResult Int
-        | OnResult100 Int
-    
-    
-    
-    -- VIEW
-    
-    
-    view : Model -> Html Msg
-    view model =
-        div []
-            [ button [ onClick Roll ] [ text "Roll 6" ],
-              button [ onClick Roll100 ] [ text "Roll 100" ]
-            , div[] [text (toString model)]
-            ]
-    
-    
-    
-    
-    -- UPDATE
-    
-    
-    update : Msg -> Model -> ( Model, Cmd Msg )
-    update msg model =
-        case msg of
-            Roll ->
-                ( model, Random.generate OnResult (Random.int 1 6) )
-            Roll100 ->
-                ( model, Random.generate OnResult100 (Random.int 1 100) )
-            OnResult res ->
-                ( {model|d6 = res}, Cmd.none )
-    
-            OnResult100 res ->
-                ( {model|d100 = res}, Cmd.none )
-    
-    
-    
-    -- MAIN
-    
-    
-    main : Program Never Model Msg
-    main =
-        program
-            { init = init
-            , view = view
-            , update = update
-            , subscriptions = (always Sub.none)
-            }
 
 # Elm 3 - Datatypes, Graphics, Composing
 
