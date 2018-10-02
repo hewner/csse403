@@ -1452,7 +1452,7 @@ closer to interfaces in Java.
 the Eq typeclass.  You do it like this:
 
     instance Eq TrafficLight where  
-        Red == Red = True  
+        Red == Red = True
         Green == Green = True  
         Yellow == Yellow = True  
         _ == _ = False
