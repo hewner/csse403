@@ -1,8 +1,8 @@
 # Haskell Video Game
 
-For your final Haskell project, I'm going to ask you to build a video game
-in elm that's a little more sophisticated than Pong - a
-classic-style scrolling shooter game
+For your final Haskell project, I'm going to ask you to build a video
+ game that's a little more sophisticated than Pong - a classic-style
+ scrolling shooter game
 
 My personal nostalgic example of this genre is Raptor: Call of the
 Shadows.  You can see it here:
@@ -76,7 +76,7 @@ out of various parts.
 
 # Weapons [15 Points]
 
-3. [20 points] At least 3 qualitatively different weapons.  These
+At least 3 qualitatively different weapons.  These
 should not just be different color weapons that do different amounts
 of damage.  At the very least, they should fire in highly different
 patterns, spawn additional sub-bullets etc.  At best, they should act
@@ -110,6 +110,6 @@ shooting.  At best, some simplistic AI or different attack effects.
    triangles and their attempt to defend their homeland from the
    nefarious red,yellow,and blue triangles I'm fine with that.
 
-3.  Lots of these games incorporate randomness, but that's not
-    required here.  It's a little difficult to use randomness in
-    haskell/gloss but you're welcome to try it out if you wish.
+3. Lots of these games incorporate randomness, but that's not required
+   here.  It's a little difficult to use randomness in haskell/gloss
+   but you're welcome to try it out if you wish.
