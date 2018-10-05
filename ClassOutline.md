@@ -1548,9 +1548,11 @@ multiple parameter functions?
 
 Then we need the applicative functor.  That adds on some qualifications:
 
+    -- this is built into haskell, don't redeclare it in your code
     class (Functor f) => Applicative f where
         pure :: a -> f a
         (<*>) :: f (a -> b) -> f a -> f b
+
 
 Which in Maybe's instance looks like this:
 
@@ -1579,126 +1581,6 @@ Which in Maybe's instance looks like this:
     
     main = putStrLn "Hello"
 
-
-# Elm 3 - Datatypes, Graphics, Composing
-
-## Datatypes
-
-### Elm has a record type!
-
-1.  Creating
-
-        point2D = { x=0, y=0 }
-        
-        point3D = { x=3, y=4, z=12 }
-        
-        bill  = { name="Gates", age=57 }
-        steve = { name="Jobs" , age=56 }
-        larry = { name="Page" , age=39 }
-
-2.  You can use it to make "generic" functions
-
-        dist {x,y} = sqrt (x^2 + y^2)
-    
-    Or give a particular collection of fields/types an alias:
-    
-        type alias Point =
-          { x : Float
-          , y : Float
-          }
-        
-        hypotenuse : Point -> Float
-        hypotenuse {x,y} =
-          sqrt (x^2 + y^2)
-    
-    But these are not "true" types in that they can not be self referential.
-
-3.  You can update just one field, which makes updating state easier
-
-        { point2D | y = 1 }
-        { point3D | x = 0, y = 0 }
-        { steve | name = "Wozniak" }
-    
-    Note that I've occasionally discovered problems with strict typing and
-    this, but type inference always seems to work correctly.  This could well be fixed in the new version of elm though.
-
-4.  You can also use them to store functions and homebrew your own polymorphic objects
-
-        manhattanPoint = { x=3, y=4, distance a b = abs(a.x - b.x) + abs(a.y - b.y) }
-    
-    Storing functions can definitely be useful.  I'm a lot less sure about
-    the polymorphic objects.
-
-### Elm also has "Union Types"
-
-    type Visibility = All  | Active | Completed
-
-Basically a 'global' enum, but unlike Erlang you do get strong typing.
-
-1.  But these can contain data, and you can use case statements to map them
-
-        type Widget
-            = ScatterPlot (List (Int, Int))
-            | LogData (List String)
-            | TimePlot (List (Time, Int))
-        
-        view : Widget -> Element
-        view widget =
-            case widget of
-              ScatterPlot points ->
-                  viewScatterPlot points
-        
-              LogData logs ->
-                  flow down (map viewLog logs)
-        
-              TimePlot occurrences ->
-                  viewTimePlot occurrences
-    
-    Note the use of tuples.  That's not strictly necessary, but it is a good idea because it allows an approximate "encapsulation" of the data.
-
-### Maybe - cool or just a way to have null?
-
-    type Maybe a = Just a | Nothing
-
-First note that this is a parameterized type.
-
-It can be used like this
-
-    if n > 0 && n <= 12 then Just n else Nothing
-
-### Maybe makes pure functional programmers really happy!
-
-"This may seem like a subtle improvement, but imagine all the code you
-have where you defensively added a null check just in case someone
-else behaves badly. Having contracts means you have a guarantee that a
-caller won't send you bad data! This is a world where you never again
-have to spend 4 hours debugging a null pointer exception!"
-
-Maybe like the difference between checked an unchecked exceptions?
-
-### Union Types Can Be Recursive
-
-    type Tree a = Empty | Node a (Tree a) (Tree a)
-
-## Drawing
-
-The new version of elm does drawing using SVG.
-
-\#+BEGIN\_SRC elm
-view : Model -> Html Msg
-view model =
-   svg [ viewBox "0 0 500 500", width "500px" ]
-     [ rect [ x (toString model.x), y (toString model.y), width "60", height "10", fill "#0B79CE" ] []
-     ]
-\\#+END\_SRC elm
-
-The parameters are the parameters of the raw SVG tags in the spec, so you'll want to look them up.
-
-<https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes>
-
-## Elm & Composing Widgets
-
-<https://www.elm-tutorial.org/en/02-elm-arch/06-composing.html>
 
 # Elm 4 - Functional Design
 
@@ -1877,83 +1759,66 @@ use functions to do polymorphism-type things and simplify this.
 Also, note that lack of polymorphism is not a universal feature of
 pure-functional languages.  
 
-# Elm 5 - Being Tricky With Functions
+# Haskell: Representing Type & State 
 
-## Course Logistics: Midterm grades
+## OO Programming and "Types"
 
--   Grades are submitted
--   If you did not get at least 50% on the Erlang project please talk to
-    me
+The OO paradigm encourages you to think about the world as "types" of
+things.
 
-## Course Logistics: ElmVideoGame Posted
+So if we see -say- the various enemies in a video game, the OO
+approach is to call them various "types".
 
-## BulletExample
+This corresponds well to certain intuitions about the world BUT if you
+have a lot of types you have to be careful about not having
+specialized code for every kind of thing.  This is often immortalized
+in our hatred of case statements.
 
-Take a look at the BulletExample.  
+This works well enough (it you're careful) because OO languages have a
+robust idea of type similarity and difference (supertypes, interfaces,
+shared methods, mixins, etc.).
 
-[<HomeworkCode/ElmBulletExample/bulletExample.elm>]
+## In functional approaches we don't want too many types
 
-See if you can understand how the
-code works.  How is the bullet state being stored?
+So we instead see the multiple enemies on the world as "behaving
+differently".  And we'll model that behavior with interesting uses of
+functions.
 
-## Using Functions to Store State
+For example, this is mostly how I model all items (enemies, bullets,
+etc.) in my simple space shooter.
 
-In nonfunctional languages there's a tendency to want to store stuff
-like enums or type data that must then be reused.
+    data Entity = Entity
+      {
+        pos :: (Float, Float),
+        vel :: (Float, Float),
+        shade :: Color,
+        updateE :: Entity -> [Entity],
+        radius  :: Float
+      } 
 
-    if(bulletType == straightBullet) {
-       // move the bullet in a straightWay
-    }
-    if(bulletType == sineBullet) {
-       // update the bullet like a sine wave
-    }
+Nothing exciting except this Entity -> Entity function.  This function
+allows an Entity to update itself, and it's called by the framework on
+every "update" call.
 
-Or maybe you make different types of objects:
+This provides a starting point for making different enemies that
+"behave" differently.
 
-    bullet.doUpdate(); //polymorphically do the right thing
+## Acting over time 
 
-But in a functional language - why store something as an object when
-you can store it as a partially evaluated function?  Read this code
-carefully!
+    wait :: Int -> (Entity -> [Entity]) -> (Entity -> [Entity])
+    wait steps f2 = \e ->
+        if steps == 0 then
+            [e { updateE = f2 }]
+        else
+            [e { updateE = wait (steps - 1) f2 }]
 
-    type BUpdater = BUpdater (Float,Float) (Float -> BUpdater) 
-    
-    straightBulletUpdate : Float -> Float -> Float -> BUpdater
-    straightBulletUpdate x y delta =
-        let newX = x + delta/50
-            newY = y
-        in BUpdater (newX, newY) (straightBulletUpdate newX newY)
 
-We can even use the function to encode arbitrary mutable state:
+    dropbomb :: (Entity -> [Entity]) -> (Entity -> [Entity])
+    dropbomb thenFunc =
+        \e-> let (x,y) = pos e in
+            [ e { updateE = thenFunc }, bomb x (y - 20)]
 
-    sineBulletCreate x y =
-        sineBulletUpdate (x+10) y (x+10) y 0
-    
-    sineBulletUpdate x y initialX initialY delta =
-        let newX = x + delta*3
-            deltaX = newX - initialX
-            newY = initialY + 50*sin (deltaX/15)
-        in BUpdater (newX, newY) (sineBulletUpdate newX newY initialX initialY)
 
-## Using functions to be a state machine
-
-Oftentimes we want to model state machines with different states (and
-frequently a big complex case statement).  But if our states are
-functions, doing the right thing is just the same as executing the
-functions.  And changing state is just changing the function we're
-partially evaluating.
-
-    mineBulletUpdate x targetX y delta = 
-        let newX = x - delta*4
-            newY = y
-        in if(x > targetX) then
-               BUpdater (newX, newY) (mineBulletUpdate newX targetX newY)
-           else
-               doNothingUpdate newX newY delta
-    
-    doNothingUpdate x y delta = BUpdater (x,y) (doNothingUpdate x y)
-
-You'll have to change the step function to see this code in action.
 
 # The final project
 
