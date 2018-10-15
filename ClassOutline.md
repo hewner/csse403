@@ -1822,7 +1822,7 @@ This provides a starting point for making different enemies that
 
 # The final project
 
-Details are on Moodle.  Proposals are due Wednesday!
+Details are [here](FinalProject.docx).
 
 # Instructor's Choice 1: Haskell and Monads
 
