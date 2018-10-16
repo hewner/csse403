@@ -1836,7 +1836,7 @@ What to do:
 2.  Start up Pharo and run through the little programmatic tutorial
     included with it.
 
-3.  Then do the tutorial [in sections 1.1 - 1.9 of the PbE book](HomeworkCode/SmalltalkPBELightsOut/PharoFirstApplication.pdf)
+3.  Then do the tutorial [in sections 1.1 - 1.9 of the PbE book](Homework/SmalltalkPBELightsOut/PharoFirstApplication.pdf)
     
     A hint:
     
