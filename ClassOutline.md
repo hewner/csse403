@@ -1824,7 +1824,122 @@ This provides a starting point for making different enemies that
 
 Details are [here](FinalProject.docx).
 
-# Instructor's Choice 1: Haskell and Monads
+
+# Instructor's Choice: Smalltalk 1
+
+What to do:
+1.  Download Pharo 5 from <http://pharo.org>
+
+    You could try Pharo 6 if you'd like to be more cutting edge, but I
+    haven't tried these instructions there.
+
+2.  Start up Pharo and run through the little programmatic tutorial
+    included with it.
+
+3.  Then do the tutorial [in sections 1.1 - 1.9 of the PbE book](HomeworkCode/SmalltalkPBELightsOut/PharoFirstApplication.pdf)
+    
+    A hint:
+    
+    -   Alt shift click appears to meta click, which is how you bring up
+        the Morphic "halo"
+
+# Instructor's Choice: Smalltalk, The Image
+
+## How can we be more object-oriented?
+
+-   Make things that aren't objects objects (e.g. ints)
+-   Make making big changes easier - editing Object for example
+-   Make things that would normally be done with interfaces to
+    non-object oriented systems objects instead
+-   Make our editing environment use objects
+
+## What's going on with Smalltak
+
+-   When you create a class?
+-   When you save?
+
+## What is the image?
+
+It's a binary file representing a system "memory state".
+
+So in a language with an interactive interpreter (e.g. python, prolog, erlang) - imagine you could call a command that would output the state of the system.  Then on a later run you could input that in and all your objects would be recreated, all your variables would be set to their old values, etc.
+
+### Sounds neat, but not really that important
+
+In Smalltalk, 99% of the language is implemented in the image.  Objects only has the methods they have because of the of the state of the Object Class object that lives in the image.  There's no secret separate file that says what Object can do - literally the binary version in the image is the only version of Object there is.
+
+Even the compiler for Smalltalk is implemented as classes in the image.  So you can actually change the way all code compiles by editing objects in the image.
+
+### This seems crazy
+
+This allows Smalltalk to be very "purely" object oriented.  All operations are implemented in terms of objects.  Creating an instance is just telling a Class object to make a new object and give it to you.  Creating a new class is just telling some object to do the right thing.  And you can inspect and modify the way any of this works.
+
+### How do you create an image?
+
+You don't - unless you really want to get involved in heavy sorcery.  Mostly you take an existing image and modify it with very fancy scripts to be what you want.
+
+### How do you share code if it's trapped in an image?
+
+Smalltalk has a method of "fileing out" a particular class or set of classes - basically building a script that will add a class to an existing system or change things from one version to another.  Sometimes you need to augment your fileout with some added code that will add globals you care about or whatever.
+
+## Why is an image good?
+
+Basically it gives you an enhanced programming environment with richer things than files.
+
+### I like files!  You wouldn't believe how good I am at vi.  Plus all my tools like git operate on files.
+
+I am giving this presentation from emacs so you know I sympathize.   But text has some disadvantages:
+-   It is not the "true" form of our code, and reconstructing that true
+    form is extremely error prone for tools (e.g. autocomplete)
+-   There is power in a textual representation (think latex) but
+    sometimes other representations are more convenient (think Word)
+-   A single file is part of larger code universe, but that universe is
+    invisible except during the build process
+
+### An example
+
+Say you wanted to - say - get an email everytime a particular method in a particular class is updated.  How would you do that?
+
+### A programmatic programming environment gives you greater power
+
+1.  You can utilize the same structures the compiler uses
+
+    You know what methods classes have, you can access the abstract syntax trees that the parser makes directly.  You can even augment classes with additional data.  
+    
+    There is no danger that some critical part of the process (e.g. makefiles, preprocessing) might be doing something strange and this will make your tools work on bad input. (contrast C++ autocompletion)
+    
+    You could do this before, of course, but you could never be sure that you were doing it right.
+
+2.  You can change the way editing happens!
+
+    To pure text, or text + some visual form, or to whatever you want.  And each form can edit something that's a lot more natural than a raw string.
+    
+    You could do this before, of course, but you always had to convert to text.  And because text was the first class citizen - it always had to make sense in a textual world first.  For example, you know how you can have a "string constant"?  Why can't you have an "image constant"?
+
+3.  Your tools can easily act on the entire codebase
+
+    Or at least this entire particular product or project.  This makes large scale changes a lot more possible.
+
+## Some examples
+
+### A demo
+
+<http://vimeo.com/97315968> start at 37:33
+
+### The refactoring browser
+
+"We originally thought that the lack of static type-checking would make it hard to build a refactoring browser for Smalltalk. Lack of type information is a disadvantage, but the advantages of Smalltalk made it a lot easier to make a refactoring browser for Smalltalk than it would have have been for C++ or Java."
+-   Ralph Johnson
+
+A very approximate chronology:
+1992 - First papers describing refactoring published
+1997 - Refactoring Browser built, by two graduate students
+2001 - First refactoring IDE for Java I can find IntelliJ IDEA
+2002? - Eclipse (IBM spent about $40 million on this)
+
+
+
+# Instructor's Choice: Haskell and Monads
 
 From the very good and detailed chapters on Monads here:
 <http://learnyouahaskell.com/chapters>
@@ -2314,141 +2429,7 @@ idea of (pure function + context) to do a lot of interesting stuff.
             a <- pop  
             pop
 
-# Work day
-
-## A bit on randomness in elm
-
-    import Html exposing (text)
-    import Random exposing (..)
-    
-    main =
-      let generator = float 0 1
-          seed1 = initialSeed 3
-          (val1, seed2) = step generator seed1
-          (val2, seed3) = step generator seed2
-          (val3, seed4) = step generator seed3
-      in
-      text (toString [val1, val2, val3])
-
-The annoyance of having to pass the seed around is what we're
-trying to avoid here.
-
-## Make sure you get your project completely signed off on
-
-## Elm Monads assignment
-
-# Instructor's Choice 3: Smalltalk 1
-
-What to do:
-1.  Download Pharo 5 from <http://pharo.org>
-
-2.  Start up Pharo and run through the little programmatic tutorial
-    included with it.
-
-3.  Then do the tutorial in sections 1.1 - 1.9 of the PbE book.  
-    
-    [<HomeworkCode/SmalltalkPBELightsOut/PharoFirstApplication.pdf>]
-    
-    A hint:
-    
-    -   Alt shift click appears to meta click, which is how you bring up
-        the Morphic "halo"
-
-# Instructor's Choice 4: Smalltalk, The Image
-
-## How can we be more object-oriented?
-
--   Make things that aren't objects objects (e.g. ints)
--   Make making big changes easier - editing Object for example
--   Make things that would normally be done with interfaces to
-    non-object oriented systems objects instead
--   Make our editing environment use objects
-
-## What's going on with Smalltak
-
--   When you create a class?
--   When you save?
-
-## What is the image?
-
-It's a binary file representing a system "memory state".
-
-So in a language with an interactive interpreter (e.g. python, prolog, erlang) - imagine you could call a command that would output the state of the system.  Then on a later run you could input that in and all your objects would be recreated, all your variables would be set to their old values, etc.
-
-### Sounds neat, but not really that important
-
-In Smalltalk, 99% of the language is implemented in the image.  Objects only has the methods they have because of the of the state of the Object Class object that lives in the image.  There's no secret separate file that says what Object can do - literally the binary version in the image is the only version of Object there is.
-
-Even the compiler for Smalltalk is implemented as classes in the image.  So you can actually change the way all code compiles by editing objects in the image.
-
-### This seems crazy
-
-This allows Smalltalk to be very "purely" object oriented.  All operations are implemented in terms of objects.  Creating an instance is just telling a Class object to make a new object and give it to you.  Creating a new class is just telling some object to do the right thing.  And you can inspect and modify the way any of this works.
-
-### How do you create an image?
-
-You don't - unless you really want to get involved in heavy sorcery.  Mostly you take an existing image and modify it with very fancy scripts to be what you want.
-
-### How do you share code if it's trapped in an image?
-
-Smalltalk has a method of "fileing out" a particular class or set of classes - basically building a script that will add a class to an existing system or change things from one version to another.  Sometimes you need to augment your fileout with some added code that will add globals you care about or whatever.
-
-## Why is an image good?
-
-Basically it gives you an enhanced programming environment with richer things than files.
-
-### I like files!  You wouldn't believe how good I am at vi.  Plus all my tools like git operate on files.
-
-I am giving this presentation from emacs so you know I sympathize.   But text has some disadvantages:
--   It is not the "true" form of our code, and reconstructing that true
-    form is extremely error prone for tools (e.g. autocomplete)
--   There is power in a textual representation (think latex) but
-    sometimes other representations are more convenient (think Word)
--   A single file is part of larger code universe, but that universe is
-    invisible except during the build process
-
-### An example
-
-Say you wanted to - say - get an email everytime a particular method in a particular class is updated.  How would you do that?
-
-### A programmatic programming environment gives you greater power
-
-1.  You can utilize the same structures the compiler uses
-
-    You know what methods classes have, you can access the abstract syntax trees that the parser makes directly.  You can even augment classes with additional data.  
-    
-    There is no danger that some critical part of the process (e.g. makefiles, preprocessing) might be doing something strange and this will make your tools work on bad input. (contrast C++ autocompletion)
-    
-    You could do this before, of course, but you could never be sure that you were doing it right.
-
-2.  You can change the way editing happens!
-
-    To pure text, or text + some visual form, or to whatever you want.  And each form can edit something that's a lot more natural than a raw string.
-    
-    You could do this before, of course, but you always had to convert to text.  And because text was the first class citizen - it always had to make sense in a textual world first.  For example, you know how you can have a "string constant"?  Why can't you have an "image constant"?
-
-3.  Your tools can easily act on the entire codebase
-
-    Or at least this entire particular product or project.  This makes large scale changes a lot more possible.
-
-## Some examples
-
-### A demo
-
-<http://vimeo.com/97315968> start at 37:33
-
-### The refactoring browser
-
-"We originally thought that the lack of static type-checking would make it hard to build a refactoring browser for Smalltalk. Lack of type information is a disadvantage, but the advantages of Smalltalk made it a lot easier to make a refactoring browser for Smalltalk than it would have have been for C++ or Java."
--   Ralph Johnson
-
-A very approximate chronology:
-1992 - First papers describing refactoring published
-1997 - Refactoring Browser built, by two graduate students
-2001 - First refactoring IDE for Java I can find IntelliJ IDEA
-2002? - Eclipse (IBM spent about $40 million on this)
-
-# Instructor's Choice 5: Lua and C Integration
+# Instructor's Choice: Lua and C Integration
 
 Lua is a language that has a lot going for it.
 
