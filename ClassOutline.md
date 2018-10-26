@@ -1990,6 +1990,27 @@ The issue is that coolAddLog actually conceptually does 2 things:
 
 Goodbye sweet pure functional correctness! :(
 
+### How is this different then applicative functors?
+
+So this idea of value + extra "context" is not super different than
+what we had with applicative functor.
+
+With those, we again had a value + stuff that we mostly wanted to
+treat like a value.  The same is true here - we want our functions
+taking ints (that is, boring values) as parameters.
+
+With applicative functors, we "lifted" functions operating entirely on
+boring values to functions operating entirely on fancy values.  So in
+some sense we had two "tracks" of information - the boring functions,
+that operate on ordinary values, and operators that track the "fancy"
+aspect.
+
+With monads we have semi-boring functions.  The parameters they take
+are normal, but they want to return fancy values.  No problem if they
+are standalone, but when we aggregate them we get a problem.  Monads
+will give us a way to do that.
+
+
 ## Monads
 
 Note that I play somewhat fast and loose with the syntax here.  The
@@ -2037,7 +2058,7 @@ Just keep in mind what is actually happening here.
 4.  That causes Eval coolSubtract 3 7
 5.  Eval (result of 2b >>= a smaller anonymous function)
 
-etc&#x2026;
+etc.
 1.  Eventually the result returns to the eval on line #2 - it's a LoggedValue
 2.  The result of that eval #2 will be a LoggedValue with a value
     equal to the result of the anonymous function call and a log equal
@@ -2429,6 +2450,54 @@ idea of (pure function + context) to do a lot of interesting stuff.
             a <- pop  
             pop
 
+# Buffalo's Guide to a Good Presentation
+
+## Start with the activity in mind
+
+Being a 50 minute presentation, they aren't going to learn much.  So
+focusing on the activity gives you a concrete idea...they are going to
+do this one thing which hopefully will focus their attention on the
+one really cool feature of the language.
+
+## Learning itself is fun
+
+Learning things, even useless things, feels naturally good (most video
+games, for example, are just intricately designed teaching systems for
+skills no one cares about).  If your students are learning, even if
+the presentation is a bit dry, folks will enjoy it anyway.  If folks
+are not learning, it's unlikely that your skills as a standup comedian
+are sufficient to amuse for 50 minutes.
+
+What this means is that you don't usually need to devote a lot of time
+to persuading folks that a language is a good idea.  You also don't
+need to make a really complicated example so that it feels realistic
+or motivating.
+
+That said, you don't need to make your presentation intentionally
+boring.
+
+## Provide Feedback
+
+Make sure your problem is not too hard, but do have unit tests or
+something else to ensure that things are going right.
+
+## Explore one topic deeply
+
+Your language probably has many awesome features.  Don't introduce us
+to all of them, instead let us get interesting with one really
+specific feature.
+
+## Things take time
+
+Expect developing a good example to take some time.  Expect providing
+enough of the language to let us do the activity to make some time.
+Usually, dumping up a 40 slide deck is the laziest thing you can so
+don't expect doing a good job to take less time than that.
+
+Also, practice.
+
+## Check the rubric in the final project document
+
 # Instructor's Choice: Lua and C Integration
 
 Lua is a language that has a lot going for it.
@@ -2441,7 +2510,7 @@ Lua is a language that has a lot going for it.
 
 ## But probably its neatest feature is that is designed to be embedded
 
-&#x2026;in other languages (specifically C).
+in other languages (specifically C).
 
 ### An Example
 
@@ -2545,7 +2614,7 @@ My definition (based on Ralph Johnson):
 Note that this is not necessarily an **endorsement** - I'm just saying
 that if your language doesn't have these 3 features the designs you're
 going to generate are probably not what I would describe as
-object&#x2013;oriented designs.  They might still be **good** designs though.
+object-oriented designs.  They might still be **good** designs though.
 
 ### Encapsulation
 
@@ -2638,11 +2707,11 @@ Modifications to parent are propagated to the children
 
 ## Solving shallow copy
 
-Oftentimes certain values must be initialized for each copy&#x2026;either
+Oftentimes certain values must be initialized for each copy either
 to prevent unwanted field sharing or because these parameters are
 idiosyncratic to individual instances.
 
-We want some way to have something a bit like a constructor&#x2026;could be
+We want some way to have something a bit like a constructor - could be
 an ordinary method that gets called after copy.
 
 Main realization here: you need to be careful about calling your
@@ -2658,7 +2727,7 @@ have to handle this in the abstract.
 
 This is based on this paper:
 
-<http://bibliography.selflanguage.org/_static/organizing-programs.pdf>
+http://bibliography.selflanguage.org/_static/organizing-programs.pdf
 
 ## Prototypes in Self
 
@@ -2703,7 +2772,7 @@ Sometimes you can get by with only 1 of these:
 ### Inheritance is trait object parents
 
 If you give a trait object a parent, that object becomes your
-"superclass".  You don't inherit any instance variables though &#x2013; but
+"superclass".  You don't inherit any instance variables though - but
 you can if you want to by making the prototype your "subclasses"
 parent as well. (BTW, you can have more than one parent slot)
 
