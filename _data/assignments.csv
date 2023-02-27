@@ -3,10 +3,10 @@ PrologPathFinder,PrologPathFinder,2023-03-07 23:55:00
 PrologWordFind,PrologWordFind,2023-03-11 23:55:00
 PrologNLP (Part 1),PrologNLP,2023-03-14 23:55:00
 PrologNLP (Part 2),PrologNLP,2023-03-18 23:55:00
-ErlangListProbs,ErlangListProbs,2023-03-21 23:55:00
-ErlangMergeSort,ErlangMergeSort,2023-03-24 23:55:00
-Erlang Raft (Part 1),ErlangRaft,2023-03-28 23:55:00
-Erlang Raft (Part 2),ErlangRaft,2023-03-31 23:55:00
+Rust1,Rust1,2023-03-21 23:55:00
+Rust2,Rust2,2023-03-24 23:55:00
+RustWebserver (Part 1),RustWebserver,2023-03-28 23:55:00
+RustWebserver (Part 2),RustWebserver,2023-03-31 23:55:00
 HaskellHighOrder,HaskellHighOrder,2023-04-04 23:55:00
 HaskellADTAndTypeclasses,HaskellADTAndTypeclasses,2023-04-07 23:55:00
 HaskellPong,HaskellPong,2023-04-07 23:55:01

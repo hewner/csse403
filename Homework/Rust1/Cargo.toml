@@ -1,0 +1,18 @@
+[package]
+name = "rust1"
+version = "0.1.0"
+authors = ["Michael Hewner <hewner@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8"
+
+[[bin]]
+name = "gradebook"
+path = "src/gradebook.rs"
+
+[[bin]]
+name = "racing"
+path = "src/racing.rs"
