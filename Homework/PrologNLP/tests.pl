@@ -1,9 +1,10 @@
+[nlp].
 % run this with run_test().
 
     % FOR NEXT YEAR ADD
     % [some,boy,that,runs,likes,some,girl
 
-    
+
 % parse and translate
 pandt(Input,Output) :- parse(Input,Parsed),translate(Parsed,Output).
 
@@ -76,19 +77,19 @@ test(translate1) :-
 	pandt([some,boy,runs],exists(1, boy(1)+run(1))).
 
 test(translate2) :-
-	pandt([all,boys,run],all(1, boy(1)=>run(1))).
+	pandt([all,boys,run],all(1, boy(1) ==>run(1))).
 
 test(translate3) :-
 	pandt([some,girls,dance],exists(1, girl(1)+dance(1))).
 
 test(translate4) :-
-	pandt([all,boys,like,all,apples],all(1, boy(1)=>all(2, apple(2)=>like(1, 2)))).
+	pandt([all,boys,like,all,apples],all(1, boy(1)==>all(2, apple(2)==>like(1, 2)))).
 
 test(translate5) :-
-	pandt([some,boys,like,all,apples],exists(1, boy(1)+all(2, apple(2)=>like(1, 2)))).
+	pandt([some,boys,like,all,apples],exists(1, boy(1)+all(2, apple(2)==>like(1, 2)))).
 
 test(translate6) :-
-	pandt([all,boys,like,some,apples],all(1, boy(1)=>exists(2, apple(2)+like(1, 2)))).
+	pandt([all,boys,like,some,apples],all(1, boy(1)==>exists(2, apple(2)+like(1, 2)))).
 
 test(translate7) :-
 	pandt([some,girl,that,hates,some,apple,runs],exists(1, girl(1)+exists(2, apple(2)+hate(1, 2))+run(1))).
@@ -97,17 +98,17 @@ test(translate8) :-
 	pandt([some,apple,that,respects,some,girl,likes,some,apple],exists(1, apple(1)+exists(2, girl(2)+respect(1, 2))+exists(2, apple(2)+like(1, 2)))).
 
 test(translate9) :-
-	pandt([all,apples,that,some,boy,likes,dance],all(1, (apple(1)+exists(2, boy(2)+like(2, 1)))=>dance(1))).
+	pandt([all,apples,that,some,boy,likes,dance],all(1, (apple(1)+exists(2, byoy(2)+like(2, 1)))==>dance(1))).
 
 test(translate10) :-
-	pandt([some,boy,likes,all,apples,that,some,boy,likes], exists(1, boy(1)+all(2, (apple(2)+exists(3, boy(3)+like(3, 2)))=>like(1, 2)))).
+	pandt([some,boy,likes,all,apples,that,some,boy,likes], exists(1, boy(1)+all(2, (apple(2)+exists(3, boy(3)+like(3, 2)))==>like(1, 2)))).
 
 % thanks to Yuqi Zhou for this test case
-       
+
 test(translate11) :-
 	pandt([some,boy,that,runs,likes,some,girl], exists(1,boy(1)+run(1)+exists(2,girl(2)+like(1,2)))).
 
-       
+
 
 :- end_tests(parse).
 

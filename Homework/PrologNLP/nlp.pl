@@ -5,8 +5,9 @@
 
 % this creates a new => operator to have the same priority as +
 % seems to make it behave as you would expect.
-:- op(200, xfx, =>).
-=>(_,_).
+:- op(200, xfx, user:(==>)).
+
+==>(foo,bar).
 
 % your code goes below
 % the tests are in another file
