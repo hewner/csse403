@@ -591,7 +591,7 @@ We don't want to know if something parses, we want to output a parse tree.
 We can use the same trick, we used with signular/plural only with the
 parse output.
 
-\#+BEGIN\_SRC prolog
+'''
 sentence(X,sentence(NT,VT)) :-
         append(N,V,X),
         noun\_phrase(Sop,NT,N),
@@ -607,7 +607,7 @@ is\_noun(singular,student).
 
 is\_verb(singular,attacks).
 is\_verb(plural,attack).
-\\#+END\_SRC prolog
+'''
 
 # Debugging prolog
 
