@@ -98,7 +98,7 @@ test(translate8) :-
 	pandt([some,apple,that,respects,some,girl,likes,some,apple],exists(1, apple(1)+exists(2, girl(2)+respect(1, 2))+exists(2, apple(2)+like(1, 2)))).
 
 test(translate9) :-
-	pandt([all,apples,that,some,boy,likes,dance],all(1, (apple(1)+exists(2, byoy(2)+like(2, 1)))==>dance(1))).
+	pandt([all,apples,that,some,boy,likes,dance],all(1, (apple(1)+exists(2, boy(2)+like(2, 1)))==>dance(1))).
 
 test(translate10) :-
 	pandt([some,boy,likes,all,apples,that,some,boy,likes], exists(1, boy(1)+all(2, (apple(2)+exists(3, boy(3)+like(3, 2)))==>like(1, 2)))).
