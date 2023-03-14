@@ -609,7 +609,13 @@ is\_verb(singular,attacks).
 is\_verb(plural,attack).
 ```
 
-# Debugging prolog
+# More Useful Stuff
+
+## Compounds
+
+    compount_name_arguments
+
+## Debugging prolog
 
 <http://www.swi-prolog.org/pldoc/man?section=debugoverview>
 
