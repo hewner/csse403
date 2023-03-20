@@ -149,7 +149,7 @@ For example:
 becomes
 : statement(all(noun(boys)), verb(like, some(noun(apple))))
 which becomes
-: all(1, boy(1)=>exists(2, apple(2)+like(1, 2)))
+: all(1, boy(1)==>exists(2, apple(2)+like(1, 2)))
 
 Hopefully this makes sense to you.  The numbers can be thought of as
 "unbound variables".  So what this is saying is:
@@ -172,13 +172,13 @@ and parse chained together for your testing.
 #+BEGIN_EXAMPLE
 46 ?- parse([all,boys,like,all,girls,that,like,all,boys],X),translate(X,R).
 X = statement(all(noun(boys)), verb(like, all(relcl(noun(girls), verb(like, all(noun(boys))))))),
-R = all(1, boy(1)=>all(2, (girl(2)+all(3, boy(3)=>like(2, 3)))=>like(1, 2))) ;
+R = all(1, boy(1)==>all(2, (girl(2)+all(3, boy(3)==>like(2, 3)))==>like(1, 2))) ;
 #+END_EXAMPLE
 
 ** Examples
 
 : all girls run
-: all(1, girl(1)=>run(1))
+: all(1, girl(1)==>run(1))
 
 : some girls run
 : exists(1, girl(1)+run(1))
@@ -190,7 +190,7 @@ change the meaning of the statement.
 : exists(1, girl(1)+run(1)) 
 
 : some girl likes all apples
-: exists(1, girl(1)+all(2, apple(2)=>like(1, 2))) 
+: exists(1, girl(1)+all(2, apple(2)==>like(1, 2))) 
 
 : some boy that likes some apple runs
 : exists(1, boy(1)+exists(2, apple(2)+like(1, 2))+run(1))
@@ -201,12 +201,12 @@ change the meaning of the statement.
 Note that the numbers only exist within the context of exists/all.  So we can reuse #2 to refer to both a girl and an apple.
 
 : all boys that some boy likes run
-: all(1, (boy(1)+exists(2, boy(2)+like(2, 1)))=>run(1))
+: all(1, (boy(1)+exists(2, boy(2)+like(2, 1)))==>run(1))
 
-The parenthesis that surround (boy(1)... are a result of the fact that + and => have the same precedence.  They're not really a part of the structure, just a disambiguation.
+The parenthesis that surround (boy(1)... are a result of the fact that + and ==> have the same precedence.  They're not really a part of the structure, just a disambiguation.
 
 : all boys like all girls that like all boys
-: all(1, boy(1)=>all(2, (girl(2)+all(3, boy(3)=>like(2, 3)))=>like(1, 2)))
+: all(1, boy(1)==>all(2, (girl(2)+all(3, boy(3)==>like(2, 3)))==>like(1, 2)))
 
 Any depth is possible.
 ** Thoughts on How to Proceed
@@ -241,9 +241,9 @@ type questions and it will show their translations.
 #+BEGIN_EXAMPLE
 do_nlp.
 |    all boys run
-all(1,boy(1)=>run(1))
+all(1,boy(1)==>run(1))
 |    some girl that likes all boys runs
-exists(1,girl(1)+all(2,boy(2)=>like(1,2))+run(1))
+exists(1,girl(1)+all(2,boy(2)==>like(1,2))+run(1))
 |    done
 #+END_EXAMPLE
 

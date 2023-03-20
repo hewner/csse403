@@ -1,3 +1,258 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Introduction](#introduction)
+    - [Introduction](#introduction-1)
+        - [Let's name some programming languages](#lets-name-some-programming-languages)
+        - [Let's name some adjectives for programming languages](#lets-name-some-adjectives-for-programming-languages)
+            - [My Adjective List](#my-adjective-list)
+        - [Why so many?](#why-so-many)
+            - [My answer](#my-answer)
+        - [How is this class useful](#how-is-this-class-useful)
+        - [We'll do some weird languages in this class](#well-do-some-weird-languages-in-this-class)
+    - [Some important details](#some-important-details)
+        - [Call me Buffalo](#call-me-buffalo)
+        - [Design of this class](#design-of-this-class)
+        - [Course Policies](#course-policies)
+        - [Two stages in our learning](#two-stages-in-our-learning)
+    - [What you need to do today](#what-you-need-to-do-today)
+- [Prolog 1](#prolog-1)
+    - [Facts and implications](#facts-and-implications)
+        - [Let's see it in action!](#lets-see-it-in-action)
+        - [How does it work?  Unification](#how-does-it-work--unification)
+        - [Representation Activity](#representation-activity)
+        - [Note that a single prolog function can be evaluated multiple ways](#note-that-a-single-prolog-function-can-be-evaluated-multiple-ways)
+    - [Let's do some examples with lists](#lets-do-some-examples-with-lists)
+        - [replace in list - replaces one value with another](#replace-in-list---replaces-one-value-with-another)
+        - [Solution](#solution)
+        - [is a member - is a particular value in a list](#is-a-member---is-a-particular-value-in-a-list)
+        - [Solution](#solution-1)
+        - [duplicate members - take a list and duplicate all its elements](#duplicate-members---take-a-list-and-duplicate-all-its-elements)
+        - [Solution](#solution-2)
+        - [only repeats - true if a list just contains the same element over and over](#only-repeats---true-if-a-list-just-contains-the-same-element-over-and-over)
+        - [Solution](#solution-3)
+- [Prolog 2](#prolog-2)
+    - [Never Not an Unbound Variable](#never-not-an-unbound-variable)
+    - [Use is for calculations](#use-is-for-calculations)
+    - [Strings](#strings)
+        - [Not necessarily consistent!  Last year's way (not true anymore)](#not-necessarily-consistent--last-years-way-not-true-anymore)
+        - [I reccommend: always single quotes and atom\_chars](#i-reccommend-always-single-quotes-and-atom_chars)
+    - [Cuts](#cuts)
+        - [Challenge:](#challenge)
+        - [Now lets read about cuts](#now-lets-read-about-cuts)
+        - [Cuts in your homework](#cuts-in-your-homework)
+    - [Append](#append)
+    - [Work on Word Find HW](#work-on-word-find-hw)
+- [Prolog 3 - a bit on user input](#prolog-3---a-bit-on-user-input)
+    - [What Makes Prolog Good?](#what-makes-prolog-good)
+    - [Prolog Input Basics](#prolog-input-basics)
+    - [Prolog input challenge](#prolog-input-challenge)
+        - [Write a function that takes in a prolog string (terminated with '\n')](#write-a-function-that-takes-in-a-prolog-string-terminated-with-n)
+        - [Write a function that takes in a string, and returns a list of strings separated by spaces](#write-a-function-that-takes-in-a-string-and-returns-a-list-of-strings-separated-by-spaces)
+- [Prolog 4 - Parsing](#prolog-4---parsing)
+    - [Your Prolog Project](#your-prolog-project)
+    - [Issue: Parses with variable length](#issue-parses-with-variable-length)
+        - [Solution with some problems](#solution-with-some-problems)
+        - [A more efficient but stranger solution](#a-more-efficient-but-stranger-solution)
+        - [A specialized syntax for the stranger solution](#a-specialized-syntax-for-the-stranger-solution)
+        - [I recommend you use the basic syntax, but it's up to you](#i-recommend-you-use-the-basic-syntax-but-its-up-to-you)
+    - [Issue: Number Agreement](#issue-number-agreement)
+        - [Solution](#solution-4)
+    - [Issue: We want to output something](#issue-we-want-to-output-something)
+        - [Think about it before you peek!](#think-about-it-before-you-peek)
+- [More Useful Stuff](#more-useful-stuff)
+    - [Compounds](#compounds)
+    - [Debugging prolog](#debugging-prolog)
+    - [A Few other details](#a-few-other-details)
+- [Prolog Metafunctions](#prolog-metafunctions)
+    - [Assert and retract](#assert-and-retract)
+    - [Clause and call](#clause-and-call)
+    - [Operators](#operators)
+- [Rust 1](#rust-1)
+    - [Very Basics](#very-basics)
+    - [Variables & Ownership](#variables--ownership)
+        - [First detail: variables immutable by default](#first-detail-variables-immutable-by-default)
+        - [Variables are freed automatically](#variables-are-freed-automatically)
+    - [Moves](#moves)
+    - [Moves and functions](#moves-and-functions)
+    - [Borrows](#borrows)
+        - [Limits on Mutable Borrows](#limits-on-mutable-borrows)
+        - [A little example](#a-little-example)
+- [Rust 2 - More Memory & Errors](#rust-2---more-memory--errors)
+    - [Borrows and dangling references](#borrows-and-dangling-references)
+        - [Borrows have "lifetimes" associated with them](#borrows-have-lifetimes-associated-with-them)
+        - [Lifetimes are complicated once we introduce functions that return references](#lifetimes-are-complicated-once-we-introduce-functions-that-return-references)
+        - [Returned references also extend the length of borrows](#returned-references-also-extend-the-length-of-borrows)
+        - [You probably do not want to use borrows to make linked structures](#you-probably-do-not-want-to-use-borrows-to-make-linked-structures)
+        - [General advice](#general-advice)
+    - [Errors and safety](#errors-and-safety)
+        - [Option Type](#option-type)
+        - [Propagating errors](#propagating-errors)
+- [Rust 3: Threads](#rust-3-threads)
+    - [Your basic Rust multi-threaded program](#your-basic-rust-multi-threaded-program)
+    - [Passing data through move](#passing-data-through-move)
+    - [Communicating with Messages](#communicating-with-messages)
+- [Rust 4 - Objects & Generics](#rust-4---objects--generics)
+    - [The Pre-basics](#the-pre-basics)
+    - [Now the interesting stuff - Generic Functions](#now-the-interesting-stuff---generic-functions)
+    - [Generic Structs](#generic-structs)
+    - [Generic Structs with methods](#generic-structs-with-methods)
+    - [Traits](#traits)
+    - [Default implementations](#default-implementations)
+    - [Traits in functions](#traits-in-functions)
+    - [Fixing our largest example from the beginning](#fixing-our-largest-example-from-the-beginning)
+- [Rust Debugging](#rust-debugging)
+- [Haskell 1](#haskell-1)
+    - [Pure Functional](#pure-functional)
+    - [Has Strong Typing](#has-strong-typing)
+        - [But also has type inference](#but-also-has-type-inference)
+        - [Functions are designed for partial evaluation](#functions-are-designed-for-partial-evaluation)
+        - [Activity](#activity)
+        - [Solution](#solution-5)
+    - [Pointfree style](#pointfree-style)
+        - [$](#)
+        - [.](#)
+        - [Omitting parameters](#omitting-parameters)
+    - [Hakell's IO](#hakells-io)
+        - [But more importantly, how do you handle INPUT and State in a pure functional language?](#but-more-importantly-how-do-you-handle-input-and-state-in-a-pure-functional-language)
+        - [Very basics](#very-basics)
+        - [A function that does IO](#a-function-that-does-io)
+- [Haskell 2](#haskell-2)
+    - [Algebraic Data Types](#algebraic-data-types)
+    - [Record Types](#record-types)
+    - [Typeclasses](#typeclasses)
+        - [Type classes can have default implementations](#type-classes-can-have-default-implementations)
+        - [Type classes can have subclasses](#type-classes-can-have-subclasses)
+        - [Polymorphism but not inheritance](#polymorphism-but-not-inheritance)
+    - [Typeclasses can get very meta](#typeclasses-can-get-very-meta)
+    - [Functors](#functors)
+    - [Applicative Functors](#applicative-functors)
+        - [My final running example](#my-final-running-example)
+- [Elm 4 - Functional Design](#elm-4---functional-design)
+    - [What is the point of design?](#what-is-the-point-of-design)
+        - [The programs we want to write are complex, how can this be accomplished?](#the-programs-we-want-to-write-are-complex-how-can-this-be-accomplished)
+    - [An Initial Example](#an-initial-example)
+        - [Some variations](#some-variations)
+    - [Functional folks love this!](#functional-folks-love-this)
+        - [What is good about it?](#what-is-good-about-it)
+        - [What is bad about it?](#what-is-bad-about-it)
+    - [Let's talk about (idealized) OO paradigm](#lets-talk-about-idealized-oo-paradigm)
+        - [What is good about it?](#what-is-good-about-it-1)
+        - [What is bad about it](#what-is-bad-about-it)
+    - [My advice:](#my-advice)
+    - [Polymorphism](#polymorphism)
+- [Haskell: Representing Type & State](#haskell-representing-type--state)
+    - [OO Programming and "Types"](#oo-programming-and-types)
+    - [In functional approaches we don't want too many types](#in-functional-approaches-we-dont-want-too-many-types)
+    - [Acting over time](#acting-over-time)
+- [The final project](#the-final-project)
+- [Instructor's Choice: Smalltalk 1](#instructors-choice-smalltalk-1)
+- [Instructor's Choice: Smalltalk, The Image](#instructors-choice-smalltalk-the-image)
+    - [How can we be more object-oriented?](#how-can-we-be-more-object-oriented)
+    - [What's going on with Smalltak](#whats-going-on-with-smalltak)
+    - [What is the image?](#what-is-the-image)
+        - [Sounds neat, but not really that important](#sounds-neat-but-not-really-that-important)
+        - [This seems crazy](#this-seems-crazy)
+        - [How do you create an image?](#how-do-you-create-an-image)
+        - [How do you share code if it's trapped in an image?](#how-do-you-share-code-if-its-trapped-in-an-image)
+    - [Why is an image good?](#why-is-an-image-good)
+        - [I like files!  You wouldn't believe how good I am at vi.  Plus all my tools like git operate on files.](#i-like-files--you-wouldnt-believe-how-good-i-am-at-vi--plus-all-my-tools-like-git-operate-on-files)
+        - [An example](#an-example)
+        - [A programmatic programming environment gives you greater power](#a-programmatic-programming-environment-gives-you-greater-power)
+    - [Some examples](#some-examples)
+        - [A demo](#a-demo)
+        - [The refactoring browser](#the-refactoring-browser)
+- [Instructor's Choice: Haskell and Monads](#instructors-choice-haskell-and-monads)
+    - [The idea](#the-idea)
+        - [Oftentimes we have "almost" pure functions](#oftentimes-we-have-almost-pure-functions)
+        - [Of course, we can always add return values!](#of-course-we-can-always-add-return-values)
+        - [But the problem is nobody has time for that!](#but-the-problem-is-nobody-has-time-for-that)
+        - [Why does this seem annoying?](#why-does-this-seem-annoying)
+        - [But the context is screwing us up!](#but-the-context-is-screwing-us-up)
+        - [Here's what (we think) we want!](#heres-what-we-think-we-want)
+        - [How is this different then applicative functors?](#how-is-this-different-then-applicative-functors)
+    - [Monads](#monads)
+        - [Monadic type = value with some context](#monadic-type--value-with-some-context)
+        - [Let's combine the functions with some crazy operator!](#lets-combine-the-functions-with-some-crazy-operator)
+        - [Except what if we needed to use the value in a subsequent step?](#except-what-if-we-needed-to-use-the-value-in-a-subsequent-step)
+        - [In Haskell, this can be improved with some syntactic sugar](#in-haskell-this-can-be-improved-with-some-syntactic-sugar)
+    - [The elm maybe monad](#the-elm-maybe-monad)
+    - [Write your own monads!](#write-your-own-monads)
+- [Instructor's Choice 2: More on Monads](#instructors-choice-2-more-on-monads)
+    - [Extended example](#extended-example)
+        - [Step 1](#step-1)
+        - [Step 2: add Monadic Type](#step-2-add-monadic-type)
+        - [Step 3: functions should return monadic type](#step-3-functions-should-return-monadic-type)
+        - [Step 4: let's make our combination operator](#step-4-lets-make-our-combination-operator)
+        - [Step 5: Use it!](#step-5-use-it)
+        - [Step 6: But divs](#step-6-but-divs)
+        - [Step 7: Update our monadic type](#step-7-update-our-monadic-type)
+        - [Step 8: Solving the problem of adding](#step-8-solving-the-problem-of-adding)
+        - [Step 9: Conversion function is easy](#step-9-conversion-function-is-easy)
+        - [Step 10: Sugar & we try it out](#step-10-sugar--we-try-it-out)
+        - [Final version](#final-version)
+    - [More examples](#more-examples)
+        - [An Example: The Maybe Monad](#an-example-the-maybe-monad)
+        - [Doing IO with Monads](#doing-io-with-monads)
+        - [Many other Monads](#many-other-monads)
+- [Buffalo's Guide to a Good Presentation](#buffalos-guide-to-a-good-presentation)
+    - [Start with the activity in mind](#start-with-the-activity-in-mind)
+    - [Learning itself is fun](#learning-itself-is-fun)
+    - [Provide Feedback](#provide-feedback)
+    - [Explore one topic deeply](#explore-one-topic-deeply)
+    - [Things take time](#things-take-time)
+    - [Check the rubric in the final project document](#check-the-rubric-in-the-final-project-document)
+- [Instructor's Choice: Lua and C Integration](#instructors-choice-lua-and-c-integration)
+    - [But probably its neatest feature is that is designed to be embedded](#but-probably-its-neatest-feature-is-that-is-designed-to-be-embedded)
+        - [An Example](#an-example)
+        - [Communication between lua and C is stack based](#communication-between-lua-and-c-is-stack-based)
+    - [Why do we want an embedded programming language?](#why-do-we-want-an-embedded-programming-language)
+    - [Now you try](#now-you-try)
+        - [Installing Lua + C integration](#installing-lua--c-integration)
+        - [Making sure it works](#making-sure-it-works)
+        - [The Paper Scissors Rock Competition Activity](#the-paper-scissors-rock-competition-activity)
+- [Instructor's Choice 6: Lua and Prototype Based OO](#instructors-choice-6-lua-and-prototype-based-oo)
+    - [What is Object Oriented Programming?](#what-is-object-oriented-programming)
+        - [Encapsulation](#encapsulation)
+        - [Polymorphism](#polymorphism-1)
+        - [Inheritance](#inheritance)
+    - [Is there any way to make OO stuff simple for dynamic languages?](#is-there-any-way-to-make-oo-stuff-simple-for-dynamic-languages)
+        - [Very crude solution](#very-crude-solution)
+    - [Solving Duplication/Superclass modification](#solving-duplicationsuperclass-modification)
+        - [How does this work](#how-does-this-work)
+    - [Solving shallow copy](#solving-shallow-copy)
+- [Instructor's Choice 6: More Prototype Based OO](#instructors-choice-6-more-prototype-based-oo)
+    - [Prototypes in Self](#prototypes-in-self)
+    - [How to implement the basics](#how-to-implement-the-basics)
+        - [Key insight: it needs to be possible the modify the class later](#key-insight-it-needs-to-be-possible-the-modify-the-class-later)
+        - ["Class" vs "Instance"](#class-vs-instance)
+        - [Inheritance is trait object parents](#inheritance-is-trait-object-parents)
+        - [What if you want multiple representations?](#what-if-you-want-multiple-representations)
+    - [Dynamic Inheritance](#dynamic-inheritance)
+        - [Prototype Solution](#prototype-solution)
+        - [What do you think?](#what-do-you-think)
+    - [Are prototypes a better abstraction than classes?](#are-prototypes-a-better-abstraction-than-classes)
+    - [Using Objects to Store and Categorize](#using-objects-to-store-and-categorize)
+- [Final Reflections](#final-reflections)
+    - [Course Evaluations](#course-evaluations)
+    - [The Languages](#the-languages)
+        - [Prolog](#prolog)
+        - [Erlang](#erlang)
+        - [Elm](#elm)
+        - [Smalltalk](#smalltalk)
+        - [Lua](#lua)
+        - [Your Project Language](#your-project-language)
+    - [A Reminder of some of the goals in this class](#a-reminder-of-some-of-the-goals-in-this-class)
+        - [The Paradigm](#the-paradigm)
+        - [Skills in acquiring new programming languages](#skills-in-acquiring-new-programming-languages)
+    - [Remember: paradigm rather than language](#remember-paradigm-rather-than-language)
+        - ['Exciting' is a great adjective for a programming language sometimes](#exciting-is-a-great-adjective-for-a-programming-language-sometimes)
+        - [Love the boring languages too!](#love-the-boring-languages-too)
+    - [Don't let your exploration end here!](#dont-let-your-exploration-end-here)
+
+<!-- markdown-toc end -->
+
+
 # Introduction
 
 > A language that doesn't affect the way you think about programming is not worth knowing.”
@@ -769,419 +1024,836 @@ And then you can do stuff like this:
     false.
 
 
-# Erlang 1 - Very basics
+# Rust 1
 
-## Erlang variables & matching
+## Very Basics
 
-### You can't redefine variables
+Rust is a low level language and initially doesn't seem terribly weird:
 
-    28>X = hello.
-    hello
-    29> X = goodbye.
-    exception error: no match of right hand side value goodbye
-
-### You can do prolog-like matching
-
-    39> {Abc,2} = {1,2}.
-    {1,2}
-    40> Abc.
-    1
-
-1.  but it only works one direction
-
-        41>{1,2} = Xyz. 
-        41> Xyz.
-        2: variable 'Xyz' is unbound
-
-2.  and things can't be in a partially bound state
-
-        42>PartlyBound = {1,2,_}. 
-        42> PartlyBound.
-        2: variable 'PartlyBound' is unbound
-
-### Atoms, lists, tuples
-
-    atom % these built in "symbols" are very handy for parsing
-    {tuple,is,a,specific,length,grouping}
-    [list,can,match,with,the,H,Tail,synatx,from,prolog]
-
-Also some pretty neat primitives for mapping bit level stuff
-Useful when you want to conserve bandwidth, yet keep stuff expressive
-
-## List functions
-
-List Comprehensions
-Many languages have some syntactical sugar for iterating over a list
-
-    for(int x : integers) {
-      System.out.print(x + ",");
-    }
-    
-    //As opposed to (approx java from memory here, forgive my mistakes)
-    
-    Iterator<Integer> i = integers.getIterator();
-    while(i.hasNext()) {
-       int x = i.next();
-       System.out.print(x + ",");
+    fn main() {
+        
+        let command = "my cool command";
+        
+        println!("handling command \"{}\"\n", command);
+        
+        
+        if command == "exit" {
+             std::process::exit(0);
+        }
     }
 
-But in languages with more functional feel, you obviously can be a lot cleaner (elisp):
 
-    (mapc (lambda (x) (print x)) '(1 2 3))
+What makes it stand out to me is
 
-In more recent versions of Java and C#, they've gotten on the cool
-iteration bandwagon.
+1.  Strong but strange guarantees about memory safety
+2.  Interesting templating system
+3.  General commitment to a featureful modern language without compromising speed
 
-### In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions
+This first lecture and maybe the second is going to be focused on #1
 
-RUBY VERSIONS (DO NOT attempt to use on your homework):
+## Variables & Ownership
 
-    #do something generic to each item
-    itemsToPrint.each {|item| puts item } 
+Most examples come frome here
+
+https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html
+
+### First detail: variables immutable by default
+
+
+    let x = 5;
+    println!("The value of x is: {}", x);
+    x = 6; // <- error here
+    println!("The value of x is: {}", x);
+
+### Variables are freed automatically
+
+    {
+        let s = String::from("hello"); // s is valid from this point forward
+
+        // do stuff with s
+        
+    }   // this scope is now over, and s is no longer valid
+        // hello string is freed
+
+This (incidentally) is different than Java
+
     
-    #do an operation and make a new list with the results
-    doubled = items.collect {|item| item*2 }
+    {
+        String s = new String("foobar");
+        someOtherObj.name = s; // now 2 things point to the foobar String
+        
+    }  // s's scope is over, but foobar lives on
+
+Points about this Java code
+
+* If the foobar string was not assigned to someOtherObj.name, in
+  theory it could be freed at a similar point.  But in practice it
+  probably wouldn't, we would have to wait for the Garbage Collector
+  to run
+* If a similar thing to otherobject assignment happened in Rust we
+  would need to be super careful not to free that string at the end of
+  s's scope
+  
+
+## Moves
+
+    let s1 = String::from("hello");
+    let s2 = s1;
+
+    println!("{}, world!", s1); // ERROR
     
-    # get a subset of the list where something is true
-    positives = items.select {|item| item > 0}
+How the error looks
+
+
+    2 |     let s1 = String::from("hello");
+      |         -- move occurs because `s1` has type `String`, which does not implement the `Copy` trait
+    3 |     let s2 = s1;
+      |              -- value moved here
+    4 | 
+    5 |     println!("{}, world!", s1);
+      |                            ^^ value borrowed here after move
+
+
+What this is saying:
+
+"Because the type string is not copied on assignment, 'let s2 = s1'
+MOVED the ownership of the data to s2.  After this move, s1 is no longer
+valid"
+
+This works:
+
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
+
+    println!("s1 = {}, s2 = {}", s1, s2);
+
+Note that this is explicitly a copy
+
+This is implicitly a copy
+
+    let x = 5;
+    let y = x;
+
+    println!("x = {}, y = {}", x, y);
     
-    # get a subset of the list where something is false
-    no_zeros = items.reject {|item| item == 0} 
+But don't get distracted - the string case is the way almost all
+structures in Rust act (specifically, all structures that don't
+implement the copy trait).
+
+## Moves and functions
+
+    fn main() {
+        let s = String::from("hello");  // s comes into scope
     
-    #check to see if every item in the list has a property
-    is_all_evens = items.all? {|item| item % 2 == 0}
-
-In these languages, using these special iterator functions are generally much preferred
-to standard loops
-
-## Erlang versions
-
-    % Make anonymous functions like this:
-    PlusThree = fun(X) -> X + 3 end.
+        takes_ownership(s);             // s's value moves into the function...
+                                        // ... and so is no longer valid here
     
-    % Then pass it to iterator function (of course you can do it on one line)
-    lists:map(PlusThree, [1,2,3]).
-    % produces [4,5,6]
+        //DO NOT USE s HERE
+        
+    } // Here, x goes out of scope, then s. But because s's value was moved, nothing
+      // special happens.
     
-    % or completely anonymously
-    lists:map(fun(X) -> X + 3 end, [1,2,3]).
+    fn takes_ownership(some_string: String) { // some_string comes into scope
+        println!("{}", some_string);
+    } // Here, some_string goes out of scope and `drop` is called. The backing
+      // memory is freed.
 
-foreach - just runs the function and returns the result
-map - runs the function and collects the results into a new list
-filter - keeps only those that return true
-any - returns true if one element returns true
-...and more (see your textbook & language docs)
+Passing an object into a function in Rust is giving it up forever
 
-### Write a call using filter removes all empty strings from a list
+In the above code this is a bit nonsensical, because the
+takes\_ownership function is declared in a way that makes it take
+ownership of its parameters but it doesn't seem to actually be using
+that ownership for anything.  It should probably borrow instead, which
+we will talk about soon.
 
-length("foo") gets the length
+Instead in rust you often intentionally take ownership because you
+want to move the data someplace else:
 
-### Solution
+    pub fn new_student(name : String, age : u32 ) -> Student {
+         Student  { name, age }
+    }
 
-    lists:filter(fun(X)->length(X) > 0 end,["","","a","","b"]).
-    ["a","b"]
 
-## Most complicated foldl (and foldr)
-
-Iterate through the list, keeping a running value
-Eg, run through the list and compute the sum
-
-    AddToSum = fun(Item,CurrentSum) -> Item + CurrentSum end.
-
-The new result will become CurrentSum for the next iteration.
-
-The final result is the overall result.
-
-Only other trick is you must pass in an initial value.
-
-    SumList(List) ->
-        lists:foldl(AddToSum,0,List).
-
-### Write a function that returns the length of the largest string in a list of strings
-
-0 for an empty list
-hint: max(1,2) returns the max of 2 ints
-
-### Solution
-
-    lists:foldl(fun(Item,Max)->max(Max,length(Item)) end,0,["a","bc",""]).
-
-## List Comprehensions
-
-A interesting mix of map,filter,and just a bit of prolog
-
-    % Turn a list of items into a list of {item,item} tuples
-    Data = [1,2,3].
-    Lists = [ {X,X} || X <- Data ].
+    // when called
     
-    % As above, but filter in anything two or higher
+    let name_string = String::from("Pat");
+    let my_student = new_student(name_string,17);
+    // name_string is now invalid but I now own my_student
     
-    Lists = [ {X,X} || X <- Data, X > 1].
+## Borrows
+
+    fn main() {
+        let s1 = String::from("hello");
     
-    % Largest of a pair tuple
-    Data = [{1,2},{4,3},{5,6}].
-    Lists = [ max(First,Second) || {First,Second} <- Data3].
+        let len = calculate_length(&s1);
     
-    % Do all possible combinations of a couple values
-    % ++ is list/string concat
+        println!("The length of '{}' is {}.", s1, len);
+    }
     
-    [ X ++ Y || X <- ["super ","tiny "], Y <- ["ninja","pirate"] ].
+    fn calculate_length(s: &String) -> usize {
+        s.len()
+    }
 
-### List all values of A B C that make (A or B) and C true
+calculate\_length "borrows" the string, it doesn't take ownership of
+it or copy it.
 
-hint: and or and not are boolean operators in erlang
-hint: output should be [{true,true,true},{true,false,true},{false,true,true}]
+It's not crazy to think of this as like a pointer - but that indicates
+a major potential pitfall, how can we guarantee memory safety when
+passing around pointers?  The answer is that rust will ensure safety,
+but borrows will be a lot more limited than we expect...
 
-### Solution
+### Limits on Mutable Borrows
 
-    Vals = [true,false].
-    [{A,B,C}|| A <- Vals, B <- Vals, C <- Vals, (A or B) and C].
+So just regular references, your borrows are by default immutable but
+you can explicitly declare them mutable.
 
-# Erlang 2 - Basic Process
-
-Spawning processes and communicating in erlang is easy!
-
-Update your svn and look at ErlangSimpleCommunication
-Take a look at the code in example.erl.
-Then try to solve the problem is solveme.erl
-
-My solution is in solvemeSolution.erl but don't peek!
-
-# Erlang 3 - Connecting to a remote erlang server
-
-1.  ssh to remote server
+    fn main() {
+        let mut s = String::from("hello");
     
-        ssh erlang.rose-hulman.edu
+        change(&mut s);
+    }
     
-    Use your EIT password.
+    fn change(some_string: &mut String) {
+        some_string.push_str(", world");
+    }
 
-2.  start erlang with a long name
+Mutable borrows have a big restriction - your object can either have
+unlimited immutable borrows OR one mutable borrow but not both.
+
+    let mut s = String::from("hello");
+
+    let r1 = &s; // no problem
+    let r2 = &s; // no problem
+    let r3 = &mut s; // BIG PROBLEM
+
+The corresponding error looks like this:
+
+
+    error[E0502]: cannot borrow `s` as mutable because it is also borrowed as
+    immutable
+     --> borrow_thrice.rs:6:19
+      |
+    4 |     let r1 = &s; // no problem
+      |               - immutable borrow occurs here
+    5 |     let r2 = &s; // no problem
+    6 |     let r3 = &mut s; // BIG PROBLEM
+      |                   ^ mutable borrow occurs here
+    7 | }
+      | - immutable borrow ends here
+
+
+### A little example
+
+    pub struct Person {
+        first : String,
+        last : String
+    }
     
-        erl -name buffalo@erlang.rose-hulman.edu
     
-    Note: your name should be UNIQUE - maybe your netid?
-
-3.  start erlang on your local computer using your ip address
+    fn main() {
+        let mut me = Person { first : "Mike".to_string() , last : "Hewner".to_string() };
     
-        erl -name buffalo@137.112.40.209
+        update_name(&mut me, "!");
+        
+        println!("A person: {} {}", &me.first, &me.last);
+    }
     
-    (Note: type what's my IP into google to find out what it is)
+    fn update_name(person : &mut Person, to_append : &str) {
+        person.last.push_str(to_append);
+    }
+
+It's easy to append !, hard to append the first name.
+
+# Rust 2 - More Memory & Errors
+
+Discussion in this section are mostly from here https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+
+## Borrows and dangling references
+
+    fn main() {
+        let reference_to_nothing = dangle();
+    }
     
-    BTW, you'll want to do this in the ErlangSimpleCommunication
-    directory so you can load the code.
-
-4.  get the magic cookie from your home computer
+    fn dangle() -> &String {
+        let s = String::from("hello");
     
-        (buffalo@137.112.40.209)2> erlang:get_cookie().
-        'BLAHBLAHBLAH'
+        &s
+    }
 
-5.  on the remote computer, set its magic cookie to the same thing
+We can't let this happen but how we prevent it is gonna make our lives complicated.
+
+This problem can be fixed by return the String directly - thus giving
+ownership to the caller.
+
+### Borrows have "lifetimes" associated with them
+
+    {
+        let r;
+
+        {
+            let x = 5;
+            r = &x;
+        }
+
+        println!("r: {}", r);
+    }
+
+The error this produces is
+
+    7  |             r = &x;
+       |                 ^^ borrowed value does not live long enough
+    8  |         }
+       |         - `x` dropped here while still borrowed
+    9  | 
+    10 |         println!("r: {}", r);
+       |                           - borrow later used here
+
+The key thing to note is all borrows have an implicit lifetime
+annotation, very similar to a type annotation.  You can actually even
+refer to the implicit lifetime annotation like this:
+
+    &'a i32 
+
+### Lifetimes are complicated once we introduce functions that return references
+
+    fn longest(x: &str, y: &str) -> &str {
+        if x.len() > y.len() {
+            x
+        } else {
+            y
+        }
+    }
+
+This does not compile because if x and y have different lifetimes,
+it's not obvious what the lifetime of the result string should be.  It
+can be fixed like this:
+
+
+    fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+        if x.len() > y.len() {
+            x
+        } else {
+            y
+        }
+    }
+
+This looks like it's requiring the two parameters to have the same
+lifetime, but it's a little smarter than that.  It's actually looking
+for a lifetime that both x and y can satisfy - meaning the result
+lifetime is the shorter of the two parameter lifetimes.
+
+### Returned references also extend the length of borrows
+
+    fn main() {
+        let mut me = Person { first : "Mike".to_string() , last : "Hewner".to_string() };
     
-        erlang:set_cookie(node(),'BLAHBLAHBLAH').
+        let thing_to_update = get_name_for_update(&mut me);
+        thing_to_update.push_str(&me.first); // ERROR!
+        
+        println!("A person: {} {}", &me.first, &me.last);
+    }
     
-    Note: don't use BLAHBLAHBLAH, use whatever your magic cookie actually is
+    fn get_name_for_update(person : &mut Person) -> &mut String {
+        &mut person.last
+    }
 
-6.  ping your remote computer from your local computer
+### You probably do not want to use borrows to make linked structures
+
+    fn main() {
     
-        net_adm:ping('buffalo@erlang.rose-hulman.edu').
-        pong
+        let mut students : Vec<String> = Vec::new();
+        let mut cool_students : Vec<&String> = Vec::new();
     
-    Note: pong is good - pang is bad
+        students.push("Alice".to_string());
+        students.push("Bill".to_string());
+        students.push("Charles".to_string());
     
-    In the past, sometimes only one direction will work.  If that
-    failed for you, you can try the connection in reverse
-    (i.e. connecting from the sever to your local erlang).
+        cool_students.push(students.get(0).unwrap());
+        cool_students.push(students.get(1).unwrap());
     
-        (buffalo@erlang.rose-hulman.edu)5> net_adm:ping('buffalo@137.112.40.173').
-        pong
+        //students.push("Dave".to_string());
+        //students.pop();
+        
+        println!("students: {:?}", students);
+        println!("number of cool students: {}", cool_students.len())
+    }
+
+It's mostly just impossible if things are mutable
+
+### General advice
+
+Use simple containment structures - not networks of interrelationships.
+
+So let's say I have a set of StudentGroup objects, which conceptually
+I think of as contain Student objects.  Students can enter and leave
+groups, students can be modified.  Students can be added to the system
+at any time.
+
+In Java, the StudentGroups would contain student objects, which would
+make it easy to iterate across the students in a group and (say) add a
+grade to them.
+
+In Rust, I'd probably have the student groups contain StudentIds or
+StudentNames as strings or numbers.  Then I'd look up the relevant
+student in the student list and update them.
+
+
+## Errors and safety
+
+### Option Type
+
+So you may notice a lot of rust functions return Option types
+
+    cool_students.push(students.get(0));
+
+This errors
+
+       |
+    11 |     cool_students.push(students.get(0));
+       |                        ^^^^^^^^^^^^^^^ expected `&String`, found enum `Option`
+       |
+       = note: expected reference `&String`
+                       found enum `Option<&String>`
+
+The option type is similar to the haskell Maybe type.  It represents
+something that might have Some particular value, or might have None.
+You can break it apart into the various cases if you want:
+
+    let val = students.get(0);
+
+    match val {
+        Some(x) => {
+            println!("value was {}", x);
+        }
+        None => {
+            println!("abort! students was empty!?!");
+        }
+    }
+
+The interesting part is the None case.  This is very common where you
+do a lookup that could theoretically fail, but if it does fail it
+means something catastrophically bizarre has happened.  You don't want
+to litter spurious error handling in your code everywhere, so what can
+be done?
+
+    let val = students.get(0).unwrap();
     
-    Either way, you only have to do one of these.  Once, you do both
-    servers will be connected with each other.  You can check by
-    running nodes().
+    // either get the value student(0) contains
+    // or panic and abort the whole program
+
+### Propagating errors
+
+Another issue is when you *do* want some sort of error handling and
+you want to ensure it happens but yet again you don't want to litter
+special cases everywhere.
+
+    stream.write(b"HTTP/1.1 200 OK\r\n");
+    stream.write(b"Content-Type: text/html; charset=UTF-8\r\n\r\n");
+    stream.write(b"<html><body>Hello world</body></html>\r\n");
+
+One option would be Java-style exceptions, but that actually
+introduces a performance penalty.  Instead, rust uses Err types
+similar to option types.  It will warn if you don't inspect them,
+though you can just unwrap() (that might seem like a bad design, but
+it's a good design).
+
+    warning: unused `std::result::Result` that must be used
+      --> simple_http_server.rs:19:5
+       |
+    19 |     stream.write(b"HTTP/1.1 200 OK\r\n");
+       |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       |
+       = note: `#[warn(unused_must_use)]` on by default
+       = note: this `Result` may be an `Err` variant, which should be handled
+
+But usually with these kind of errors - if you do care to handle
+them - you're not going to handle each of these lines in a separate
+way.  Instead propagate them to someone who cares!
+
+    fn handle_write(mut stream: TcpStream) -> std::io::Result<()>{
     
-        (buffalo@137.112.40.173)1> nodes().
-        ['buffalo@erlang.rose-hulman.edu']
-
-7.  nl loads your code on all connected servers
+        stream.write(b"HTTP/1.1 200 OK\r\n") ? ;
+        stream.write(b"Content-Type: text/html; charset=UTF-8\r\n\r\n") ? ;
+        stream.write(b"<html><body>Hello world</body></html>\r\n") ? ;
     
-        (buffalo@137.112.40.173)4> c(solvemeSolution).
-        {ok,solvemeSolution}
-        (buffalo@137.112.40.173)5> nl(solvemeSolution).
-        abcast
-
-8.  You can spawn a process on a remote server like this
+        Ok(())
     
-        RemotePid = spawn('buffalo@erlang.rose-hulman.edu', fun    solvemeSolution:part2_loop/0).
+    }
+
+The ? operator amounts to - if this is an error result, return that
+result from the function.  If it is not an error result, unwrap it
+(though that unwrapped value is unused in this case).
+
+# Rust 3: Threads
+
+So Rust is a really good language for threading.  It's memory model
+naturally supports memory safety, and it has some handy abstractions
+for quick and reliable inter-thread communication.  Of course, the
+requirement that everything be verifiably safe does limit flexibility
+in certain ways, but given how tricky it can be to write correct
+concurrent code that tradeoff may well be worth it.
+
+Most of the examples from here
+
+https://doc.rust-lang.org/book/ch16-01-threads.html
+
+## Your basic Rust multi-threaded program
+
+    use std::thread;
+    use std::time::Duration;
     
-    Or
+    fn main() {
+        let handle = thread::spawn(|| {
+            for i in 1..10 {
+                println!("hi number {} from the spawned thread!", i);
+                thread::sleep(Duration::from_millis(1));
+            }
+        });
+        
+        for i in 1..5 {
+            println!("hi number {} from the main thread!", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+        
+        handle.join().unwrap();
+
+    }
+
+Note Rust's pretty closure syntax.  You'd put a parameter in between
+those || if your closure took parameters.
+
+## Passing data through move
+
+Non-functional thread code
+
+    use std::thread;
+    use std::time::Duration;
     
-        Pid2 = spawn('buffalo@erlang.rose-hulman.edu', fun() -> example:buffalo_counter(0) end).
-
-1.  You can see your process running on the remote server with i() (note this is on the REMOTE server)
+    fn main() {
     
-        (buffalo@erlang.rose-hulman.edu)6> i().
-        TONS 'O STUFF followed by
-        <0.46.0>              inet_tcp_dist:do_accept/6              610     3983    0
-                              dist_util:con_loop/9                    11              
-        <0.51.0>              net_kernel:spawn_func/6                233       15    0
-                              solveme_sol:part2_loop/0                 1              
-        <0.54.0>              net_kernel:spawn_func/6                233       15    0
-                              solveme_sol:part2_loop/0                 1              
-        Total                                                      47741   399330    0
-                                                                     280              
-        ok
-
-2.  Send a message to your remote process in the usual way:
+        let names = vec!("thread1","thread2", "thread3");
+        let mut handles = Vec::new();
+        
+        for name in names {
+            let handle = thread::spawn(|| {
+                for i in 1..3 {
+                    println!("hi number {} from the thread {}!", i, name);
+                    thread::sleep(Duration::from_millis(1));
+                }
+            });
+            handles.push(handle);
+        }
     
-        (buffalo@137.112.40.226)25> Foo9 ! {test1,2,0.7}.
-        {test1,2,0.7}
-        Starting test1 Part 2.      
-        Finished test1 Part 2. (output: 0.7)
+        for handle in handles {
+            handle.join().unwrap();
+        }
+        
+    }
+
+Made safe with move
+
+    use std::thread;
+    use std::time::Duration;
     
-    Note that the output of the process is on the local computer, even if it is running on the remote server.
+    fn main() {
     
-    If you want to see output on the executing server, use erlang:display.  For example:
+        let names = vec!("thread1","thread2", "thread3");
+        let mut handles = Vec::new();
+        
+        for name in names {
     
-        spawn('buffalo@erlang.rose-hulman.edu', fun() -> erlang:display("hello") end).
+            let cloned_name = name.clone();
+            
+            let handle = thread::spawn(move || {
+                for i in 1..3 {
+                    println!("hi number {} from the thread {}!", i, cloned_name);
+                    thread::sleep(Duration::from_millis(1));
+                }
+            });
+            handles.push(handle);
+        }
+    
+        for handle in handles {
+            handle.join().unwrap();
+        }
+    
+    
+    }
 
-3.  If you have time, try to write a new function in the SimpleCommunication project that starts up both the spawned part1 processes and the part 2 loop on two different servers.
+## Communicating with Messages
 
-# Erlang 4 - Let it crash
-
-See the [example code](Homework/ErlangLetItCrashExample).
-
-# The philosophy
-
-What is the correct ratio of try to catches?
-
-# linked in death
-
-So in erlang, it can be pretty common to spawn a subprocess that is
-integral to your own process. This should make you concerned, insofar
-as it means part of your system can fail and another part lives on,
-oblivious to the fact that it's waiting for a message that can never
-arrive.
-
-Solution?  A death pact:
-
-    link(Pid)
-
-This causes your process to die if Pid dies.
-
-# More advanced features
-
-    process_flag(trap_exit, true)
-
-This lets you catch the secret message EXIT, which is the thing that
-would normally kill your process if you are linked.
-
-# Erlang 5 - Final Assignment, Raft Algorithm
-
-## What is an consensus algorithm?
-
-1.  Algorithm where state is distributed across multiple members.
-2.  The problem is consistency - you want to be able to store data when
-    not all members are available, BUT you don't want it to be possible
-    to get into inconsistent state.  This can be a problem when network
-    partitions occur and cause members to leave/rejoin the pool. (let's
-    do an example)
-3.  We rely on the idea of a majority.  If we require a majority of
-    members to agree to something to consider it committed, this
-    ensures that any subsequent majority must share at least one member
-    in common with a previous majority.
-4.  That said, the protocol tends to be complex, because no message can
-    be trusted to arrive.
-
-## The Raft algorithm
-
-<http://thesecretlivesofdata.com/raft/>
-
-1.  Raft relies on the idea of a "leader" who serves for a term.
-2.  The leader receives requests for updates, sends updates to all
-    members, gets responses, then when a majority of members respond,
-    considers the update "committed".
-3.  Because of the way the raft algorithm elections work, something
-    that is committed will definitely be in the log of any electable
-    leader.
-4.  A leader may encounter a follower that is not up to date.  Such a
-    follower will not accept new data.  The leader transmits larger
-    and larger logs, going further into the past, until it encounters
-    a point of commonality with its follower.  Once a point of
-    commonality is found, the follower replaces any data they have not
-    in common with the leader's version.
-
-## Your assignment
-
-Only the data transmission part of the Raft algorithm.  We won't do
-elections.
-
-[<HomeworkCode/ErlangRaft/raft.erl>]
-
-# Erlang 6 - Debugging sends and receives
-
-## The basics
-
-This command can let you debug a process you are starting:
-
-    7> dbg:c(mergesort,basic1_test,[],[s,r]).
-    (<0.193.0>) <0.194.0> ! {sort,[2,5,7],<0.193.0>}
-    (<0.193.0>) <0.195.0> ! {sort,[34,2,1],<0.193.0>}
-    (<0.193.0>) <0.196.0> ! {sort,[99,11,2],<0.193.0>}
-    (<0.193.0>) << {sorted,[2,5,7],<0.194.0>}
-    (<0.193.0>) << {sorted,[1,2,34],<0.195.0>}
-    (<0.193.0>) << {sorted,[2,11,99],<0.196.0>}
-    (<0.193.0>) <0.195.0> ! {merge,[1,2,34],[2,5,7],<0.193.0>}
-    (<0.193.0>) << {merged,[1,2,2,5,7,34],<0.195.0>}
-    (<0.193.0>) <0.195.0> ! {merge,[1,2,2,5,7,34],[2,11,99],<0.193.0>}
-
-BUT it's not really what you want if your goal is to debug a Raft unit
-test.
-
-## Debugging a raft unit test
-
-### Install the trace in the test setup function
-
-Since the raft processes are short lived in the unit tests, we need to
-add the instrumentation in the test setup.
-
-    setup() ->
-        start_raft_member(raft1),
-        start_raft_members([m1,m2,m3]),
-        Result = dbg:p(whereis(raft1),[s,r]),
-        io:format("Debugging ~p", [Result]).
+    use std::sync::mpsc;
+    use std::thread;
+    
+    fn main() {
+        let (tx, rx) = mpsc::channel();
+    
+        thread::spawn(move || {
+            let val = String::from("hi");
+            tx.send(val).unwrap();
+        });
+    
+        let received = rx.recv().unwrap();
+        println!("Got: {}", received);
+    }
 
 
-### Enable the trace
 
-    6> dbg:tracer().                     
-    {ok,<0.57.0>}
+# Rust 4 - Objects & Generics
 
-### Run the test case
+Most stuff from here https://doc.rust-lang.org/book/ch10-01-syntax.html
 
-    7> eunit:test(raft:ae_hist4_test_()).
-    (<0.97.0>) << {<0.102.0>,{append_entries,1,0,0,[{1,newdata}],0}}
-    (<0.97.0>) <0.102.0> ! {x,{1,true},[raft1,1]}
-    (<0.97.0>) << {<0.102.0>,{append_entries,1,1,1,[{1,bad1}],0}}
-    (<0.97.0>) <0.102.0> ! {x,{1,true},[raft1,2]}
-    (<0.97.0>) << {<0.102.0>,{append_entries,2,2,1,[{2,bad2}],0}}
-    (<0.97.0>) <0.102.0> ! {x,{2,true},[raft1,3]}
-    (<0.97.0>) << {<0.102.0>,{append_entries,3,3,3,[{3,newdata4}],0}}
-    (<0.97.0>) <0.102.0> ! {x,{3,false},[raft1]}
-    (<0.97.0>) << {<0.102.0>,{append_entries,3,2,3,[{3,newdata3},{3,newdata4}],0}}
-    (<0.97.0>) <0.102.0> ! {x,{3,false},[raft1]}
-    (<0.97.0>) << {<0.102.0>,
-                   {append_entries,3,1,1,
-                                   [{3,newdata2},{3,newdata3},{3,newdata4}],
-                                   0}}
-    (<0.97.0>) <0.102.0> ! {x,{3,true},[raft1,4]}
-    (<0.97.0>) << {<0.102.0>,{get_term}}
-    (<0.97.0>) <0.102.0> ! 3
-    (<0.97.0>) << {<0.102.0>,{get_commit_index}}
-    (<0.97.0>) <0.102.0> ! 0
-    (<0.97.0>) << {<0.102.0>,{get_log}}
-    (<0.97.0>) <0.102.0> ! [{1,newdata},{3,newdata2},{3,newdata3},{3,newdata4}]
-      Test passed.
-    ok
+## The Pre-basics
+
+"Objects" in rust are structs with added methods
+
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+    
+    impl Rectangle {
+    
+        fn new(new_width : u32, new_height : u32) -> Rectangle {
+            Rectangle {
+                width: new_width,
+                height: new_height,
+            }
+        }
+        
+    
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+    }
+    
+    fn main() {
+        let rect1 = Rectangle::new(30,50);
+    
+        println!(
+            "The area of the rectangle is {} square pixels.",
+            rect1.area()
+        );
+    }
+
+This can make things that look and act very much like encapsulated
+objects of the OO variety, or it can also be used to make very
+ordinary C structs with no (or few) methods.
+
+## Now the interesting stuff - Generic Functions
+
+Let's say we have some duplicate code that looks like this:
+
+    fn largest_i32(list: &[i32]) -> &i32 {
+        let mut largest = &list[0];
+    
+        for item in list {
+            if item > largest {
+                largest = item;
+            }
+        }
+    
+        largest
+    }
+    
+    fn largest_char(list: &[char]) -> &char {
+        let mut largest = &list[0];
+    
+        for item in list {
+            if item > largest {
+                largest = item;
+            }
+        }
+    
+        largest
+    }
+
+In an OO language we'd probably solve this with some sort of supertype
+or interface (maybe not so easy when when we're talking about
+primitives).  In Rust the approach looks similar but has some
+differences in practice:
+
+    fn largest<T>(list: &[T]) -> &T {
+        let mut largest = &list[0];
+    
+        for item in list {
+            if item > largest {
+                largest = item;
+            }
+        }
+    
+        largest
+    }
+
+This is a generic function (sometimes also called a template).  Note
+the parameter type <T>.  A key difference is that it produces the
+different functions at compile time - so the compiled code will
+actually have 2 versions of largest.
+
+But this doesn't work:
+
+    error[E0369]: binary operation `>` cannot be applied to type `&T`
+     --> src/main.rs:5:17
+      |
+    5 |         if item > largest {
+      |            ---- ^ ------- &T
+      |            |
+      |            &T
+
+We'll talk about traits, which will allow us to solve this problem, in
+a bit.
+
+## Generic Structs
+
+    struct Point<T> {
+        x: T,
+        y: T,
+    }
+    
+    fn main() {
+        let integer = Point { x: 5, y: 10 };
+        let float = Point { x: 1.0, y: 4.0 };
+    }
+
+You can have more than one generic type per struct too:
+
+    struct Point<T, U> {
+        x: T,
+        y: U,
+    }
+
+## Generic Structs with methods
+
+    struct Point<T> {
+        x: T,
+        y: T,
+    }
+    
+    impl<T> Point<T> {
+        fn x(&self) -> &T {
+            &self.x
+        }
+    }
+    
+    fn main() {
+        let p = Point { x: 5, y: 10 };
+    
+        println!("p.x = {}", p.x());
+    }
+
+Note that the impl block's templating does not have be exactly the
+same as the type.  For example:
+
+    struct Point<T,U> {
+        x: T,
+        y: U,
+    }
+    
+    impl<T> Point<T,T> {
+        fn x(&self) -> &T {
+            &self.x
+        }
+    }
+
+In this version you can have points with two different types, but only
+those with the same time get an implementation of X.
+
+## Traits
+
+Traits in rust are very similar to typeclasses in Haskell
+
+    pub trait Summary {
+        fn summarize(&self) -> String;
+    }
+        
+    pub struct Tweet {
+        pub username: String,
+        pub content: String,
+        pub reply: bool,
+        pub retweet: bool,
+    }
+    
+    impl Summary for Tweet {
+        fn summarize(&self) -> String {
+            format!("{}: {}", self.username, self.content)
+        }
+    }
+    
+    impl Summary for String {
+        fn summarize(&self) -> String {
+            self.clone()
+        }
+    }
+
+Note that you can make existing types implement your traits too, as
+I've done with String above.
+
+## Default implementations
+
+    pub trait Summary {
+        fn summarize(&self) -> String {
+            String::from("(Read more...)")
+        }
+    }
+
+You can give default implementations to your traits.  Note that this
+is pretty much the only thing in Rust that looks like *inheritance*
+(where you can pull the implementation of certain methods into your
+own struct).  It's not the same though, as you can see, because you
+don't inherit fields and you can't substitute subclasses for
+superclasses anywhere.
+
+## Traits in functions
+
+Impl will get you what you want frequently
+
+    pub fn notify(item: &impl Summary) {
+        println!("Breaking news! {}", item.summarize());
+    }
+
+But this is just sugar on the more flexible traint generics bounding
+system:
+
+    pub fn notify<T: Summary>(item1: &T, item2: &T) {
+
+You can also require more than one trait
+
+    pub fn notify<T: Summary + Display>(item: &T) {
+
+## Fixing our largest example from the beginning
+
+    fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+        let mut largest = list[0];
+    
+        for &item in list {
+            if item > largest {
+                largest = item;
+            }
+        }
+    
+        largest
+    }
+    
+    fn main() {
+        let number_list = vec![34, 50, 25, 100, 65];
+    
+        let result = largest(&number_list);
+        println!("The largest number is {}", result);
+    
+        let char_list = vec!['y', 'm', 'a', 'q'];
+    
+        let result = largest(&char_list);
+        println!("The largest char is {}", result);
+    }
+
+# Rust Debugging
+
+So debugging rust is pretty easy if you're familiar with gdb (this is
+on unix systems).  If not it can be a little arcane but here's a
+little tutorial to get you started:
+
+https://tigercosmos.xyz/post/2020/09/system/debug-gdb/
+
 
 # Haskell 1
 
