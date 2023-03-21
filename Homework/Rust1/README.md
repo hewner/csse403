@@ -20,7 +20,7 @@ text application that lets us enter student grades.
 Before you start, I would encourage you to read the sections on
 ownership and borrowing here:
 
-https://learning-rust.github.io/docs/c1.ownership.html
+https://learning-rust.github.io/docs/ownership/
 
 ## Part 1: Add Student (10 points)
 
