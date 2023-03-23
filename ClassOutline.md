@@ -1598,6 +1598,48 @@ Made safe with move
     }
 
 
+## A cool alternative - async
+
+Async is a mechanism of parallel-ish execution for processes where the
+overhead of multithreading is not what you want.  It works when you
+want potentially massive "parallelism" but most of what you want to do
+is blocked on IO.
+
+Most of my discussion is based on the stuff here https://rust-lang.github.io/async-book/01_getting_started/04_async_await_primer.html
+
+### Async operations return futures object
+
+```
+use futures::executor::block_on;
+
+async fn hello_world() {
+    println!("hello, world!");
+}
+    
+fn main() {
+    let future = hello_world(); // Nothing is printed
+    block_on(future); // `future` is run and "hello, world!" is printed
+}
+```
+### Awaiting on a future causes functions to "return early"
+
+```
+async fn learn_and_sing() {
+    let song = learn_song().await;
+    sing_song(song).await;
+}
+                    
+async fn async_main() {
+    let f1 = learn_and_sing();
+    let f2 = dance();
+                            
+    futures::join!(f1, f2);
+}
+                                                    
+fn main() {
+    block_on(async_main());
+}
+```
 
 # Rust 4 - Objects & Generics
 
