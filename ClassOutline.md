@@ -2542,7 +2542,7 @@ This provides a starting point for making different enemies that
 
 # The final project
 
-Details are [here](FinalProject.docx).
+Details are [here](Homework/FinalProject/).
 
 
 # Instructor's Choice: Smalltalk 1
