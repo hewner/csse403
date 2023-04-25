@@ -2548,15 +2548,12 @@ Details are [here](Homework/FinalProject/).
 # Instructor's Choice: Smalltalk 1
 
 What to do:
-1.  Download Pharo 5 from <http://pharo.org>
+1.  Download Pharo 11 from <http://pharo.org>
 
-    You could try Pharo 6 if you'd like to be more cutting edge, but I
-    haven't tried these instructions there.
 
-2.  Start up Pharo and run through the little programmatic tutorial
-    included with it.
+2.  Start up Pharo 
 
-3.  Then do the tutorial [in sections 1.1 - 1.9 of the PbE book](Homework/SmalltalkPBELightsOut/PharoFirstApplication.pdf)
+3.  Then do the tutorial [in Ch 6 of the PbE book](Homework/SmalltalkPBELightsOut/PharoFirstApplication.pdf)
     
     A hint:
     
