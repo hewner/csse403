@@ -3271,6 +3271,8 @@ From the nice tutorial here:
 
 ## Now you try
 
+I've set this up in a repl https://replit.com/@hewner/LuaCIntegration2
+	
 ### Installing Lua + C integration
 
 For me, on ubuntu16 this worked:
