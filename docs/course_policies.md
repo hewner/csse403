@@ -2,8 +2,6 @@ This document outlines the main course policies for CSSE403.
 
 Instructor: Dr. Mike Hewner (feel free to call me Buffalo)
 
-[Here's my contact info](https://moodle.rose-hulman.edu/blog/index.php?entryid=111)
-
 # Introduction
 
 This is a course about languages that go beyond the paradigms you are
@@ -18,19 +16,21 @@ improve your skill in learning new programming languages.
 Both of these will be most naturally addressed by writing a lot of
 code, in a lot of strange languages.
 
-# Book
-
-Seven Languages in Seven Weeks by Bruce A. Tate
-
-This book is required and will be a useful reference as we will be
-going through some languages that have less-than-detailed resources
-available online.  There are both electronic and physical versions of
-the book available, including DRM free PDFs – either is fine.  All
-versions are quite affordable – please don’t pirate this textbook.
-
 # Learning Outcomes
 
-See the [CSSE403CAP.md](CSSE403CAP.md)
+Students who successfully complete this course should be able to:
+
+Write programs in a variety of programming language paradigms (such as statically type-safe functional languages, object-based languages, or process-oriented languages) using the features unique to those paradigms.
+
+Identify the semantic similarities and differences between a new programming language and previously known languages. Clearly explain the key semantic features of a new programming language, including how to begin using it and its strengths and weakness.
+
+Develop medium-sized applications in a new programming language through independent study. (Here "medium-sized" implies a project that a team of three might develop over a period of seven weeks in parallel with other course work.)
+
+# Book
+
+No book is required for this class, although we will use 1 chapter from the very nice
+
+Seven Languages in Seven Weeks by Bruce A. Tate
 
 # Grading
 
@@ -44,7 +44,7 @@ See the [CSSE403CAP.md](CSSE403CAP.md)
 ## Small Assignments
 
 As we are introducing programming languages, there will be small daily
-assignments.  You’ll submit them via SVN.  These projects must be done
+assignments.  You’ll submit them via Moodle.  These projects must be done
 individually.
 
 ## Medium Assignments
@@ -71,11 +71,12 @@ earlier, if your team finishes earlier).
 
 ## Class Participation
 
-Students are expected to attend class and participate actively in
-class discussion.  You are also required to attend class (except on
-strictly assignment work days).  Please email me if you must miss
-class.  More than 3 unexcused absences and I will drop you a letter
-grade.
+I do think attending class has value, and I like to provide a gentle encouragement to do so. Attendance will be taken every day electronically and at the end of the term your attends record affects your grade as noted above excluding a generous number of "dropped" attendance days (i.e. I allow a certian number of missed days at no penalty). 
+
+These dropped days will allow for missed days for illness, interviews, sporting events etc AND for forgetting to register attendance occasionally. You are responsible for electronically entering attendance. I will not retroactively grant attendance (because if I do so, I will be quickly be overwhelmed with students’ attendance update requests).
+
+Sometimes students might have special circumstances that makes full attendance impossible. If you
+have these, you should probably contact me as I describe in the Special Circumstances section. I resolve special circumstances by providing overall course-level rule exceptions—not by giving credit for individual missed days in the attendance policy.
 
 ## Final Exam
 
@@ -97,52 +98,40 @@ seems reasonable (and the privilege is not getting repeatedly abused),
 I generally offer 24 or 48 hour extensions (almost never more than
 that, however).
 
+# Special Circumstances
+
+If circumstances have caused you to miss/fail several assignments OR if your current situation in PLP
+seems overwhelming, you should contact the me right away. Sometimes I can find special accommodations 
+not listed here.
+
+# Generative AI
+
+The use of generative AI is not allowed on any of the assigments in this course.
+
 # Academic Integrity
 
-Recall the Institute policy on academic misconduct:
+It is critical to maintain academic integrity. It is essential for all
+students to cite any and all sources of help received in completing
+coursework. This practice not only fosters a culture of honesty and
+transparency but also prevents misunderstandings that might otherwise
+escalate to formal proceedings. Students should also be aware of what
+is appropriate help on homework assignments – <a href="https://rosehulman.sharepoint.com/:w:/r/sites/CS/Shared Documents/Pilot Integrity Policy/IntegrityPilotPolicy - What Constitutes Misconduct.docx?d=w72d3dc4b233d4df68e10736359a06c80&csf=1&web=1&e=QWvFcM">see policy here</a> ). To
+ensure fairness and responsibility, any instances of suspected
+misconduct will be handled through the CSSE Integrity Committee. 
 
-> Rose-Hulman expects its students to be responsible adults and to
-> behave at all times with honor and integrity.
+If a case of suspected misconduct arises, it will be submitted to the
+CSSE Integrity Committee for review (see <a href="https://rosehulman.sharepoint.com/:w:/r/sites/CS/Shared Documents/Pilot Integrity Policy/IntegrityPilotPolicy - Procedures.docx?d=wf4c70babf3ac434ba29d5518dca9f877&csf=1&web=1&e=1efwlT">policies and procedures here</a>
+and <a href="https://rosehulman.sharepoint.com/:w:/r/sites/CS/Shared Documents/Pilot Integrity Policy/IntegrityPilotPolicy - Penalties %26 Evidence.docx?d=w916e293ca31a4493bdbdd6b78ed2d3dd&csf=1&web=1&e=wCWF2K">possible penalties here</a>). The process includes an initial review
+of the evidence by the committee, a time for students to explain or
+admit to potential misconduct, and potentially a hearing to examine
+the circumstances and evidence. Students are encouraged to continue
+their studies and engage with the course material and instructor
+normally throughout the investigation.
 
-Exams and homework will be done on an individual basis except when
-explicitly noted. The simple rule of thumb for individual work is:
-
-Never give or use someone else’s code or written answers.
-
-Such exchanges are definitely cheating and not cooperation. The
-departmental statement on academic honesty has more detailed advice.
-
-This policy INCLUDES sharing code after graduating from this
-course. If your code is found used in some other students solution,
-after your have already completed this course - you will receive a
-retroactive F in this course.
-
-We encourage you to discuss the problems and general approaches to
-solving them with other students. However, when it comes to writing
-code, it should be your own work (or the work of your group if it is a
-group or partner assignment). If you are having trouble understanding
-how some library code works or pinning down a run-time or logic error
-in your program, by all means talk to someone about it.
-
-If you use someone else’s ideas in your solution (or any other work
-that you do anywhere), you have to:
-
-* give credit to that person in the comment section of your program, and
-* be sure that you understand it as well as if it were your own.
-
-If you are ever in doubt about whether some specific situation
-violates the policy, the best approach is to discuss it with your
-instructor beforehand. This is a very serious matter that we do not
-take lightly. Nor should you.
-
-You should never look at another student’s solution to get ideas of
-how to write your own code. Beginning the process of producing your
-own solution with an electronic copy of work done by other students is
-never appropriate.
-
-The least possible penalty for plagiarism or cheating is a -100% on
-the assignment (that's negative points, not just 0 credit). In places
-where the cheating seems intentional, the penalty is an automatic F in
-the course. TO BE CLEAR: you can get an automatic F in this course if
-you are caught cheating on one small assignment, even one time.
+Beyond the policy of this course, the Student Handbook and
+Rose-Hulman’s Academic Rules and Procedures describe penalties and
+processes invoked as a consequence if academic misconduct (such as
+cheating, plagiarizing, or interfering with the academic progress of
+other students) takes place.  It is the responsibility of each student
+to know and follow Rose-Hulman’s rules about academic integrity.
 
