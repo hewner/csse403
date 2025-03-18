@@ -323,8 +323,8 @@ What you won't learn in this class
 ### We'll do some weird languages in this class
 
 -   Prolog
--   Erlang
--   Elm
+-   Rust
+-   Haskell
 
 ## Some important details
 
@@ -868,7 +868,22 @@ is\_verb(plural,attack).
 
 ## Compounds
 
-    compount_name_arguments
+The prolog values that look like code are called compounds and can be decomposed into lists using the =.. operator.
+
+    ?- buffalocompound(with, X, arguments) =.. Y.
+    Y = [buffalocompound, with, X, arguments].
+    
+    ?- Compound =.. [name,arg1,222].
+    Compound = name(arg1, 222).
+        
+    ?- buffalo(hello,X) =.. [Name,Arg1,some_atom].
+    X = some_atom,
+    Name = buffalo,
+    Arg1 = hello.
+
+There is also a procedure called compound\_name\_arguments that will
+work.  In some cases, it seems to work better - we got a few strange
+bugs with the operator version.
 
 ## Debugging prolog
 
@@ -949,6 +964,7 @@ turn trace on to watch how prolog solves it
 
 1.  trace(predicate) will print each time a predicate is evaled
 2.  spy(predicate) will break into debug mode when a particular predicate is called
+3.  abort (from debug menu) quits out of the debug but not prolog
 3.  leap (from debug menu) is "continue as normal"
 4.  nodebug. turn off everything I think.
 
