@@ -1383,6 +1383,42 @@ lifetime, but it's a little smarter than that.  It's actually looking
 for a lifetime that both x and y can satisfy - meaning the result
 lifetime is the shorter of the two parameter lifetimes.
 
+### Activity
+
+Write a function choose\_based\_on\_length that takes 3 str refs (like
+above) as parameters.  Depending on the length of the first string,
+either the first or the second of the other two strings are returned.
+
+Construct the lifetimes of the procedure such that the first parameter
+can be a shorter lifetime than the other two, but that shorter
+lifetime does not constrain the returned value.
+
+Here's an example of this function in use:
+
+    fn main() {
+        let string1 = String::from("Hello");
+        let string2 = String::from("Goodbye");
+        let result;
+        
+        {
+            let string3 = String::from("x");
+            result = choose_based_on_length(&string3, &string1, &string2);
+        } // string3 is dropped here
+    
+        println!("{}", result); // This would cause a compile error
+    }
+
+### Don't peek
+
+    fn choose_based_on_length<'a,'b>(first: &'b str, second: &'a str, third: &'a str) -> &'a str {
+        if first.len() % 2 == 0 {
+            second
+        } else {
+            third
+        }
+    }
+
+
 ### Returned references also extend the length of borrows
 
     fn main() {
