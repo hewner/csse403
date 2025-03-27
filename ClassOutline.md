@@ -1405,7 +1405,7 @@ Here's an example of this function in use:
             result = choose_based_on_length(&string3, &string1, &string2);
         } // string3 is dropped here
     
-        println!("{}", result); // This would cause a compile error
+        println!("{}", result); // This would NOT cause a compile error
     }
 
 ### Don't peek
@@ -1684,6 +1684,95 @@ is blocked on IO.
 
 Most of my discussion is based on the stuff here https://rust-lang.github.io/async-book/01_getting_started/04_async_await_primer.html
 
+### Why do we need async/await?
+
+Consider a web app that needs to call 4 services: A1 A2 B1 B2.  Before
+we can call A2 we must have the result from A1.  Similarly for B1 and
+B2.  How can we express this? (JavaScript-esque psudeocode)
+
+    a1result = call_a1();
+    a2result = call_a2(a1result);
+    b1result = call_b1();
+    b2result = call_b2(b2result);
+    
+This is inefficient though, because of the independence of the as and bs.  The call to b1 is waiting on the As.  We would like to do this in parallel.  Here's a way:
+
+    a1handle = call_a1();
+    b1handle = call_b1();
+    a2handle = call_a2(a1handle.getResult());
+    b2handle = call_b2(b1handle.getResult());
+    a2result = a2handle.getResult();
+    b2result = b2handle.getResult();
+
+These handle objects are not results but rather just placeholders.
+They start the service call, but then return to allow other processing
+to continue.
+
+But unfortunately there is still a dependency b2's calling depends on
+the result of A1.
+
+### Futures
+
+The solution to this is what javascript calls a promise and Rust calls a future.  Basically it is a handle object that is augmented with code to be run after the results completes.
+
+    a2future = call_a1().andThen((a1result) => { call_a2(a1result) });
+    b2future = call_b1().andThen((b1result) => { call_b2(b1result) });
+    a2result = block(a2future); // basically a2.getResult();
+    b2result = block(b2future); // basically b2.getResult();
+
+In Javacript this is handled with closures.  In rust, we can use
+templating to produce something a bit more efficient.
+
+### How does this work in Rust?
+
+    trait SimpleFuture {
+        type Output;
+        fn poll(&mut self, wake: fn()) -> Poll<Self::Output>;
+    }
+    
+    enum Poll<T> {
+        Ready(T),
+        Pending,
+    }
+
+
+When we call poll on a future, we *advance* it as much as we can with
+ordinary calculation.  For ordinary code, that means we advance to the
+end and return Ready(whatever).  If the code needs to do something
+that itself returns a future it polls it.  If it gets a ready result,
+it continues with the calculation.  If it gets a Pending result, it
+updates its state and returns Pending.
+
+Special future implementations depend on things like webservers that
+can asynchronously discover a result is ready.  When they do, they
+call wake for the corresponding future.
+
+If we only have one task, we could just repeatedly call Poll and force
+the system to advance. If we want use resources efficiently we can
+keep track of what futures are ready with wake and handle a massive
+number of "parallel" io operations with a single thread.
+
+None of this requires special language features though...
+
+### The problem
+
+The problem arises as we need more complexity, we get functions that look like this:
+
+
+    function doCalculations(a2future, b2future) {
+        return futureCombine(a2future, b2future).andThen((a2result) => {
+            callc(a2result + b2result);
+            }); // This is not right because this is a future that returns a future
+                // we'd need a combining function like andThenFuture            
+    }
+
+When what we want is this:
+
+    function doCalculations(a2result, b2result) {
+        return callc(a2result + b2result);
+    }
+
+
 ### Async operations return futures object
 
 ```
@@ -1694,29 +1783,39 @@ async fn hello_world() {
 }
     
 fn main() {
-    let future = hello_world(); // Nothing is printed
+    let future = hello_world(); // Nothing is printed, returns a future
     block_on(future); // `future` is run and "hello, world!" is printed
 }
 ```
 ### Awaiting on a future causes functions to "return early"
 
 ```
-async fn learn_and_sing() {
+async fn learn_and_sing() -> SingingResult {
     let song = learn_song().await;
-    sing_song(song).await;
+    let songPerformance = sing_song(song).await;
+    return SingingResult { applause: songPerformance.score };
 }
                     
-async fn async_main() {
-    let f1 = learn_and_sing();
-    let f2 = dance();
-                            
-    futures::join!(f1, f2);
+async fn big_result() {
+    let f1 = learn_and_sing(); // returns a Future<SingingResult>
+    let f2 = dance(); // returns a Future<DanceResult>
+    
+    let singResult = await f1; // conceptually this gives the result, but it actually 
+                               // causes our procedure to return, maybe waiting on
+                               // learnSong
+    let danceResult = await f2;
+    println!("show's over folks");
+    
 }
                                                     
 fn main() {
     block_on(async_main());
 }
 ```
+
+### How does it do that?
+
+
 
 # Rust 4 - Objects & Generics
 
