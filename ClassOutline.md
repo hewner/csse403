@@ -2075,6 +2075,12 @@ https://tigercosmos.xyz/post/2020/09/system/debug-gdb/
 
 # Rust macros 1
 
+## Tokenization vs Parsing
+
+Rust macros operate on something called the token tree.  This is a representation between the traditional state of tokenization and a parse.
+
+https://fprijate.github.io/tlborm/mbe-syn-source-analysis.html
+
 # Rust macros 2
 
 I want a macro that acts like an if but only evaluates the body if a list of expression are all equal.  If not, I want to short circuit and not evaluate any expression beyond the first unmatching one.  It should look like this:
