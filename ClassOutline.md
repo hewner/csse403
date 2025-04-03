@@ -2073,6 +2073,226 @@ little tutorial to get you started:
 https://tigercosmos.xyz/post/2020/09/system/debug-gdb/
 
 
+# Rust macros 1
+
+# Rust macros 2
+
+I want a macro that acts like an if but only evaluates the body if a list of expression are all equal.  If not, I want to short circuit and not evaluate any expression beyond the first unmatching one.  It should look like this:
+
+    if_all_equal!(a, b, c => {
+        println!("All values are equal!");
+    });
+
+Here's the macro
+
+```rust
+
+macro_rules! if_all_equal {
+    ($first:expr $(, $rest:expr)* => $body:block) => {
+        {
+            let first_val = $first;
+            let mut all_equal = true;
+            
+            $(
+                if all_equal {
+                    if first_val != $rest {
+                        all_equal = false;
+                    }
+                }
+            )*
+            
+            if all_equal {
+                $body
+            }
+        }
+    };
+}
+
+fn check(x: i32) -> i32 {
+    println!("Evaluating check({})", x);
+    x
+}
+
+fn main() {
+    let a = 10;
+    let b = 10;
+    let c = 10;
+    let d = 20;
+
+    if_all_equal!(a, b, c => {
+        println!("All values are equal!");
+    });
+    
+    
+    if_all_equal!(a, b, d => {
+        println!("You won't see this message because d is different");
+    });
+    
+
+    if_all_equal!(check(a), check(b), check(d), check(c) => {
+        println!("You won't see this message because d is different");
+    });
+
+}
+```
+
+BTW chat gpt helped me write this and it was amazing how smart it was
+about some things and how stupid about others.
+
+The best resource I found for this is here:
+
+https://fprijate.github.io/tlborm/mbe-macro-rules.html
+
+## Another Example ( small activity)
+
+Let's say I want a macro that lets me simplify repetitious declarations.  So
+
+    mydeclare!(mut a,b : i32 = 9);
+    
+Would be equivalent to:
+
+    let mut a : i32 = 9;
+    let mut b : i32 = 9;
+
+Note that all declared variables are expected to have the same type
+mutability state and initializer.
+
+I've built the patterns for you - but you enter the generated code.
+
+```rust
+macro_rules! mydeclare {
+    (
+        $( $name:ident ),+ : $inittype:ty = $initexp:expr
+    ) => {
+        
+        // your code here
+        
+    };
+    (
+        mut $( $name:ident ),+ : $inittype:ty = $initexp:expr
+    ) => {
+        
+        // your code here
+        
+    };
+}
+
+fn main() {
+    mydeclare!(a, b, c : i32 = 77);
+    println!("a={} b={} c={}", a, b, c);
+}
+```
+### Small activity solution
+
+```rust
+macro_rules! mydeclare {
+    (
+        $( $name:ident ),+ : $inittype:ty = $initexp:expr
+    ) => {
+        
+            $(
+                let $name:$inittype = $initexp;
+            )*
+
+        
+    };
+    (
+        mut $( $name:ident ),+ : $inittype:ty = $initexp:expr
+    ) => {
+        
+            $(
+                let mut $name:$inittype = $initexp;
+            )*
+
+        
+    };
+}
+
+fn main() {
+    mydeclare!(a, b, c : i32 = 77);
+    println!("a={} b={} c={}", a, b, c);
+}
+```
+
+## An activity
+
+Now I want a similar thing to the first example, but this time I want
+an if that takes a list of boolean expressions and evaluates the body
+if exactly one of the boolean expressions are true.  Here's it in use:
+
+```rust
+fn main() {
+    let a = true;
+    let b = false;
+    let c = false;
+    let d = true;
+
+    exactly_one_true!(a, b, c => {
+        println!("One true");
+    });
+    
+    exactly_one_true!(a, b, d => {
+        println!("You won't see this message because 2 are true");
+    });
+    
+    exactly_one_true!(check(true), check(true), check(false) => {
+        println!("You won't see this message because 2 are true");
+    });
+}
+```
+
+If zero of a b c are true it shouldn't evaluate.  If two are more it shouldn't evaluate - only exactly one.  And once it finds two true expressions, it does not execute any more (i.e. short circuiting).
+
+## Solution
+
+```rust
+macro_rules! exactly_one_true {
+    ($($expr:expr),+ => $body:block) => {
+        {
+            let mut num_true = 0;
+            
+            $(
+                if num_true < 2 {
+                    if $expr {
+                        num_true = num_true + 1;
+                    }
+                }
+            )*
+            
+            if num_true == 1 {
+                $body
+            }
+        }
+    };
+}
+
+fn check(x: bool) -> bool {
+    println!("Evaluating check({})", x);
+    x
+}
+
+
+fn main() {
+    let a = true;
+    let b = false;
+    let c = false;
+    let d = true;
+
+    exactly_one_true!(a, b, c => {
+        println!("One true");
+    });
+    
+    exactly_one_true!(a, b, d => {
+        println!("You won't see this message because 2 are true");
+    });
+    
+    exactly_one_true!(check(true), check(true), check(false) => {
+        println!("You won't see this message because 2 are true");
+    });
+}
+```
+
+
 # Haskell 1
 
     module Main
