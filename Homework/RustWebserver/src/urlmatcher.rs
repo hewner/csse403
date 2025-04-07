@@ -58,6 +58,13 @@ fn test_fixed_width_num() {
 
         assert_eq!(result, None);
     }
+    {
+        let matcher = FixedWidthNum { width : 3 };
+        let result = matcher.do_match("12h3ello");
+
+        assert_eq!(result, None);
+    }
+
 
     
 }
@@ -114,6 +121,12 @@ fn test_fixed_width_num() {
 //         let result = matcher.do_match("XXXXXXXXXXXXXXhello1234");
 //         assert_eq!(result, None);
 //     }
+//     {
+//         let matcher = StringAndThen::new("http://foo.com/".to_string() , AlphaMatcher { });
+//         let result = matcher.do_match("foo.com");
+//         assert_eq!(result, None);
+//     }
+//  
 // 
 //     {
 //         // this one fails cause the alphamatcher fails
