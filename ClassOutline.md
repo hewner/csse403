@@ -2683,7 +2683,147 @@ Which in Maybe's instance looks like this:
         Nothing <*> _ = Nothing  
         (Just f) <*> something = fmap f something  
 
-### My final running example
+# Haskell 3 Applicative Functors
+
+If we want to use pure functions as a mechanism of abstraction, the
+idea has a lot going for it.  But one of the challenges is that pure
+functions are not universally composible.
+
+```haskell
+add3 = (+) 3
+mul2 = (*) 2
+iszero = (==) 0
+
+compound1 = mul2 . add3
+compound2 = iszero . compound1 
+compound3 = compound1 . iszero -- error
+```
+
+The ability to write code gets us a long way
+
+```haskell
+compound3v2 a = if iszero $ compound1 a then 1 else 2
+```
+
+## Building abstractions for specific function shapes
+
+```haskell
+loggingAdd3 :: Int -> (Int, [String])
+loggingAdd3 a =
+  (a + 3, ["added 3"])
+
+loggingMul2 :: Int -> (Int, [String])
+loggingMul2 a =
+  (a * 2, ["multiplied by 2"])
+
+combineLogging :: (Int -> (Int, [String])) -> (Int -> (Int, [String])) -> (Int -> (Int, [String]))
+combineLogging f1 f2 =
+  (\x ->
+    let (val1,l1) = f1 x in
+      let (val2,l2) = f2 val1 in
+        (val2, l1 ++ l2))
+
+main :: IO ()
+main = do
+  print $ (combineLogging loggingAdd3 loggingMul2) 10
+```
+How can we do this in a *general* way?
+
+## Glue & Functors
+
+So imagine we have a pile of nice pure functions that we want to
+compose.  But not in a simple composition, with some *glue*.
+
+    fun1 +glue+ fun2 +glue+ fun3
+
+Normally, we might reflect this with some kind of type object
+
+    myGlueyNegate :: Glue Int -> Glue Int
+
+And in all likelihood, we'll want to be able to promote an ordinary
+function to a glue version:
+
+    myGlueyNegate = fmap negate
+
+Now of course if gluey negate acts like regular negate, and every
+gluey function acts like the regular version of that function there's
+no point to the glue.  But your fmap can put some logic before and
+after and you can mix in some glue specific functions.
+
+The reality is something more like this:
+
+    (generic-glue fun1 generic-glue) + ( specialized glue only fun2)  + (generic-glue fun1 generic-glue)
+    
+For example:
+
+    sqrt :: Maybe Float -> Maybe Float -- this is not right but lets wait
+
+    myFunc :: Maybe Float
+    myFunc = (fmap double) . sqrt . (fmap add3)
+
+
+## Improved Glue with Applicative Functors
+
+The problem with the glue we have is that it doesn't reflect branching
+nature of most computation.  Ie a particular calculation comes from
+multiple inputs normally.  If we try that with our functor, we end up
+at a dead end:
+
+    calcVolume :: Int -> Int -> Int -> Int
+
+    myGlueyCalcVolume :: Glue Int -> Glue ( Int -> Int -> Int )
+    myGuleyCalcVolume = fmap calcVolume
+
+If we have 3 Glue Ints, we still can't calculate volume because there
+is no way for us to actually execute a procedure trapped in the glue.
+
+    class (Functor f) => Applicative f where
+        pure :: a -> f a
+        (<*>) :: f (a -> b) -> f a -> f b
+
+The <*> operator allows to pull off an individual parameter.
+
+What this means in practice is that we have to implement a sort of
+combination operator.
+
+The f (a -> b) is usually the result of a previous calculation.  So we
+write something that will take the previous result context, combine it
+with a yet unrevealed new second context, then run the function, and
+add the context back in.
+
+## Maybe example
+
+```haskell
+instance Applicative Maybe where
+    pure x = Just x
+    Nothing <*> _ = Nothing
+    (Just f) <*> Nothing  = Nothing
+    (Just f) <*> (Just x) = Just (f x)
+```
+
+## What can our glue do?
+
+We are limited into two ways:
+
+1. The procedures we are wrapping are a black box to us.  We can only
+   call them and they can only return pure results.
+2. The values we are wrapping are also a black box to us.  We can only
+   pass them to procedures.
+
+That said, we have full understanding and freedom of the wrapping
+context itself.
+
+Generally this means we can:
+
+1.  Choose to not execute the procedure in certain circumstances,
+    based on the context.
+2.  Execute the procedure multiple times and preserve the results in
+    the context.
+3.  Pull into out of the two contexts we have and combine them into a
+    new context with the result of the procedure.
+4.  Preserve the procedure in the context to execute later.
+
+## If we have time
 
     import Control.Applicative
     
@@ -2703,8 +2843,99 @@ Which in Maybe's instance looks like this:
     
     main = putStrLn "Hello"
 
+## Are there functors that can't be Applicative functors?
 
-# Elm 4 - Functional Design
+Turns out you can always define functions.  But in terms of making
+sense - occasionally some make less sense.  Generally it comes down to
+it not being sensible for there to be two independently created "paths"
+
+Imagine a logfile where the order particularly matters -
+
+```haskell
+
+module Main where
+
+-- Define a simple logging data type
+data Logger a = Logger [String] a deriving Show
+
+-- Functor instance
+instance Functor Logger where
+  fmap :: (a -> b) -> Logger a -> Logger b
+  fmap f (Logger logs x) = Logger logs (f x)
+
+-- Applicative instance
+instance Applicative Logger where
+  pure :: a -> Logger a
+  pure x = Logger [] x
+
+  (<*>) :: Logger (a -> b) -> Logger a -> Logger b
+  Logger logsF f <*> Logger logsX x = Logger (logsF ++ logsX) (f x)
+
+-- Some logging helpers
+loggedNegate :: Logger (Int -> Int)
+loggedNegate = Logger ["negate"] negate
+
+logged3 :: Logger Int
+logged3 = Logger ["3"] 3
+
+logged4 :: Logger Int
+logged4 = Logger ["4"] 4
+
+-- Applicative example
+applicativeExample :: Logger Int
+applicativeExample =
+  let loggedMath1 = loggedNegate <*> logged3
+      loggedMath2 = logged4
+  in pure (+) <*> loggedMath2 <*> loggedMath1
+
+main :: IO ()
+main = do
+  putStrLn "Applicative Logger Example:"
+  print applicativeExample
+```
+        
+
+
+    
+
+
+
+## The real good stuff (later)
+
+We are greatly limited by the fact that functions we are composing are
+either totally glue or totally pure.
+
+Recall:
+
+    sqrt :: Maybe Float -> Maybe Float -- this is not right but lets wait
+
+    myFunc :: Maybe Float
+    myFunc = (fmap double) . sqrt . (fmap add3)
+
+The real sqrt takes a float right?  Not a maybe float.
+
+So in Monads we will add a new operator:
+
+    (>>=): Glue a -> (a -> Glue b) -> (Glue b)
+
+Recall all old one was:
+
+    (<*>) :: Glue (a -> b) -> Glue a -> Glue b
+
+So there are a couple differences here.
+
+But of most interest:
+
+1. Look at the function types.  We used to have a function that was
+   pure, now we have a function takes pure values but produces Glue
+   values.
+2. In the new version, the function we have is not wrapped in Glue.
+   That means it wasn't produced by a prior run.  It was supplied by
+   the user.
+
+# Haskell 5
+
+# Haskell 6 - Functional Design
 
 ## What is the point of design?
 
