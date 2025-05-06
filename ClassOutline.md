@@ -3800,6 +3800,128 @@ idea of (pure function + context) to do a lot of interesting stuff.
             a <- pop  
             pop
 
+# Ruby and Singleton Classes
+
+So ruby is a not-very-weird Object Oriented scripting language.
+
+``` ruby
+class Car < Vehicle
+  def initialize
+    @miles = 0
+  end
+
+  def drive(miles)
+    self.goVroom
+    @miles += miles
+  end
+
+  def self.number_of_wheels
+    4
+  end
+end
+
+my_car = Car.new
+
+```
+
+## Singleton Classes
+
+One slightly unusual feature of ruby is the ability to add new methods
+to individual instances at runtime.  You can also add new methods
+to classes at runtime, but that's more common.
+
+    my_car.define_singleton_method(:my_method) { puts "Hello - I am a car with #{@miles} miles" }
+    my_car.my_method
+
+my\_method is added only to the particular object my\_car.  Other cars
+do not get this new method.
+
+The way this is accomplished is with something called a singleton
+class (also sometimes called metaclass or eignenclass).
+
+    irb(main):006:0> my_car.singleton_class.instance_methods(false)
+    => [:my_method]
+
+Very basic ruby lookup rules:
+
+    1.  Look in the singleton class
+    2.  Look in the class
+    
+## Class methods
+
+Ruby also class methods.  Note the slightly weird way
+they are declared with self.
+
+``` ruby
+
+class Vehicle
+
+  def goVroom
+    puts "Vroom!"
+  end
+  
+  def self.vehicle_type
+    "land"
+  end
+
+  def self.number_of_wheels
+    0
+  end
+end
+
+class Car < Vehicle
+
+def initialize
+    @miles = 0
+  end
+
+  def self.number_of_wheels
+    4
+  end
+end
+
+puts Car.number_of_wheels
+puts Car.vehicle_type
+```
+
+But 2 things are interesting about this:
+
+
+1. These "class methods" are methods on the class i.e. you can say: 
+        ```my_car.class.number_of_wheels```
+2. These class methods are inherited i.e. you can say ```my_car.class.vehicle_type``` because Car inherits the class methods of vehicle.
+
+## Let's experiment
+
+Go here:
+
+https://replit.com/@hewner/RubySingletonMethodsPlayspace#exampleClasses.rb
+
+What I want you to do is make a diagram.  The diagram should show the results
+of repeated applying superclass, singleton_class, and class to ```my_car```
+
+See if you can figure out how class methods are inherited like they are.
+
+See if you can find at least one cycle in the diagram
+
+## Why does adding add class method add to thing class singleton rather than the class?
+
+In ruby, for any object, the methods of that object are contained in
+one of two places
+
+1.  Singleton class
+2.  Class
+
+The methods of a class like Car can't be contained within Car.
+Otherwise that would break the rules.  But the class of car is Class
+we don't want to edit class, and anyways it wouldn't work because
+Class is the Class of all Classes.
+
+Singleton class allows us to solve this, and also introduce a
+symmetry - if one class gets the method's of another, there should be
+an inheritance relationship between their classes (in this case it's
+the singleton classes, because all classes are of the same class).
+
 # Buffalo's Guide to a Good Presentation
 
 ## Start with the activity in mind
