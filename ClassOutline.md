@@ -4341,32 +4341,35 @@ Even when you're not using the language, the ideas remain
         I also hope you learned the idea of unification, which is a
         convenient way of matching on complex structures.
     
-    2.  Erlang
+    2.  Rust
     
-        From erlang I hope you learned that you achieve a level of parallelism
-        and distributedness beyond ordinary applications - and some of the
-        pros and the cons of doing so
+        From Rust I hope you saw how the constraints of static
+        analysis can be limiting - but also empowering.  In particular
+        here I mean:
         
-        I hope you realized that a powerful application can be built on simple
-        communication mechanisms
+        1.  The borrow checker - greatly constraining our designs, yet
+            also allowing both a freedom from the usual C fears and
+            allowing very efficient memory usage when it works.
+        2.  Complex templating for very powerful non-OO designs that
+            don't introduce performance overhead at runtime.
         
-        And I hope you remember let it fail as an architectural decision for
-        interdependent systems
+        And I hope you saw that interesting languages can be low level
+        and fast.
     
-    3.  Elm
+    3.  Haskell
     
         From elm I hope you learned about programming without state, and how
-        that might be possible (and good) but also when it can be annoying
+        that might be possible (and good) but also when it can be annoying.
         
         I also hope you got to play around with designs based on a functional
-        rather than object based paradigm
+        rather than object based paradigm.
 
 ### Skills in acquiring new programming languages
 
 1.  In this class you should have learned at least 4 languages well
-    enough to accomplish a major project&#x2026;and these languages were
+    enough to accomplish a major project - and these languages were
     each very unusual in their own way.
-2.  You also learned another 7 enough to do one little assignment
+2.  You also learned another 5 enough to do one little assignment
 
 I hope at the end of all of this, you won't be particularly concerned
 if you start work at job this summer and they ask you to update a
@@ -4385,18 +4388,17 @@ E.g.
 1.  Nothing's preventing you from limiting the way your Java
     application has side effects.  Yeah, you can't get linguistic
     guarantees, but you can decide as a team to enforce (say) a strict
-    stateless MVC paradigm like elm.
+    stateless MVC paradigm like Haskell.
 
-2.  If you like the way erlang handles inter-process communication,
-    you can build a similar library in most any other language in a
-    few days.  Sure, you don't get exactly the benefit of the highly
-    optimized BEAM virtual machine but chances are it'd still be
-    plenty fast for what you are doing.
-
-3.  Things called "inference engines" integrate functionality much
+2.  Things called "inference engines" integrate functionality much
     like prolog into other languages.  All the features of declarative
     knowledge based reasoning, but you don't have to use it to build
     your GUI!
+
+3.  Not always though - Rust is pretty much Rust, and without it's
+    compile times guarantees it looses a lot of its special flavor.
+    Good thing this one is popular!
+
 
 If you truly understand the paradigm, you don't need the language.
 This was what I eventually learned about smalltalk.
