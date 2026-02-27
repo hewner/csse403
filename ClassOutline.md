@@ -68,6 +68,38 @@
   - [Assert and retract](#assert-and-retract)
   - [Clause and call](#clause-and-call)
   - [Operators](#operators)
+- [Erlang 1 - Very basics](#erlang-1---very-basics)
+  - [Erlang variables & matching](#erlang-variables--matching)
+    - [You can't redefine variables](#you-cant-redefine-variables)
+    - [You can do prolog-like matching](#you-can-do-prolog-like-matching)
+    - [Atoms, lists, tuples](#atoms-lists-tuples)
+  - [List functions](#list-functions)
+    - [In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions](#in-languages-where-iteration-is-not-special-syntax-you-often-get-a-profusion-of-cool-iterator-functions)
+  - [Erlang versions](#erlang-versions)
+    - [Write a call using filter removes all empty strings from a list](#write-a-call-using-filter-removes-all-empty-strings-from-a-list)
+    - [Solution](#solution-5)
+  - [Most complicated foldl (and foldr)](#most-complicated-foldl-and-foldr)
+    - [Write a function that returns the length of the largest string in a list of strings](#write-a-function-that-returns-the-length-of-the-largest-string-in-a-list-of-strings)
+    - [Solution](#solution-6)
+  - [List Comprehensions](#list-comprehensions)
+    - [List all values of A B C that make (A or B) and C true](#list-all-values-of-a-b-c-that-make-a-or-b-and-c-true)
+    - [Solution](#solution-7)
+- [Erlang 2 - Basic Process](#erlang-2---basic-process)
+- [Erlang 3 - Connecting to a remote erlang server](#erlang-3---connecting-to-a-remote-erlang-server)
+- [Erlang 4 - Let it crash](#erlang-4---let-it-crash)
+- [The philosophy](#the-philosophy)
+- [linked in death](#linked-in-death)
+- [More advanced features](#more-advanced-features)
+- [Erlang 5 - Final Assignment, Raft Algorithm](#erlang-5---final-assignment-raft-algorithm)
+  - [What is an consensus algorithm?](#what-is-an-consensus-algorithm)
+  - [The Raft algorithm](#the-raft-algorithm)
+  - [Your assignment](#your-assignment)
+- [Erlang 6 - Debugging sends and receives](#erlang-6---debugging-sends-and-receives)
+  - [The basics](#the-basics)
+  - [Debugging a raft unit test](#debugging-a-raft-unit-test)
+    - [Install the trace in the test setup function](#install-the-trace-in-the-test-setup-function)
+    - [Enable the trace](#enable-the-trace)
+    - [Run the test case](#run-the-test-case)
 - [Rust 1](#rust-1)
   - [Very Basics](#very-basics)
   - [Variables & Ownership](#variables--ownership)
@@ -84,6 +116,8 @@
   - [Borrows and dangling references](#borrows-and-dangling-references)
     - [Borrows have "lifetimes" associated with them](#borrows-have-lifetimes-associated-with-them)
     - [Lifetimes are complicated once we introduce functions that return references](#lifetimes-are-complicated-once-we-introduce-functions-that-return-references)
+    - [Activity](#activity)
+    - [Don't peek](#dont-peek-1)
     - [Returned references also extend the length of borrows](#returned-references-also-extend-the-length-of-borrows)
     - [You probably do not want to use borrows to make linked structures](#you-probably-do-not-want-to-use-borrows-to-make-linked-structures)
     - [General advice](#general-advice)
@@ -95,8 +129,13 @@
   - [Passing data through move](#passing-data-through-move)
   - [Communicating with Messages](#communicating-with-messages)
   - [A cool alternative - async](#a-cool-alternative---async)
+    - [Why do we need async/await?](#why-do-we-need-asyncawait)
+    - [Futures](#futures)
+    - [How does this work in Rust?](#how-does-this-work-in-rust)
+    - [The problem](#the-problem)
     - [Async operations return futures object](#async-operations-return-futures-object)
     - [Awaiting on a future causes functions to "return early"](#awaiting-on-a-future-causes-functions-to-return-early)
+    - [How does it do that?](#how-does-it-do-that)
 - [Rust 4 - Objects & Generics](#rust-4---objects--generics)
   - [The Pre-basics](#the-pre-basics)
   - [Now the interesting stuff - Generic Functions](#now-the-interesting-stuff---generic-functions)
@@ -107,13 +146,20 @@
   - [Traits in functions](#traits-in-functions)
   - [Fixing our largest example from the beginning](#fixing-our-largest-example-from-the-beginning)
 - [Rust Debugging](#rust-debugging)
+- [Rust macros 1](#rust-macros-1)
+  - [Tokenization vs Parsing](#tokenization-vs-parsing)
+- [Rust macros 2](#rust-macros-2)
+  - [Another Example ( small activity)](#another-example--small-activity)
+    - [Small activity solution](#small-activity-solution)
+  - [An activity](#an-activity)
+  - [Solution](#solution-8)
 - [Haskell 1](#haskell-1)
   - [Pure Functional](#pure-functional)
   - [Has Strong Typing](#has-strong-typing)
     - [But also has type inference](#but-also-has-type-inference)
     - [Functions are designed for partial evaluation](#functions-are-designed-for-partial-evaluation)
-    - [Activity](#activity)
-    - [Solution](#solution-5)
+    - [Activity](#activity-1)
+    - [Solution](#solution-9)
   - [Pointfree style](#pointfree-style)
     - [$](#)
     - [.](#)
@@ -132,8 +178,17 @@
   - [Typeclasses can get very meta](#typeclasses-can-get-very-meta)
   - [Functors](#functors)
   - [Applicative Functors](#applicative-functors)
-    - [My final running example](#my-final-running-example)
-- [Elm 4 - Functional Design](#elm-4---functional-design)
+- [Haskell 3 Applicative Functors](#haskell-3-applicative-functors)
+  - [Building abstractions for specific function shapes](#building-abstractions-for-specific-function-shapes)
+  - [Glue & Functors](#glue--functors)
+  - [Improved Glue with Applicative Functors](#improved-glue-with-applicative-functors)
+  - [Maybe example](#maybe-example)
+  - [What can our glue do?](#what-can-our-glue-do)
+  - [If we have time](#if-we-have-time)
+  - [Are there functors that can't be Applicative functors?](#are-there-functors-that-cant-be-applicative-functors)
+  - [The real good stuff (later)](#the-real-good-stuff-later)
+- [Haskell 5](#haskell-5)
+- [Haskell 6 - Functional Design](#haskell-6---functional-design)
   - [What is the point of design?](#what-is-the-point-of-design)
     - [The programs we want to write are complex, how can this be accomplished?](#the-programs-we-want-to-write-are-complex-how-can-this-be-accomplished)
   - [An Initial Example](#an-initial-example)
@@ -146,10 +201,10 @@
     - [What is bad about it](#what-is-bad-about-it)
   - [My advice:](#my-advice)
   - [Polymorphism](#polymorphism)
-- [Haskell: Representing Type & State](#haskell-representing-type--state)
+- [Haskell: Representing Type & State ](#haskell-representing-type--state)
   - [OO Programming and "Types"](#oo-programming-and-types)
   - [In functional approaches we don't want too many types](#in-functional-approaches-we-dont-want-too-many-types)
-  - [Acting over time](#acting-over-time)
+  - [Acting over time ](#acting-over-time)
 - [The final project](#the-final-project)
 - [Instructor's Choice: Smalltalk 1](#instructors-choice-smalltalk-1)
 - [Instructor's Choice: Smalltalk, The Image](#instructors-choice-smalltalk-the-image)
@@ -200,6 +255,11 @@
     - [An Example: The Maybe Monad](#an-example-the-maybe-monad)
     - [Doing IO with Monads](#doing-io-with-monads)
     - [Many other Monads](#many-other-monads)
+- [Ruby and Singleton Classes](#ruby-and-singleton-classes)
+  - [Singleton Classes](#singleton-classes)
+  - [Class methods](#class-methods)
+  - [Let's experiment](#lets-experiment)
+  - [Why does adding add class method add to thing class singleton rather than the class?](#why-does-adding-add-class-method-add-to-thing-class-singleton-rather-than-the-class)
 - [Buffalo's Guide to a Good Presentation](#buffalos-guide-to-a-good-presentation)
   - [Start with the activity in mind](#start-with-the-activity-in-mind)
   - [Learning itself is fun](#learning-itself-is-fun)
@@ -1043,6 +1103,421 @@ And then you can do stuff like this:
     X = buffalo ;
     X = alice ;
     false.
+
+
+# Erlang 1 - Very basics
+
+## Erlang variables & matching
+
+### You can't redefine variables
+
+    28>X = hello.
+    hello
+    29> X = goodbye.
+    exception error: no match of right hand side value goodbye
+
+### You can do prolog-like matching
+
+    39> {Abc,2} = {1,2}.
+    {1,2}
+    40> Abc.
+    1
+
+1.  but it only works one direction
+
+        41>{1,2} = Xyz. 
+        41> Xyz.
+        2: variable 'Xyz' is unbound
+
+2.  and things can't be in a partially bound state
+
+        42>PartlyBound = {1,2,_}. 
+        42> PartlyBound.
+        2: variable 'PartlyBound' is unbound
+
+### Atoms, lists, tuples
+
+    atom % these built in "symbols" are very handy for parsing
+    {tuple,is,a,specific,length,grouping}
+    [list,can,match,with,the,H,Tail,synatx,from,prolog]
+
+Also some pretty neat primitives for mapping bit level stuff
+Useful when you want to conserve bandwidth, yet keep stuff expressive
+
+## List functions
+
+List Comprehensions
+Many languages have some syntactical sugar for iterating over a list
+
+    for(int x : integers) {
+      System.out.print(x + ",");
+    }
+    
+    //As opposed to (approx java from memory here, forgive my mistakes)
+    
+    Iterator<Integer> i = integers.getIterator();
+    while(i.hasNext()) {
+       int x = i.next();
+       System.out.print(x + ",");
+    }
+
+But in languages with more functional feel, you obviously can be a lot cleaner (elisp):
+
+    (mapc (lambda (x) (print x)) '(1 2 3))
+
+In more recent versions of Java and C#, they've gotten on the cool
+iteration bandwagon.
+
+### In languages where iteration is not special syntax, you often get a profusion of cool "iterator" functions
+
+RUBY VERSIONS (DO NOT attempt to use on your homework):
+
+    #do something generic to each item
+    itemsToPrint.each {|item| puts item } 
+    
+    #do an operation and make a new list with the results
+    doubled = items.collect {|item| item*2 }
+    
+    # get a subset of the list where something is true
+    positives = items.select {|item| item > 0}
+    
+    # get a subset of the list where something is false
+    no_zeros = items.reject {|item| item == 0} 
+    
+    #check to see if every item in the list has a property
+    is_all_evens = items.all? {|item| item % 2 == 0}
+
+In these languages, using these special iterator functions are generally much preferred
+to standard loops
+
+## Erlang versions
+
+    % Make anonymous functions like this:
+    PlusThree = fun(X) -> X + 3 end.
+    
+    % Then pass it to iterator function (of course you can do it on one line)
+    lists:map(PlusThree, [1,2,3]).
+    % produces [4,5,6]
+    
+    % or completely anonymously
+    lists:map(fun(X) -> X + 3 end, [1,2,3]).
+
+foreach - just runs the function and returns the result
+map - runs the function and collects the results into a new list
+filter - keeps only those that return true
+any - returns true if one element returns true
+...and more (see your textbook & language docs)
+
+### Write a call using filter removes all empty strings from a list
+
+length("foo") gets the length
+
+### Solution
+
+    lists:filter(fun(X)->length(X) > 0 end,["","","a","","b"]).
+    ["a","b"]
+
+## Most complicated foldl (and foldr)
+
+Iterate through the list, keeping a running value
+Eg, run through the list and compute the sum
+
+    AddToSum = fun(Item,CurrentSum) -> Item + CurrentSum end.
+
+The new result will become CurrentSum for the next iteration.
+
+The final result is the overall result.
+
+Only other trick is you must pass in an initial value.
+
+    SumList(List) ->
+        lists:foldl(AddToSum,0,List).
+
+### Write a function that returns the length of the largest string in a list of strings
+
+0 for an empty list
+hint: max(1,2) returns the max of 2 ints
+
+### Solution
+
+    lists:foldl(fun(Item,Max)->max(Max,length(Item)) end,0,["a","bc",""]).
+
+## List Comprehensions
+
+A interesting mix of map,filter,and just a bit of prolog
+
+    % Turn a list of items into a list of {item,item} tuples
+    Data = [1,2,3].
+    Lists = [ {X,X} || X <- Data ].
+    
+    % As above, but filter in anything two or higher
+    
+    Lists = [ {X,X} || X <- Data, X > 1].
+    
+    % Largest of a pair tuple
+    Data = [{1,2},{4,3},{5,6}].
+    Lists = [ max(First,Second) || {First,Second} <- Data3].
+    
+    % Do all possible combinations of a couple values
+    % ++ is list/string concat
+    
+    [ X ++ Y || X <- ["super ","tiny "], Y <- ["ninja","pirate"] ].
+
+### List all values of A B C that make (A or B) and C true
+
+hint: and or and not are boolean operators in erlang
+hint: output should be [{true,true,true},{true,false,true},{false,true,true}]
+
+### Solution
+
+    Vals = [true,false].
+    [{A,B,C}|| A <- Vals, B <- Vals, C <- Vals, (A or B) and C].
+
+# Erlang 2 - Basic Process
+
+Spawning processes and communicating in erlang is easy!
+
+Update your svn and look at ErlangSimpleCommunication
+Take a look at the code in example.erl.
+Then try to solve the problem is solveme.erl
+
+My solution is in solvemeSolution.erl but don't peek!
+
+# Erlang 3 - Connecting to a remote erlang server
+
+1.  ssh to remote server
+    
+        ssh erlang.rose-hulman.edu
+    
+    Use your EIT password.
+
+2.  start erlang with a long name
+    
+        erl -name buffalo@erlang.rose-hulman.edu
+    
+    Note: your name should be UNIQUE - maybe your netid?
+
+3.  start erlang on your local computer using your ip address
+    
+        erl -name buffalo@137.112.40.209
+    
+    (Note: type what's my IP into google to find out what it is)
+    
+    BTW, you'll want to do this in the ErlangSimpleCommunication
+    directory so you can load the code.
+
+4.  get the magic cookie from your home computer
+    
+        (buffalo@137.112.40.209)2> erlang:get_cookie().
+        'BLAHBLAHBLAH'
+
+5.  on the remote computer, set its magic cookie to the same thing
+    
+        erlang:set_cookie(node(),'BLAHBLAHBLAH').
+    
+    Note: don't use BLAHBLAHBLAH, use whatever your magic cookie actually is
+
+6.  ping your remote computer from your local computer
+    
+        net_adm:ping('buffalo@erlang.rose-hulman.edu').
+        pong
+    
+    Note: pong is good - pang is bad
+    
+    In the past, sometimes only one direction will work.  If that
+    failed for you, you can try the connection in reverse
+    (i.e. connecting from the sever to your local erlang).
+    
+        (buffalo@erlang.rose-hulman.edu)5> net_adm:ping('buffalo@137.112.40.173').
+        pong
+    
+    Either way, you only have to do one of these.  Once, you do both
+    servers will be connected with each other.  You can check by
+    running nodes().
+    
+        (buffalo@137.112.40.173)1> nodes().
+        ['buffalo@erlang.rose-hulman.edu']
+
+7.  nl loads your code on all connected servers
+    
+        (buffalo@137.112.40.173)4> c(solvemeSolution).
+        {ok,solvemeSolution}
+        (buffalo@137.112.40.173)5> nl(solvemeSolution).
+        abcast
+
+8.  You can spawn a process on a remote server like this
+    
+        RemotePid = spawn('buffalo@erlang.rose-hulman.edu', fun    solvemeSolution:part2_loop/0).
+    
+    Or
+    
+        Pid2 = spawn('buffalo@erlang.rose-hulman.edu', fun() -> example:buffalo_counter(0) end).
+
+1.  You can see your process running on the remote server with i() (note this is on the REMOTE server)
+    
+        (buffalo@erlang.rose-hulman.edu)6> i().
+        TONS 'O STUFF followed by
+        <0.46.0>              inet_tcp_dist:do_accept/6              610     3983    0
+                              dist_util:con_loop/9                    11              
+        <0.51.0>              net_kernel:spawn_func/6                233       15    0
+                              solveme_sol:part2_loop/0                 1              
+        <0.54.0>              net_kernel:spawn_func/6                233       15    0
+                              solveme_sol:part2_loop/0                 1              
+        Total                                                      47741   399330    0
+                                                                     280              
+        ok
+
+2.  Send a message to your remote process in the usual way:
+    
+        (buffalo@137.112.40.226)25> Foo9 ! {test1,2,0.7}.
+        {test1,2,0.7}
+        Starting test1 Part 2.      
+        Finished test1 Part 2. (output: 0.7)
+    
+    Note that the output of the process is on the local computer, even if it is running on the remote server.
+    
+    If you want to see output on the executing server, use erlang:display.  For example:
+    
+        spawn('buffalo@erlang.rose-hulman.edu', fun() -> erlang:display("hello") end).
+
+3.  If you have time, try to write a new function in the SimpleCommunication project that starts up both the spawned part1 processes and the part 2 loop on two different servers.
+
+# Erlang 4 - Let it crash
+
+See the [example code](Homework/ErlangLetItCrashExample).
+
+# The philosophy
+
+What is the correct ratio of try to catches?
+
+# linked in death
+
+So in erlang, it can be pretty common to spawn a subprocess that is
+integral to your own process. This should make you concerned, insofar
+as it means part of your system can fail and another part lives on,
+oblivious to the fact that it's waiting for a message that can never
+arrive.
+
+Solution?  A death pact:
+
+    link(Pid)
+
+This causes your process to die if Pid dies.
+
+# More advanced features
+
+    process_flag(trap_exit, true)
+
+This lets you catch the secret message EXIT, which is the thing that
+would normally kill your process if you are linked.
+
+# Erlang 5 - Final Assignment, Raft Algorithm
+
+## What is an consensus algorithm?
+
+1.  Algorithm where state is distributed across multiple members.
+2.  The problem is consistency - you want to be able to store data when
+    not all members are available, BUT you don't want it to be possible
+    to get into inconsistent state.  This can be a problem when network
+    partitions occur and cause members to leave/rejoin the pool. (let's
+    do an example)
+3.  We rely on the idea of a majority.  If we require a majority of
+    members to agree to something to consider it committed, this
+    ensures that any subsequent majority must share at least one member
+    in common with a previous majority.
+4.  That said, the protocol tends to be complex, because no message can
+    be trusted to arrive.
+
+## The Raft algorithm
+
+<http://thesecretlivesofdata.com/raft/>
+
+1.  Raft relies on the idea of a "leader" who serves for a term.
+2.  The leader receives requests for updates, sends updates to all
+    members, gets responses, then when a majority of members respond,
+    considers the update "committed".
+3.  Because of the way the raft algorithm elections work, something
+    that is committed will definitely be in the log of any electable
+    leader.
+4.  A leader may encounter a follower that is not up to date.  Such a
+    follower will not accept new data.  The leader transmits larger
+    and larger logs, going further into the past, until it encounters
+    a point of commonality with its follower.  Once a point of
+    commonality is found, the follower replaces any data they have not
+    in common with the leader's version.
+
+## Your assignment
+
+Only the data transmission part of the Raft algorithm.  We won't do
+elections.
+
+[<HomeworkCode/ErlangRaft/raft.erl>]
+
+# Erlang 6 - Debugging sends and receives
+
+## The basics
+
+This command can let you debug a process you are starting:
+
+    7> dbg:c(mergesort,basic1_test,[],[s,r]).
+    (<0.193.0>) <0.194.0> ! {sort,[2,5,7],<0.193.0>}
+    (<0.193.0>) <0.195.0> ! {sort,[34,2,1],<0.193.0>}
+    (<0.193.0>) <0.196.0> ! {sort,[99,11,2],<0.193.0>}
+    (<0.193.0>) << {sorted,[2,5,7],<0.194.0>}
+    (<0.193.0>) << {sorted,[1,2,34],<0.195.0>}
+    (<0.193.0>) << {sorted,[2,11,99],<0.196.0>}
+    (<0.193.0>) <0.195.0> ! {merge,[1,2,34],[2,5,7],<0.193.0>}
+    (<0.193.0>) << {merged,[1,2,2,5,7,34],<0.195.0>}
+    (<0.193.0>) <0.195.0> ! {merge,[1,2,2,5,7,34],[2,11,99],<0.193.0>}
+
+BUT it's not really what you want if your goal is to debug a Raft unit
+test.
+
+## Debugging a raft unit test
+
+### Install the trace in the test setup function
+
+Since the raft processes are short lived in the unit tests, we need to
+add the instrumentation in the test setup.
+
+    setup() ->
+        start_raft_member(raft1),
+        start_raft_members([m1,m2,m3]),
+        Result = dbg:p(whereis(raft1),[s,r]),
+        io:format("Debugging ~p", [Result]).
+
+
+### Enable the trace
+
+    6> dbg:tracer().                     
+    {ok,<0.57.0>}
+
+### Run the test case
+
+    7> eunit:test(raft:ae_hist4_test_()).
+    (<0.97.0>) << {<0.102.0>,{append_entries,1,0,0,[{1,newdata}],0}}
+    (<0.97.0>) <0.102.0> ! {x,{1,true},[raft1,1]}
+    (<0.97.0>) << {<0.102.0>,{append_entries,1,1,1,[{1,bad1}],0}}
+    (<0.97.0>) <0.102.0> ! {x,{1,true},[raft1,2]}
+    (<0.97.0>) << {<0.102.0>,{append_entries,2,2,1,[{2,bad2}],0}}
+    (<0.97.0>) <0.102.0> ! {x,{2,true},[raft1,3]}
+    (<0.97.0>) << {<0.102.0>,{append_entries,3,3,3,[{3,newdata4}],0}}
+    (<0.97.0>) <0.102.0> ! {x,{3,false},[raft1]}
+    (<0.97.0>) << {<0.102.0>,{append_entries,3,2,3,[{3,newdata3},{3,newdata4}],0}}
+    (<0.97.0>) <0.102.0> ! {x,{3,false},[raft1]}
+    (<0.97.0>) << {<0.102.0>,
+                   {append_entries,3,1,1,
+                                   [{3,newdata2},{3,newdata3},{3,newdata4}],
+                                   0}}
+    (<0.97.0>) <0.102.0> ! {x,{3,true},[raft1,4]}
+    (<0.97.0>) << {<0.102.0>,{get_term}}
+    (<0.97.0>) <0.102.0> ! 3
+    (<0.97.0>) << {<0.102.0>,{get_commit_index}}
+    (<0.97.0>) <0.102.0> ! 0
+    (<0.97.0>) << {<0.102.0>,{get_log}}
+    (<0.97.0>) <0.102.0> ! [{1,newdata},{3,newdata2},{3,newdata3},{3,newdata4}]
+      Test passed.
+    ok
 
 
 # Rust 1
