@@ -10,6 +10,16 @@
 % PART A: LIST FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Some of this stuff is stuff you've seen before in 304, but in erlang.
+%
+% But it definitely wouldn't hurt to read this to get a little refresher:
+%
+% https://learnyousomeerlang.com/higher-order-functions#get-functional
+%
+% You also might find a few gems if you read the official list docs:
+%
+% https://www.erldocs.com/18.0/stdlib/lists.html
+
 % For these problems, don't use recursion.  Instead make use of
 % list functions supplied by lists for the first part.  
 %
@@ -88,7 +98,9 @@ append_strings2(OrigString,ListOfStrings) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % For these problems, use list comprehensions NOT the lists functions
-
+%
+% I like the examples here to get you started https://www.erlang.org/doc/system/list_comprehensions.html
+%
 % given a list of tuples {A,B} swaps their order so it becomes {B,A}
 %
 % 19> list_probs:swap_tup([{a,b},{3,foo},{bar,"hello"}]).
