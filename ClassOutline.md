@@ -1287,13 +1287,13 @@ My solution is in solvemeSolution.erl but don't peek!
 
 1.  ssh to remote server
     
-        ssh erlang.rose-hulman.edu
+        ssh erlang.csse.rose-hulman.edu
     
     Use your EIT password.
 
 2.  start erlang with a long name
     
-        erl -name buffalo@erlang.rose-hulman.edu
+        erl -name buffalo@erlang.csse.rose-hulman.edu
     
     Note: your name should be UNIQUE - maybe your netid?
 
@@ -1319,7 +1319,7 @@ My solution is in solvemeSolution.erl but don't peek!
 
 6.  ping your remote computer from your local computer
     
-        net_adm:ping('buffalo@erlang.rose-hulman.edu').
+        net_adm:ping('buffalo@erlang.csse.rose-hulman.edu').
         pong
     
     Note: pong is good - pang is bad
@@ -1328,7 +1328,7 @@ My solution is in solvemeSolution.erl but don't peek!
     failed for you, you can try the connection in reverse
     (i.e. connecting from the sever to your local erlang).
     
-        (buffalo@erlang.rose-hulman.edu)5> net_adm:ping('buffalo@137.112.40.173').
+        (buffalo@erlang.csse.rose-hulman.edu)5> net_adm:ping('buffalo@137.112.40.173').
         pong
     
     Either way, you only have to do one of these.  Once, you do both
@@ -1336,7 +1336,7 @@ My solution is in solvemeSolution.erl but don't peek!
     running nodes().
     
         (buffalo@137.112.40.173)1> nodes().
-        ['buffalo@erlang.rose-hulman.edu']
+        ['buffalo@erlang.csse.rose-hulman.edu']
 
 7.  nl loads your code on all connected servers
     
@@ -1347,15 +1347,15 @@ My solution is in solvemeSolution.erl but don't peek!
 
 8.  You can spawn a process on a remote server like this
     
-        RemotePid = spawn('buffalo@erlang.rose-hulman.edu', fun    solvemeSolution:part2_loop/0).
+        RemotePid = spawn('buffalo@erlang.csse.rose-hulman.edu', fun    solvemeSolution:part2_loop/0).
     
     Or
     
-        Pid2 = spawn('buffalo@erlang.rose-hulman.edu', fun() -> example:buffalo_counter(0) end).
+        Pid2 = spawn('buffalo@erlang.csse.rose-hulman.edu', fun() -> example:buffalo_counter(0) end).
 
 1.  You can see your process running on the remote server with i() (note this is on the REMOTE server)
     
-        (buffalo@erlang.rose-hulman.edu)6> i().
+        (buffalo@erlang.csse.rose-hulman.edu)6> i().
         TONS 'O STUFF followed by
         <0.46.0>              inet_tcp_dist:do_accept/6              610     3983    0
                               dist_util:con_loop/9                    11              
@@ -1378,7 +1378,7 @@ My solution is in solvemeSolution.erl but don't peek!
     
     If you want to see output on the executing server, use erlang:display.  For example:
     
-        spawn('buffalo@erlang.rose-hulman.edu', fun() -> erlang:display("hello") end).
+        spawn('buffalo@erlang.csse.rose-hulman.edu', fun() -> erlang:display("hello") end).
 
 3.  If you have time, try to write a new function in the SimpleCommunication project that starts up both the spawned part1 processes and the part 2 loop on two different servers.
 
@@ -4509,7 +4509,7 @@ For me, on ubuntu16 this worked:
 
     sudo apt install lua5.3 liblua5.3-dev
 
-Or, if you like you can just ssh into erlang.rose-hulman.edu and use lua there.  But in the case you'll want to checkout your SVN repo on erlang:
+Or, if you like you can just ssh into erlang.csse.rose-hulman.edu and use lua there.  But in the case you'll want to checkout your SVN repo on erlang:
 
     svn co http://svn.csse.rose-hulman.edu/repos/csse403-201720-YOURNETID
 
