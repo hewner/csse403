@@ -2288,7 +2288,7 @@ fn main() {
 }
 ```
 
-### How does it do that?
+### See Async Activity in Homework Directory
 
 
 
