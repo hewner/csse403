@@ -1,0 +1,15 @@
+[package]
+name = "RustTemplateInClass"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+url = "2"
+
+[[bin]]
+name = "RustTemplateInClass"
+path = "src/main.rs"
+
+[[bin]]
+name = "solution"
+path = "src/mainSolution.rs"
