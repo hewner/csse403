@@ -7,7 +7,7 @@ pub trait UrlMatcher<T> {
 // here's the FixedWithNum struct to get you started.  You'll have to
 // build the rest yourself!
 pub struct FixedWidthNum {
-    width : usize
+    pub width : usize
 }
 
 #[test]
@@ -183,4 +183,35 @@ fn test_fixed_width_num() {
 //     }        
 // 
 //     
+// }
+
+// #[test]
+// fn test_empty_matcher() {
+//     {
+//         let matcher = EmptyMatcher {};
+//         let result = matcher.do_match("hello");
+//         assert_eq!(result, None);
+//     }
+//     {
+//         let matcher = EmptyMatcher {};
+//         let (a, b) = matcher.do_match("").unwrap();
+//         assert_eq!(a, ());
+//         assert_eq!(b, "");
+//     }
+//     {
+//         let matcher = StringAndThen::new("/contact-us".to_string(), EmptyMatcher {});
+//         let (a, b) = matcher.do_match("/contact-us").unwrap();
+//         assert_eq!(a, ());
+//         assert_eq!(b, "");
+//     }
+//     {
+//         let matcher = StringAndThen::new("/contact-us".to_string(), EmptyMatcher {});
+//         let result = matcher.do_match("/contact-us/extra");
+//         assert_eq!(result, None);
+//     }
+//     {
+//         let matcher = StringAndThen::new("/contact-us".to_string(), EmptyMatcher {});
+//         let result = matcher.do_match("/other-page");
+//         assert_eq!(result, None);
+//     }
 // }

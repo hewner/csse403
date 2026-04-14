@@ -7,10 +7,10 @@ several such webservers that already exist for Rust - in this case
 we'll ask you to build in pure standard rust without any additional
 libraries.
 
-# Step 1: Multithreaded webserver (30 points)
+# Step 1: Multithreaded webserver (20 points)
 
-If you look at [src/main.rs/](src/main.rs) you'll
-see the start for a rust webserver.  Compiling and running with "cargo run"
+If you look at [simple_http_server.rs](simple_http_server.rs) you'll
+see the start for a rust webserver.  Compiling and running with rustc
 should give you a program that will run a webserver on port 8080.  You
 should be able to hit http://localhost:8080 with your browser (note:
 some virtual machines may complicate that) and see it serve your a
@@ -18,8 +18,7 @@ hello world webpage.  You should also be able to say something like
 
     curl http://localhost:8080
     
-And see a dump of the relevant HTML - though you may have to install
-the curl utility to do so.
+And see a dump of the relevant HTML.
 
 This webserver is insufficient for our purposes because it is single
 threaded.  Instead, we would like to use the approach of a thread
@@ -80,14 +79,14 @@ data file.  Here's how it works:
 
 In this step, we want every webpage render to contain a fortune.
 
-FortuneReader is our database, which reads classic unix fortunes from
-a datafile in order until they run out and the whole program crashes.
+This is our database, which reads classic unix fortunes from a
+datafile in order until they run out and the whole program crashes.
 To make this fortunes thing like a database, I'm going to require
 that:
 
 1.  We only open the datafile once
 2.  We never reuse a fortune, so if we have multiple simultaneous
-    requests each request must be given a unique fortune
+    requests each request be given a unique fortune
 
 Basically this amounts to requiring there only be 1 FortuneReader
 object.  How can this be achived in Rust?  There are a couple ways
@@ -103,7 +102,7 @@ look at the documentation for Arc and Mutex to see the details.
 
 Be sure you actually make the webpage display the fortune you get!
 
-## Step 3: Generics Based URL Matcher (40 points)
+## Step 3: Generics Based URL Matcher (30 points)
 
 So we're going to do webserver related task here that actually won't
 be needed in our little webserver.  I could have added it officially,
@@ -142,9 +141,6 @@ we respond to the first command that matches successfully) or it could
 mean a bogus URL that we need to error on.  Either way, the matching
 has to consider the possibility that the URL does not match its
 format.
-
-All the code we're talking about here is in
-[src/urlmatcher.rs](src/urlmatcher.rs).
 
 ### Our URL Matcher Trait
 
@@ -196,9 +192,6 @@ otherwise the matcher fails.  To represent a number with less than the
 given number of zeros, put zeros at the beginning (e.g. 00017 is 17
 with length 5).
 
-Test this code by running "cargo test" the test cases themselves are
-at the bottom of urlmatcher.rs.
-
 ## Basic Matcher 2: AlphaMatcher
 
         let matcher = AlphaMatcher { };
@@ -214,10 +207,6 @@ by Rust's is\_alphabetic character function.
 
 AlphaMatcher considers it a match failure if at least one character is
 not alphabetic.
-
-*As you get started with this and other urlmatcher parts, be sure to
-uncomment the relevent tests in urlmatcher!*
-
 
 ## Complex Matcher 1: StringAndThen
 
@@ -242,6 +231,13 @@ theoretically be a non-matcher type), but only implement the
 UrlMatcher trait for the case when the matcher is actually a matcher
 type.
 
+## Complex Matcher 1.1: EmptyString
+
+What if we want to match a string that isn't followed by anything?
+
+How about we add a matcher that just matches an empty string and has no
+data in it.
+
 ## Complex Matcher 2: AggMatcher
 
 So an aggmatcher is a "aggregate matcher" - a matcher that is a
@@ -256,17 +252,51 @@ contained matchers succeed.  Its match is a tuple type.
     assert_eq!("hello", a4);
     assert_eq!("5", b3);
 
-## We're done!
+# Step 4: Webserver with matching (20 points)
 
-Hopefully you can see how these matchers can be recombined to parse
-complicated urls like
-http://foobar.com/product_id/1234/state_code/hello (if not, take a
-look at the last test).  And as usual, aggregate matchers can contain
-other aggregate matchers so we can parse any number of parameters in
-our URLs with a single matcher.  If we wanted have some more fun, we
-could make it even easier to create aggregate matchers using
-operators, make things like String and tuples implement the matcher
-trait, etc.  But this should be enough to give you a feel.
+Alight, now I'd like you to combine the matching with the webserver.
+
+What we want is a way to associate a particular URL with particular content, 
+and then have that content depend on the parameters within the URL.  There's 3 
+different URLs I'd like you to support:
+
+1. http://localhost:8080/contact-us
+
+Should return a page that displays your email address.
+
+2. http://localhost:8080/calendar/MM/YYYY
+
+Should return a page that displays calendar for a particular month.  So
+http://localhost:8080/calendar/04/2026 should return a page with
+"Calendar for April 2026".  Note that to do this you will have to
+convert a month number to a month name.
+
+3. Any other path should display the fortune as it currently does.
+
+I'm going to give you some freedom on how to accomplish this, with the restriction that uses 
+UrlMatchers to actually match the parts of the URL and I want it to be easy to add new URLs with 
+new webpages.  
+
+You could build a Webpage trait of some sort and then make webpage objects that implement the trait.
+
+You can do a functional style and make a function that takes a matcher and closure and returns
+a new closure.
+
+You could build something even more complicated into the matcher template system.
+
+In some of these cases you may need polymorphism do a Box<dyn SomeTrait > kind of thing.
+
+I encourage you to have fun with it.
+
+### Unit Tests
+
+I ask you structure your new feature as a single overall function compute_results that
+takes a path and returns an Option<String>.  It should return None if the URL can't be
+matched (in which case the webserver should fall back to the fortune behavior).  I wrote
+a few small unit tests for you.  But be sure to also implement the feature
+in the webserver and not just in the tests.
+
+## We're done!
 
 Turn in your main.rs and your urlmatcher.rs in the usual way.
 
