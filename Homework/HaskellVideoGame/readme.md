@@ -43,7 +43,7 @@ Here's what my update function looks like:
 You don't need to follow my design but I do want you to try and keep
 the idea of a pipline consisting of several layers of functions.
 
-# A Composible System for Enemies/Weapons [30 points]
+# A Composible System for Making Enemies Move [30 points]
 
 The reason I selected this project is because I think the various
 kinds of enemies and weapons will encourage you to think about
@@ -69,33 +69,25 @@ parts:
 
 This same system is what I use for making enemies move and attack.
 
-It is not important to me that your make your system work like mine.
-But I do want to see some evidence that you're composing your system
-out of various parts.
+The only requirement is that you make enemies and weapons move in
+significantly different ways.  The ability to "split" adds more
+potential, but I won't require it.
 
+To do this, you basically need to things:
 
-# Weapons [15 Points]
+1.  Different mathematical ways to move (e.g. up down diagonal in a
+    circular arc etc) and different speeds
+2.  A way to switch the way something moves over time (e.g. start by
+    moving horizontally, then switch to diagonally)
 
-At least 3 qualitatively different weapons.  These
-should not just be different color weapons that do different amounts
-of damage.  At the very least, they should fire in highly different
-patterns, spawn additional sub-bullets etc.  At best, they should act
-differently (area of effect, damage over time, homing, etc.).  The
-weapon effects should be clear visibly (obvious for homing, but damage
-over time might need a halo effect or something).
+From these basic ideas you can make almost an infinite number of cool
+effects.  Little weapons that spray everywhere, big weapons that
+charge up and then go, bombs that move slowly then explode, shields
+that fly around you etc.  And of course tons of enemies that fly in
+different patterns.
 
-Make it so I can use the different weapons immediately at the
-beginning of the game (don't make them powerups).  You don't have to
-be an expert game designer to get full credit, but I encourage you to
-try and make weapons that are balanced and have strategy for when
-you'd use one vs. the other.
-
-# Enemies [15 points]
-
-At least 3 qualitatively different enemies.  Again, more different
-than just different amounts of life.  At the very least, different
-patterns of movement and different numbers of bullet sources/times for
-shooting.  At best, some simplistic AI or different attack effects.
+Use these ideas to create at least 5 creatively moving things.  Could
+be different enemies, could be special weapons.
 
 
 # A Few Notes
@@ -113,3 +105,5 @@ shooting.  At best, some simplistic AI or different attack effects.
 3. Lots of these games incorporate randomness, but that's not required
    here.  It's a little difficult to use randomness in haskell/gloss
    but you're welcome to try it out if you wish.
+
+4. Make it clear what your 5 creative things are.
